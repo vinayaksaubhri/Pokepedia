@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { LoadAssets } from "./components/LoadAssets";
+import { LoadAssets } from "./components/loadAssets";
 
 export default function App() {
   const Fonts = {
