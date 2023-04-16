@@ -1,6 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { LoadAssets } from "./components/loadAssets";
+import Navigation from "./navigation";
+import "react-native-gesture-handler";
 
 export default function App() {
   const Fonts = {
@@ -14,18 +16,7 @@ export default function App() {
   };
   return (
     <LoadAssets fonts={Fonts}>
-      <View style={styles.container}>
-        <Text style={{ fontFamily: "RobotoCondense-Light" }}>Hello World</Text>
-        <Text style={{ fontFamily: "RobotoCondense-Bold" }}>Hello World</Text>
-        <Text style={{ fontFamily: "RobotoCondense-Regular" }}>
-          Hello World
-        </Text>
-        <Text style={{ fontFamily: "Roboto-Thin" }}>Hello World</Text>
-        <Text style={{ fontFamily: "Roboto-Black" }}>Hello World</Text>
-        <Text style={{ fontFamily: "Roboto-Bold" }}>Hello World</Text>
-        <Text style={{ fontFamily: "Roboto-Light" }}>Hello World</Text>
-        <StatusBar style="auto" />
-      </View>
+      <Navigation />
     </LoadAssets>
   );
 }

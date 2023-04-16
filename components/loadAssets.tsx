@@ -73,7 +73,6 @@ export const LoadAssets = ({ assets, fonts, children }: LoadAssetsProps) => {
       onStateChange={onStateChange}
       initialState={initialState}
     >
-      <StatusBar style="light" />
       {children}
     </NavigationContainer>
   );
