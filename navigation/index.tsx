@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View } from "react-native";
 import AuthorizedNavigation from "./authorizedNavigation";
 import UnAuthorizedNavigation from "./unAuthorizedNavigation";
 

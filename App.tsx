@@ -1,8 +1,7 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
+import "react-native-gesture-handler";
 import { LoadAssets } from "./components/loadAssets";
 import Navigation from "./navigation";
-import "react-native-gesture-handler";
 
 export default function App() {
   const Fonts = {
@@ -14,6 +13,7 @@ export default function App() {
     "Roboto-Bold": require("./assets/Fonts/Roboto-Bold.ttf"),
     "Roboto-Light": require("./assets/Fonts/Roboto-Light.ttf"),
   };
+
   return (
     <LoadAssets fonts={Fonts}>
       <Navigation />

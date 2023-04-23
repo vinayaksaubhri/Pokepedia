@@ -1,6 +1,6 @@
 import * as React from "react";
 import Svg, { SvgProps, Path } from "react-native-svg";
-const Quiz = (props: SvgProps) => (
+const QuizIcon = (props: SvgProps) => (
   <Svg width={19} height={19} fill="none" {...props}>
     <Path
       fill="#283141"
@@ -8,4 +8,4 @@ const Quiz = (props: SvgProps) => (
     />
   </Svg>
 );
-export default Quiz;
+export default QuizIcon;

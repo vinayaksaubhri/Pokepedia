@@ -1,6 +1,6 @@
 import * as React from "react";
 import Svg, { SvgProps, Path } from "react-native-svg";
-const CompareArrow = (props: SvgProps) => (
+const CompareArrowIcon = (props: SvgProps) => (
   <Svg width={22} height={16} fill="none" {...props}>
     <Path
       fill="#283141"
@@ -8,4 +8,4 @@ const CompareArrow = (props: SvgProps) => (
     />
   </Svg>
 );
-export default CompareArrow;
+export default CompareArrowIcon;

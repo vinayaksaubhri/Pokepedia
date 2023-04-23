@@ -1,7 +1,6 @@
-import { View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { SafeAreaView } from "react-native-safe-area-context";
-
+import { SafeAreaView, Text } from "react-native";
+import BottomTabUI from "../../components/bottomTabUI";
 const Home = () => {
   return (
     <SafeAreaView>
@@ -20,15 +19,20 @@ const AuthorizedNavigation = () => {
   const Tab = createBottomTabNavigator();
 
   return (
-    <Tab.Navigator
-      initialRouteName="Home"
-      screenOptions={{ headerShown: false }}
-    >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Settings" component={Setting} />
-      <Tab.Screen name="Settings1" component={Setting} />
-      <Tab.Screen name="Settings2" component={Setting} />
-    </Tab.Navigator>
+    <>
+      <Tab.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false,
+        }}
+        tabBar={(props) => <BottomTabUI {...props} />}
+      >
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Compare" component={Home} />
+        <Tab.Screen name="Quiz" component={Home} />
+        <Tab.Screen name="Favorites" component={Home} />
+      </Tab.Navigator>
+    </>
   );
 };
 export default AuthorizedNavigation;
