@@ -1,55 +1,19 @@
-import { Dimensions, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import TabIcon from "./tabIcon";
-import { COLORS, width } from "../style/style";
-import HomeOutlinedIcon from "../assets/svg/home-outline";
-import CompareArrowIcon from "../assets/svg/compare_arrow";
-import QuizIcon from "../assets/svg/quiz";
-import FavoriteIcon from "../assets/svg/favorite";
-import React from "react";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import { moderateScale, verticalScale } from "../style/metrics";
+import { COLORS, width } from "../style/style";
+import TabIcon from "./tabIcon";
 
-const Home = () => {
-  return (
-    <SafeAreaView>
-      <Text>Vinayak</Text>
-    </SafeAreaView>
-  );
+type BottomTabUiBarProps = BottomTabBarProps & {
+  bottomTab: {
+    id: number;
+    name: string;
+    component: () => JSX.Element;
+    icon: JSX.Element;
+  }[];
 };
-const Setting = () => {
-  return (
-    <SafeAreaView>
-      <Text>Setting</Text>
-    </SafeAreaView>
-  );
-};
-const bottomTab = [
-  {
-    id: 1,
-    name: "Home",
-    component: Home,
-    icon: <HomeOutlinedIcon />,
-  },
-  {
-    id: 2,
-    name: "Compare",
-    component: Setting,
-    icon: <CompareArrowIcon />,
-  },
-  {
-    id: 3,
-    name: "Quiz",
-    component: Home,
-    icon: <QuizIcon />,
-  },
-  {
-    id: 4,
-    name: "Favorites",
-    component: Home,
-    icon: <FavoriteIcon />,
-  },
-];
-const BottomTabUI = ({ state, navigation }: BottomTabBarProps) => {
+const BottomTabUI = ({ state, navigation, bottomTab }: BottomTabUiBarProps) => {
   return (
     <View style={styles.container}>
       {bottomTab.map((item, index) => {

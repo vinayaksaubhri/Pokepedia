@@ -10,10 +10,8 @@ import { moderateScale, verticalScale } from "../style/metrics";
 
 interface TabIconProps {
   isFocused?: boolean;
-  color?: string;
-  size?: number;
   icon: JSX.Element;
-  label: string;
+  label: String;
   onPress?: (event: GestureResponderEvent) => void;
 }
 
