@@ -49,7 +49,11 @@ const AuthorizedNavigation = () => {
         tabBar={(props) => <BottomTabUI {...props} bottomTab={bottomTab} />}
       >
         {bottomTab.map((item) => (
-          <Tab.Screen name={item.name} component={item.component} />
+          <Tab.Screen
+            name={item.name}
+            component={item.component}
+            key={item.id}
+          />
         ))}
       </Tab.Navigator>
     </>

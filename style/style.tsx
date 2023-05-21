@@ -13,5 +13,7 @@ export const COLORS = {
   primaryYellow: "#FFCC00",
   surface: "#ffffff",
   primaryBlue: "#283141",
+  grey200: "#DFE4EC",
+  grey300: "#8D9DB9",
 };
 export const { width, height } = Dimensions.get("window");
