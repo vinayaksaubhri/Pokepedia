@@ -1,5 +1,11 @@
 import { ReactNode } from "react";
-import { Platform, SafeAreaView, StyleSheet, StatusBar } from "react-native";
+import {
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  StatusBar,
+  KeyboardAvoidingView,
+} from "react-native";
 import { COLORS } from "../style/style";
 
 const STATUSBAR_HEIGHT =
@@ -17,6 +23,10 @@ const CustomSafeAreaView: React.FC<Props> = ({ children }) => {
       paddingTop: STATUSBAR_HEIGHT,
     },
   });
-  return <SafeAreaView style={styles.container}>{children}</SafeAreaView>;
+  return (
+    <KeyboardAvoidingView style={styles.container} behavior="height">
+      <SafeAreaView style={styles.container}>{children}</SafeAreaView>
+    </KeyboardAvoidingView>
+  );
 };
 export default CustomSafeAreaView;
