@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <CustomSafeAreaView>
       <View style={styles.container}>
-        <SearchBar />
+        <SearchBar showFilter />
       </View>
     </CustomSafeAreaView>
   );

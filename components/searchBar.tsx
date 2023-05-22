@@ -1,5 +1,11 @@
-import { useState } from "react";
-import { Pressable, StyleSheet, TextInput, View } from "react-native";
+import React, { useState } from "react";
+import {
+  GestureResponderEvent,
+  Pressable,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 import SearchIcon from "../assets/svg/search_Icon";
 import {
   horizontalScale,
@@ -9,8 +15,14 @@ import {
 } from "../style/metrics";
 import { COLORS, FONTS } from "../style/style";
 import FilterIcon from "../assets/svg/filter_icon";
-const SearchBar = ({
-  showFilter = true,
+
+type props = {
+  showFilter?: Boolean;
+  onPressFilter?: (event: GestureResponderEvent) => void;
+};
+
+const SearchBar: React.FC<props> = ({
+  showFilter = false,
   onPressFilter = () => {
     console.log("filter press");
   },
