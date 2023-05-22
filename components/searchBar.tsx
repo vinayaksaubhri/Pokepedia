@@ -35,7 +35,7 @@ const SearchBar: React.FC<props> = ({
         <TextInput
           placeholder="Search a pokémon"
           style={styles.searchBarStyle}
-          placeholderTextColor={COLORS.grey200}
+          placeholderTextColor={COLORS.grey300}
           value={value}
           onChangeText={setValue}
           autoCorrect={false}
