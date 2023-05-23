@@ -1,5 +1,5 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { width } from "../style/metrics";
+import { StyleSheet, Text, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { COLORS, FONTS } from "../style/style";
 import Chip, { IconTypes } from "./chip";
 
@@ -15,11 +15,20 @@ const FilterModal = () => {
     { label: "Dark", iconType: "dark" },
     { label: "Dragon", iconType: "dragon" },
     { label: "Electric", iconType: "electric" },
-    { label: "Fairy", iconType: "" },
-    { label: "Fighting", iconType: "" },
-    { label: "Fire", iconType: "" },
-    { label: "Flying", iconType: "" },
-    { label: "Ghost", iconType: "" },
+    { label: "Fairy", iconType: "fairy" },
+    { label: "Fighting", iconType: "fighting" },
+    { label: "Fire", iconType: "fire" },
+    { label: "Flying", iconType: "flying" },
+    { label: "Ghost", iconType: "ghost" },
+    { label: "Grass", iconType: "grass" },
+    { label: "Ground", iconType: "ground" },
+    { label: "Ice", iconType: "ice" },
+    { label: "Normal", iconType: "normal" },
+    { label: "Poison", iconType: "poison" },
+    { label: "Psychic", iconType: "psychic" },
+    { label: "Steel", iconType: "steel" },
+    { label: "Water", iconType: "water" },
+    { label: "Rock", iconType: "rock" },
   ];
 
   return (
@@ -50,6 +59,21 @@ const FilterModal = () => {
           />
         ))}
       </ScrollView>
+      <Text style={styles.modalCategoryHeading}>Weakness</Text>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ gap: 12 }}
+      >
+        {TypeList.map(({ label, iconType }, index) => (
+          <Chip
+            label={label}
+            key={index}
+            iconType={iconType}
+            showTypeIcon={true}
+          />
+        ))}
+      </ScrollView>
     </View>
   );
 };
@@ -57,9 +81,8 @@ export default FilterModal;
 const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: COLORS.surface,
-    width: width,
+    // width: width,
     padding: 16,
-    justifyContent: "center",
   },
 
   modalHeading: {
