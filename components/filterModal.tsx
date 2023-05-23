@@ -1,81 +1,98 @@
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetView,
+  useBottomSheetDynamicSnapPoints,
+} from "@gorhom/bottom-sheet";
+import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
+import { useCallback, useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { COLORS, FONTS } from "../style/style";
-import Chip, { IconTypes } from "./chip";
+import { GenerationList, TypeList } from "../Constant/constant";
 import { moderateScale, scaleFont, verticalScale } from "../style/metrics";
+import { COLORS, FONTS } from "../style/style";
+import Chip from "./chip";
 
-const FilterModal = () => {
-  const GenerationList = [
-    "Generation I",
-    "Generation II",
-    "Generation III",
-    "Generation IV",
-  ];
-  const TypeList: { label: string; iconType: IconTypes }[] = [
-    { label: "Bug", iconType: "bug" },
-    { label: "Dark", iconType: "dark" },
-    { label: "Dragon", iconType: "dragon" },
-    { label: "Electric", iconType: "electric" },
-    { label: "Fairy", iconType: "fairy" },
-    { label: "Fighting", iconType: "fighting" },
-    { label: "Fire", iconType: "fire" },
-    { label: "Flying", iconType: "flying" },
-    { label: "Ghost", iconType: "ghost" },
-    { label: "Grass", iconType: "grass" },
-    { label: "Ground", iconType: "ground" },
-    { label: "Ice", iconType: "ice" },
-    { label: "Normal", iconType: "normal" },
-    { label: "Poison", iconType: "poison" },
-    { label: "Psychic", iconType: "psychic" },
-    { label: "Steel", iconType: "steel" },
-    { label: "Water", iconType: "water" },
-    { label: "Rock", iconType: "rock" },
-  ];
+const FilterModal = ({ bottomSheetRef, setHideBottomBar }) => {
+  const initialSnapPoints = useMemo(() => ["CONTENT_HEIGHT"], []);
+
+  const {
+    animatedHandleHeight,
+    animatedSnapPoints,
+    animatedContentHeight,
+    handleContentLayout,
+  } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
+
+  const renderBackdrop = useCallback(
+    (props: BottomSheetDefaultBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        appearsOnIndex={0}
+        disappearsOnIndex={-1}
+      />
+    ),
+    []
+  );
 
   return (
-    <View style={styles.modalContainer}>
-      <Text style={styles.modalHeading}>Filters</Text>
-      <Text style={styles.modalCategoryHeading}>Generations</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 12 }}
-      >
-        {GenerationList.map((item, index) => (
-          <Chip label={item} key={index} />
-        ))}
-      </ScrollView>
-      <Text style={styles.modalCategoryHeading}>Types</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 12 }}
-      >
-        {TypeList.map(({ label, iconType }, index) => (
-          <Chip
-            label={label}
-            key={index}
-            iconType={iconType}
-            showTypeIcon={true}
-          />
-        ))}
-      </ScrollView>
-      <Text style={styles.modalCategoryHeading}>Weakness</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 12 }}
-      >
-        {TypeList.map(({ label, iconType }, index) => (
-          <Chip
-            label={label}
-            key={index}
-            iconType={iconType}
-            showTypeIcon={true}
-          />
-        ))}
-      </ScrollView>
-    </View>
+    <BottomSheet
+      ref={bottomSheetRef}
+      enablePanDownToClose
+      index={-1}
+      backdropComponent={renderBackdrop}
+      backgroundStyle={styles.bottomSheetBackgroundSheet}
+      onClose={() => {
+        setHideBottomBar(false);
+      }}
+      snapPoints={animatedSnapPoints}
+      handleHeight={animatedHandleHeight}
+      contentHeight={animatedContentHeight}
+    >
+      <BottomSheetView onLayout={handleContentLayout} style={{ flex: 1 }}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalHeading}>Filters</Text>
+          <Text style={styles.modalCategoryHeading}>Generations</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.scrollViewContentContainerStyle}
+          >
+            {GenerationList.map((item, index) => (
+              <Chip label={item} key={index} />
+            ))}
+          </ScrollView>
+          <Text style={styles.modalCategoryHeading}>Types</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.scrollViewContentContainerStyle}
+          >
+            {TypeList.map(({ label, iconType }, index) => (
+              <Chip
+                label={label}
+                key={index}
+                iconType={iconType}
+                showTypeIcon={true}
+              />
+            ))}
+          </ScrollView>
+          <Text style={styles.modalCategoryHeading}>Weakness</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.scrollViewContentContainerStyle}
+          >
+            {TypeList.map(({ label, iconType }, index) => (
+              <Chip
+                label={label}
+                key={index}
+                iconType={iconType}
+                showTypeIcon={true}
+              />
+            ))}
+          </ScrollView>
+        </View>
+      </BottomSheetView>
+    </BottomSheet>
   );
 };
 export default FilterModal;
@@ -96,5 +113,12 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.RC_Bold,
     marginTop: verticalScale(24),
     marginBottom: verticalScale(12),
+  },
+  bottomSheetBackgroundSheet: {
+    borderTopLeftRadius: moderateScale(28),
+    borderTopRightRadius: moderateScale(28),
+  },
+  scrollViewContentContainerStyle: {
+    gap: moderateScale(12),
   },
 });
