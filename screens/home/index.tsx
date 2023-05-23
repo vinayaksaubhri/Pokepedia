@@ -1,4 +1,8 @@
-import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetView,
+  useBottomSheetDynamicSnapPoints,
+} from "@gorhom/bottom-sheet";
 import { useCallback, useMemo, useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
@@ -10,7 +14,14 @@ import FilterModal from "../../components/filterModal";
 const Home = ({ navigation, route }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const snapPoints = useMemo(() => ["45%"], []);
+  const initialSnapPoints = useMemo(() => ["25%", "CONTENT_HEIGHT"], []);
+
+  const {
+    animatedHandleHeight,
+    animatedSnapPoints,
+    animatedContentHeight,
+    handleContentLayout,
+  } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
   const handleSheetChanges = useCallback((index: number) => {
     if (index === 0) {
       console.log("click");
@@ -44,7 +55,6 @@ const Home = ({ navigation, route }) => {
 
         <BottomSheet
           ref={bottomSheetRef}
-          snapPoints={snapPoints}
           onChange={handleSheetChanges}
           enablePanDownToClose
           index={-1}
@@ -53,8 +63,13 @@ const Home = ({ navigation, route }) => {
           onClose={() => {
             route.params.setHideBottomBar(false);
           }}
+          snapPoints={animatedSnapPoints}
+          handleHeight={animatedHandleHeight}
+          contentHeight={animatedContentHeight}
         >
-          <FilterModal />
+          <BottomSheetView onLayout={handleContentLayout} style={{ flex: 1 }}>
+            <FilterModal />
+          </BottomSheetView>
         </BottomSheet>
       </View>
     </CustomSafeAreaView>
