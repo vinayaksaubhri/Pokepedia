@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import "react-native-gesture-handler";
 import { LoadAssets } from "./components/loadAssets";
 import Navigation from "./navigation";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   const Fonts = {
@@ -16,7 +17,9 @@ export default function App() {
 
   return (
     <LoadAssets fonts={Fonts}>
-      <Navigation />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Navigation />
+      </GestureHandlerRootView>
     </LoadAssets>
   );
 }

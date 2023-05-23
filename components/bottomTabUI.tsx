@@ -12,8 +12,30 @@ type BottomTabUiBarProps = BottomTabBarProps & {
     component: () => JSX.Element;
     icon: JSX.Element;
   }[];
+  hideBottomBar: Boolean;
 };
-const BottomTabUI = ({ state, navigation, bottomTab }: BottomTabUiBarProps) => {
+const BottomTabUI = ({
+  state,
+  navigation,
+  bottomTab,
+  hideBottomBar,
+}: BottomTabUiBarProps) => {
+  const styles = StyleSheet.create({
+    container: {
+      height: verticalScale(60),
+      position: "absolute",
+      bottom: verticalScale(20),
+      width: width * 0.9,
+      alignSelf: "center",
+      justifyContent: "space-between",
+      backgroundColor: COLORS.primaryYellow,
+      borderRadius: moderateScale(100),
+      flexDirection: "row",
+      padding: moderateScale(16),
+      zIndex: 1,
+      display: hideBottomBar ? "none" : "flex",
+    },
+  });
   return (
     <View style={styles.container}>
       {bottomTab.map((item, index) => {
@@ -31,17 +53,3 @@ const BottomTabUI = ({ state, navigation, bottomTab }: BottomTabUiBarProps) => {
   );
 };
 export default BottomTabUI;
-const styles = StyleSheet.create({
-  container: {
-    height: verticalScale(60),
-    position: "absolute",
-    bottom: verticalScale(20),
-    width: width * 0.9,
-    alignSelf: "center",
-    justifyContent: "space-between",
-    backgroundColor: COLORS.primaryYellow,
-    borderRadius: moderateScale(100),
-    flexDirection: "row",
-    padding: moderateScale(16),
-  },
-});

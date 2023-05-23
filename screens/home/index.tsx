@@ -1,10 +1,31 @@
+import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
+import { useCallback, useMemo, useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
 import SearchBar from "../../components/searchBar";
-import { COLORS, FONTS } from "../../style/style";
 import { moderateScale, scaleFont, verticalScale } from "../../style/metrics";
+import { COLORS, FONTS } from "../../style/style";
+import FilterModal from "../../components/filterModal";
 
-const Home = () => {
+const Home = ({ navigation, route }) => {
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const snapPoints = useMemo(() => ["90%"], []);
+  const handleSheetChanges = useCallback((index: number) => {
+    if (index === 0) {
+      console.log("click");
+    }
+  }, []);
+  const renderBackdrop = useCallback(
+    (props) => (
+      <BottomSheetBackdrop
+        {...props}
+        appearsOnIndex={0}
+        disappearsOnIndex={-1}
+      />
+    ),
+    []
+  );
   return (
     <CustomSafeAreaView>
       <View style={styles.container}>
@@ -13,7 +34,28 @@ const Home = () => {
           Use the advanced search to find Pokémon by type, weakness, ability and
           more!
         </Text>
-        <SearchBar showFilter />
+        <SearchBar
+          showFilter
+          onPressFilter={() => {
+            route.params.setHideBottomBar(true);
+            bottomSheetRef.current?.expand();
+          }}
+        />
+
+        <BottomSheet
+          ref={bottomSheetRef}
+          snapPoints={snapPoints}
+          onChange={handleSheetChanges}
+          enablePanDownToClose
+          index={-1}
+          backdropComponent={renderBackdrop}
+          style={{ zIndex: 1 }}
+          onClose={() => {
+            route.params.setHideBottomBar(false);
+          }}
+        >
+          <FilterModal />
+        </BottomSheet>
       </View>
     </CustomSafeAreaView>
   );
@@ -23,7 +65,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "white",
     padding: moderateScale(24),
   },
   headingTextStyle: {

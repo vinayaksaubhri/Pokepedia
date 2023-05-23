@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { SafeAreaView, Text } from "react-native";
 import BottomTabUI from "../../components/bottomTabUI";
 import Home from "../../screens/home";
 import HomeOutlinedIcon from "../../assets/svg/home-outline";
@@ -9,6 +8,7 @@ import Quiz from "../../screens/quiz";
 import QuizIcon from "../../assets/svg/quiz";
 import Favorites from "../../screens/favorites";
 import FavoriteIcon from "../../assets/svg/favorite";
+import { useState } from "react";
 
 const bottomTab = [
   {
@@ -38,6 +38,7 @@ const bottomTab = [
 ];
 const AuthorizedNavigation = () => {
   const Tab = createBottomTabNavigator();
+  const [hideBottomBar, setHideBottomBar] = useState(false);
 
   return (
     <>
@@ -46,13 +47,20 @@ const AuthorizedNavigation = () => {
         screenOptions={{
           headerShown: false,
         }}
-        tabBar={(props) => <BottomTabUI {...props} bottomTab={bottomTab} />}
+        tabBar={(props) => (
+          <BottomTabUI
+            {...props}
+            bottomTab={bottomTab}
+            hideBottomBar={hideBottomBar}
+          />
+        )}
       >
         {bottomTab.map((item) => (
           <Tab.Screen
             name={item.name}
             component={item.component}
             key={item.id}
+            initialParams={{ setHideBottomBar }}
           />
         ))}
       </Tab.Navigator>

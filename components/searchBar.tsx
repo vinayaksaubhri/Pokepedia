@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import FilterIcon from "../assets/svg/filter_icon";
 import SearchIcon from "../assets/svg/search_Icon";
 import {
   horizontalScale,
@@ -14,7 +15,6 @@ import {
   verticalScale,
 } from "../style/metrics";
 import { COLORS, FONTS } from "../style/style";
-import FilterIcon from "../assets/svg/filter_icon";
 
 type props = {
   showFilter?: Boolean;
@@ -28,6 +28,8 @@ const SearchBar: React.FC<props> = ({
   },
 }) => {
   const [value, setValue] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
@@ -43,15 +45,19 @@ const SearchBar: React.FC<props> = ({
       </View>
       {showFilter && (
         <Pressable
-          onPress={onPressFilter}
           style={({ pressed }) => [
             styles.filterButtonContainer,
             pressed ? styles.pressFeedback : {},
           ]}
+          onPress={onPressFilter}
         >
           <FilterIcon />
         </Pressable>
       )}
+
+      {/* {showModal && (
+        <FilterModal showModal={showModal} setShowModal={setShowModal} />
+      )} */}
     </View>
   );
 };

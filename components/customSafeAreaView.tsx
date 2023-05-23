@@ -9,7 +9,7 @@ import {
 import { COLORS } from "../style/style";
 
 const STATUSBAR_HEIGHT =
-  Platform.OS === "android" ? StatusBar.currentHeight : 0;
+  Platform.OS === "android" ? StatusBar.currentHeight - 12 : 0;
 
 type Props = {
   children?: ReactNode | null;
