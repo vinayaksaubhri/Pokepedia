@@ -10,7 +10,7 @@ import FilterModal from "../../components/filterModal";
 const Home = ({ navigation, route }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const snapPoints = useMemo(() => ["90%"], []);
+  const snapPoints = useMemo(() => ["45%"], []);
   const handleSheetChanges = useCallback((index: number) => {
     if (index === 0) {
       console.log("click");
