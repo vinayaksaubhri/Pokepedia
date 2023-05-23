@@ -49,7 +49,7 @@ const Home = ({ navigation, route }) => {
           enablePanDownToClose
           index={-1}
           backdropComponent={renderBackdrop}
-          style={{ zIndex: 1 }}
+          backgroundStyle={styles.bottomSheetBackgroundSheet}
           onClose={() => {
             route.params.setHideBottomBar(false);
           }}
@@ -81,5 +81,9 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.RC_Regular,
     marginBottom: verticalScale(16),
     lineHeight: verticalScale(24),
+  },
+  bottomSheetBackgroundSheet: {
+    borderTopLeftRadius: moderateScale(28),
+    borderTopRightRadius: moderateScale(28),
   },
 });

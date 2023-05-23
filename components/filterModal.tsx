@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { COLORS, FONTS } from "../style/style";
 import Chip, { IconTypes } from "./chip";
+import { moderateScale, scaleFont, verticalScale } from "../style/metrics";
 
 const FilterModal = () => {
   const GenerationList = [
@@ -81,20 +82,19 @@ export default FilterModal;
 const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: COLORS.surface,
-    // width: width,
-    padding: 16,
+    padding: moderateScale(16),
   },
 
   modalHeading: {
-    fontSize: 22,
+    fontSize: scaleFont(22),
     color: COLORS.primaryBlue,
     fontFamily: FONTS.RC_Regular,
   },
   modalCategoryHeading: {
-    fontSize: 14,
+    fontSize: scaleFont(14),
     color: COLORS.primaryBlue,
     fontFamily: FONTS.RC_Bold,
-    marginTop: 24,
-    marginBottom: 12,
+    marginTop: verticalScale(24),
+    marginBottom: verticalScale(12),
   },
 });
