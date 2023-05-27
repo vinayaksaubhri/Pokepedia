@@ -26,11 +26,7 @@ const Home = ({ navigation, route }) => {
           }}
         />
 
-        <FilterModal
-          bottomSheetRef={bottomSheetRef}
-          setHideBottomBar={route.params.setHideBottomBar}
-          navigation={navigation}
-        />
+        <FilterModal bottomSheetRef={bottomSheetRef} navigation={navigation} />
       </View>
     </CustomSafeAreaView>
   );
