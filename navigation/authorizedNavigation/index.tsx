@@ -8,7 +8,6 @@ import Quiz from "../../screens/quiz";
 import QuizIcon from "../../assets/svg/quiz";
 import Favorites from "../../screens/favorites";
 import FavoriteIcon from "../../assets/svg/favorite";
-import { useState } from "react";
 
 const bottomTab = [
   {
@@ -38,7 +37,6 @@ const bottomTab = [
 ];
 const AuthorizedNavigation = () => {
   const Tab = createBottomTabNavigator();
-  const [hideBottomBar, setHideBottomBar] = useState(false);
 
   return (
     <>
@@ -47,20 +45,13 @@ const AuthorizedNavigation = () => {
         screenOptions={{
           headerShown: false,
         }}
-        tabBar={(props) => (
-          <BottomTabUI
-            {...props}
-            bottomTab={bottomTab}
-            hideBottomBar={hideBottomBar}
-          />
-        )}
+        tabBar={(props) => <BottomTabUI {...props} bottomTab={bottomTab} />}
       >
         {bottomTab.map((item) => (
           <Tab.Screen
             name={item.name}
             component={item.component}
             key={item.id}
-            initialParams={{ setHideBottomBar }}
           />
         ))}
       </Tab.Navigator>

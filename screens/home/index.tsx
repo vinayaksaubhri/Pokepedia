@@ -20,7 +20,8 @@ const Home = ({ navigation, route }) => {
         <SearchBar
           showFilter
           onPressFilter={() => {
-            route.params.setHideBottomBar(true);
+            navigation.setOptions({ tabBarVisible: false });
+
             bottomSheetRef.current?.expand();
           }}
         />
@@ -28,6 +29,7 @@ const Home = ({ navigation, route }) => {
         <FilterModal
           bottomSheetRef={bottomSheetRef}
           setHideBottomBar={route.params.setHideBottomBar}
+          navigation={navigation}
         />
       </View>
     </CustomSafeAreaView>

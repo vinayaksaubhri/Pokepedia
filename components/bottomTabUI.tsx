@@ -12,13 +12,13 @@ type BottomTabUiBarProps = BottomTabBarProps & {
     component: () => JSX.Element;
     icon: JSX.Element;
   }[];
-  hideBottomBar: Boolean;
 };
 const BottomTabUI = ({
   state,
   navigation,
   bottomTab,
-  hideBottomBar,
+
+  ...props
 }: BottomTabUiBarProps) => {
   const styles = StyleSheet.create({
     container: {
@@ -33,7 +33,10 @@ const BottomTabUI = ({
       flexDirection: "row",
       padding: moderateScale(16),
       zIndex: 1,
-      display: hideBottomBar ? "none" : "flex",
+      display:
+        props.descriptors[state.routes[0].key].options?.tabBarVisible === false
+          ? "none"
+          : "flex",
     },
   });
   return (
