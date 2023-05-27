@@ -3,8 +3,10 @@ import Slider from "react-native-custom-slider";
 import { COLORS } from "../style/style";
 import CustomThumb from "./customThumb";
 
-const CustomSlider = () => {
-  const [value, setValue] = useState(0);
+const CustomSlider: React.FC<{
+  value: number;
+  setValue: React.Dispatch<React.SetStateAction<number>>;
+}> = ({ value, setValue }) => {
   const [thumbVisible, setThumbVisible] = useState(false);
 
   return (

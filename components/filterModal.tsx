@@ -4,8 +4,8 @@ import BottomSheet, {
   useBottomSheetDynamicSnapPoints,
 } from "@gorhom/bottom-sheet";
 import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
-import { useCallback, useMemo } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useCallback, useMemo, useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { GenerationList, TypeList } from "../constant/constant";
 import { moderateScale, scaleFont, verticalScale } from "../style/metrics";
@@ -15,6 +15,8 @@ import CustomSlider from "./customSlider";
 
 const FilterModal = ({ bottomSheetRef, navigation }) => {
   const initialSnapPoints = useMemo(() => ["CONTENT_HEIGHT"], []);
+  const [weight, setWeight] = useState(0);
+  const [height, setHeight] = useState(0);
 
   const {
     animatedHandleHeight,
@@ -99,13 +101,40 @@ const FilterModal = ({ bottomSheetRef, navigation }) => {
             </ScrollView>
           </View>
           <View>
-            <Text style={styles.modalCategoryHeading}>Weight</Text>
-            <CustomSlider />
+            <View style={styles.customSliderHeading}>
+              <Text style={styles.modalCategoryHeading}>Weight</Text>
+              <Text style={styles.customSliderSubHeading}>{weight} kg</Text>
+            </View>
+            <CustomSlider value={weight} setValue={setWeight} />
           </View>
           <View>
-            <Text style={styles.modalCategoryHeading}>Weight</Text>
-            <CustomSlider />
+            <View style={styles.customSliderHeading}>
+              <Text style={styles.modalCategoryHeading}>Height</Text>
+              <Text style={styles.customSliderSubHeading}>{height} m</Text>
+            </View>
+            <CustomSlider value={height} setValue={setHeight} />
           </View>
+          <Pressable
+            style={{
+              height: 40,
+              width: 300,
+              justifyContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+              backgroundColor: COLORS.primaryYellow,
+              borderRadius: 16,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                color: COLORS.primaryBlue,
+                fontFamily: FONTS.RC_Bold,
+              }}
+            >
+              Apply
+            </Text>
+          </Pressable>
         </View>
       </BottomSheetView>
     </BottomSheet>
@@ -136,5 +165,15 @@ const styles = StyleSheet.create({
   },
   scrollViewContentContainerStyle: {
     gap: moderateScale(12),
+  },
+  customSliderHeading: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  customSliderSubHeading: {
+    fontSize: scaleFont(14),
+    color: COLORS.primaryBlue,
+    fontFamily: FONTS.RC_Regular,
+    marginBottom: verticalScale(12),
   },
 });
