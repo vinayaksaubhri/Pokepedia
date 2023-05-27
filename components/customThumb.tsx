@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import { COLORS, FONTS } from "../style/style";
-const thumbWidth = 20;
+import { moderateScale, scaleFont, verticalScale } from "../style/metrics";
+const thumbWidth = moderateScale(20);
 const CustomThumb = ({ value = 0, thumbVisible = true }) => {
   const styles = StyleSheet.create({
     container: {
@@ -8,7 +9,7 @@ const CustomThumb = ({ value = 0, thumbVisible = true }) => {
       alignItems: "center",
       overflow: "visible",
       top: thumbVisible ? -thumbWidth / 2 : 0,
-      height: 80,
+      height: verticalScale(80),
     },
     thumbDropView: {
       alignItems: "center",
@@ -26,7 +27,7 @@ const CustomThumb = ({ value = 0, thumbVisible = true }) => {
     thumbDropText: {
       transform: [{ rotateZ: "-45deg" }],
       fontFamily: FONTS.RC_Regular,
-      fontSize: 10,
+      fontSize: scaleFont(10),
       color: COLORS.primaryBlue,
     },
     thumbStyle: {

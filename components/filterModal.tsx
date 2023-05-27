@@ -8,15 +8,27 @@ import { useCallback, useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { GenerationList, TypeList } from "../constant/constant";
-import { moderateScale, scaleFont, verticalScale } from "../style/metrics";
+import {
+  horizontalScale,
+  moderateScale,
+  scaleFont,
+  verticalScale,
+} from "../style/metrics";
 import { COLORS, FONTS } from "../style/style";
 import Chip from "./chip";
 import CustomSlider from "./customSlider";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const FilterModal = ({ bottomSheetRef, navigation }) => {
   const initialSnapPoints = useMemo(() => ["CONTENT_HEIGHT"], []);
   const [weight, setWeight] = useState(0);
   const [height, setHeight] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: "A-Z", value: "A-Z" },
+    { label: "Z-A", value: "Z-A" },
+  ]);
 
   const {
     animatedHandleHeight,
@@ -114,26 +126,30 @@ const FilterModal = ({ bottomSheetRef, navigation }) => {
             </View>
             <CustomSlider value={height} setValue={setHeight} />
           </View>
+          <View>
+            <Text style={styles.modalCategoryHeading}>Order</Text>
+            <DropDownPicker
+              open={open}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              placeholder="Order By"
+              showTickIcon={false}
+              dropDownContainerStyle={styles.dropDownContainerStyle}
+              style={styles.dropDownScale}
+              placeholderStyle={styles.placeholderStyle}
+              listItemLabelStyle={styles.listItemLabelStyle}
+            />
+          </View>
           <Pressable
-            style={{
-              height: 40,
-              width: 300,
-              justifyContent: "center",
-              alignItems: "center",
-              alignSelf: "center",
-              backgroundColor: COLORS.primaryYellow,
-              borderRadius: 16,
+            style={styles.buttonStyle}
+            onPress={() => {
+              bottomSheetRef.current?.close();
             }}
           >
-            <Text
-              style={{
-                fontSize: 14,
-                color: COLORS.primaryBlue,
-                fontFamily: FONTS.RC_Bold,
-              }}
-            >
-              Apply
-            </Text>
+            <Text style={styles.buttonLabelStyle}>Apply</Text>
           </Pressable>
         </View>
       </BottomSheetView>
@@ -142,6 +158,37 @@ const FilterModal = ({ bottomSheetRef, navigation }) => {
 };
 export default FilterModal;
 const styles = StyleSheet.create({
+  buttonLabelStyle: {
+    fontSize: scaleFont(14),
+    color: COLORS.primaryBlue,
+    fontFamily: FONTS.RC_Bold,
+  },
+  buttonStyle: {
+    height: verticalScale(40),
+    width: horizontalScale(300),
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: COLORS.primaryYellow,
+    borderRadius: moderateScale(16),
+  },
+  dropDownScale: {
+    borderColor: COLORS.grey200,
+    borderRadius: moderateScale(16),
+  },
+  dropDownContainerStyle: {
+    backgroundColor: COLORS.surface,
+    borderColor: COLORS.grey200,
+  },
+  placeholderStyle: {
+    fontFamily: FONTS.RC_Regular,
+    fontSize: scaleFont(14),
+    color: COLORS.primaryBlue,
+  },
+  listItemLabelStyle: {
+    color: COLORS.primaryBlue,
+    fontFamily: FONTS.RC_Regular,
+  },
   modalContainer: {
     backgroundColor: COLORS.surface,
     padding: moderateScale(16),

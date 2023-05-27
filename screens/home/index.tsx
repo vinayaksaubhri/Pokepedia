@@ -21,7 +21,6 @@ const Home = ({ navigation, route }) => {
           showFilter
           onPressFilter={() => {
             navigation.setOptions({ tabBarVisible: false });
-
             bottomSheetRef.current?.expand();
           }}
         />
