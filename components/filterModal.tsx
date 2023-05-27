@@ -14,10 +14,6 @@ import Chip from "./chip";
 import CustomSlider from "./customSlider";
 
 const FilterModal = ({ bottomSheetRef, navigation }) => {
-  console.log(
-    "🚀 ~ file: filterModal.tsx:17 ~ FilterModal ~ navigation:",
-    navigation
-  );
   const initialSnapPoints = useMemo(() => ["CONTENT_HEIGHT"], []);
 
   const {
@@ -101,6 +97,14 @@ const FilterModal = ({ bottomSheetRef, navigation }) => {
                 />
               ))}
             </ScrollView>
+          </View>
+          <View>
+            <Text style={styles.modalCategoryHeading}>Weight</Text>
+            <CustomSlider />
+          </View>
+          <View>
+            <Text style={styles.modalCategoryHeading}>Weight</Text>
+            <CustomSlider />
           </View>
         </View>
       </BottomSheetView>
