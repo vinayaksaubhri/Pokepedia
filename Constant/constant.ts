@@ -26,3 +26,22 @@ export const TypeList: { label: string; iconType: PokemonTypes }[] = [
   { label: "Water", iconType: "water" },
   { label: "Rock", iconType: "rock" },
 ];
+export const pokemonData: { pokeCardType: PokemonTypes }[] = [
+  { pokeCardType: "electric" },
+  { pokeCardType: "bug" },
+  { pokeCardType: "dark" },
+  { pokeCardType: "dragon" },
+  { pokeCardType: "fairy" },
+  { pokeCardType: "fighting" },
+  { pokeCardType: "fire" },
+  { pokeCardType: "flying" },
+  { pokeCardType: "ghost" },
+  { pokeCardType: "ground" },
+  { pokeCardType: "ice" },
+  { pokeCardType: "normal" },
+  { pokeCardType: "poison" },
+  { pokeCardType: "psychic" },
+  { pokeCardType: "rock" },
+  { pokeCardType: "steel" },
+  { pokeCardType: "water" },
+];

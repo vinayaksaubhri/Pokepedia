@@ -7,10 +7,10 @@ import Bulbasaur from "../assets/pokemon/bulbasaur";
 import { PokemonTypes } from "../types/pokemonTypes";
 
 type propsType = {
-  badgeArray: Array<{ badgeType: string; label: string }>;
-  pokeLabel: string;
-  pokeNumber: string;
-  pokeCardType: PokemonTypes;
+  badgeArray?: Array<{ badgeType: string; label: string }>;
+  pokeLabel?: string;
+  pokeNumber?: string;
+  pokeCardType?: PokemonTypes;
 };
 
 const PokemonCard: React.FC<propsType> = ({

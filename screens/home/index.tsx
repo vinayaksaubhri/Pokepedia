@@ -1,6 +1,6 @@
 import BottomSheet from "@gorhom/bottom-sheet";
 import { useRef } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
 import FilterModal from "../../components/filterModal";
 import SearchBar from "../../components/searchBar";
@@ -9,6 +9,7 @@ import { COLORS, FONTS } from "../../style/style";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Chip from "../../components/chip";
 import PokemonCard from "../../components/pokemonCard";
+import { pokemonData } from "../../constant/constant";
 
 const Home = ({ navigation, route }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -53,43 +54,27 @@ const Home = ({ navigation, route }) => {
             <Chip label="1.7 m" showCrossIcon />
           </ScrollView>
         )}
-        <ScrollView
-          data={[]}
-          style={{
-            marginTop: 24,
-            flex: 1,
-            width: "100%",
-            flexWrap: "wrap",
-            gap: 8,
-          }}
+        <FlatList
+          data={pokemonData}
           showsVerticalScrollIndicator={false}
-          horizontal={false}
-          contentContainerStyle={{
-            gap: 8,
-            flexWrap: "wrap",
-            flexDirection: "row",
-            justifyContent: "space-between",
+          style={{
+            flex: 1,
+            marginTop: 4,
+            width: "100%",
+            borderRadius: 16,
           }}
-        >
-          <PokemonCard />
-          <PokemonCard pokeCardType="electric" />
-          <PokemonCard pokeCardType="bug" />
-          <PokemonCard pokeCardType="dark" />
-          <PokemonCard pokeCardType="dragon" />
-          <PokemonCard pokeCardType="fairy" />
-          <PokemonCard pokeCardType="fighting" />
-          <PokemonCard pokeCardType="fire" />
-          <PokemonCard pokeCardType="flying" />
-          <PokemonCard pokeCardType="ghost" />
-          <PokemonCard pokeCardType="ground" />
-          <PokemonCard pokeCardType="ice" />
-          <PokemonCard pokeCardType="normal" />
-          <PokemonCard pokeCardType="poison" />
-          <PokemonCard pokeCardType="psychic" />
-          <PokemonCard pokeCardType="rock" />
-          <PokemonCard pokeCardType="steel" />
-          <PokemonCard pokeCardType="water" />
-        </ScrollView>
+          contentContainerStyle={{
+            gap: 16,
+            paddingTop: 20,
+            paddingBottom:
+              Platform.OS === "android" ? moderateScale(90) : moderateScale(60),
+          }}
+          numColumns={2}
+          columnWrapperStyle={{ justifyContent: "space-between" }}
+          renderItem={({ item }) => {
+            return <PokemonCard pokeCardType={item.pokeCardType} />;
+          }}
+        />
       </View>
       <FilterModal bottomSheetRef={bottomSheetRef} navigation={navigation} />
     </CustomSafeAreaView>
@@ -101,6 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: moderateScale(24),
+    paddingBottom: 0,
   },
   headingTextStyle: {
     alignSelf: "flex-start",
