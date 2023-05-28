@@ -1,5 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
-import { width } from "../style/metrics";
+import {
+  horizontalScale,
+  moderateScale,
+  scaleFont,
+  verticalScale,
+  width,
+} from "../style/metrics";
 import { COLORS, FONTS, POKEMON_COLOR } from "../style/style";
 import PokeballIcon from "../assets/svg/pokeball_icon";
 import TypeBadge from "./typeBadge";
@@ -69,18 +75,18 @@ const PokemonCard: React.FC<propsType> = ({
       width: width * 0.42,
       backgroundColor: pokeCardColor(pokeCardType),
       aspectRatio: 1.52,
-      borderRadius: 16,
-      padding: 12,
+      borderRadius: moderateScale(16),
+      padding: moderateScale(12),
       flexDirection: "column",
     },
     textContainer: {
       flexDirection: "row",
       justifyContent: "space-between",
-      marginBottom: 16,
+      marginBottom: verticalScale(16),
     },
     headingText: {
       fontFamily: FONTS.RC_Regular,
-      fontSize: 12,
+      fontSize: scaleFont(12),
       color: COLORS.surface,
     },
     badgeAndImageContainer: {
@@ -105,7 +111,7 @@ const PokemonCard: React.FC<propsType> = ({
             <TypeBadge badgeType={badgeType} label={label} />
           ))}
         </View>
-        <Bulbasaur width={74} height={74} />
+        <Bulbasaur width={verticalScale(74)} height={horizontalScale(74)} />
       </View>
 
       <View style={styles.pokeballContainer}>
