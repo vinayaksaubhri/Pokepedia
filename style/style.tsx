@@ -16,5 +16,6 @@ export const COLORS = {
   grey200: "#DFE4EC",
   grey300: "#8D9DB9",
   modalBackdropColor: "rgba(40, 49, 65, 0.16)",
+  typeBadgeBackground: "rgba(40, 49, 65, 0.2)",
 };
 export const { width, height } = Dimensions.get("window");

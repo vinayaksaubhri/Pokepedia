@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/vinayaksaubhri/.nvm/versions/node/v16.17.0/bin/node /opt/homebrew/Cellar/yarn/1.22.19/libexec/bin/yarn.js add @types/react-native-slider
+  /Users/vinayaksaubhri/.nvm/versions/node/v16.17.0/bin/node /opt/homebrew/Cellar/yarn/1.22.19/libexec/bin/yarn.js add react-codemod rename-unsafe-lifecycle
 
 PATH: 
   /Users/vinayaksaubhri/.nvm/versions/node/v16.17.0/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/vinayaksaubhri/Library/Android/sdk/platform-tools:/Users/vinayaksaubhri/.nvm/versions/node/v16.17.0/bin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/Users/vinayaksaubhri/Library/Application Support/JetBrains/Toolbox/scripts:/Users/vinayaksaubhri/Library/Application Support/JetBrains/Toolbox/scripts
@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2freact-native-slider: Not found
+  Error: https://registry.yarnpkg.com/rename-unsafe-lifecycle: Not found
       at Request.params.callback [as _callback] (/opt/homebrew/Cellar/yarn/1.22.19/libexec/lib/cli.js:66145:18)
       at Request.self.callback (/opt/homebrew/Cellar/yarn/1.22.19/libexec/lib/cli.js:140890:22)
       at Request.emit (node:events:513:28)
@@ -41,6 +41,7 @@ npm manifest:
     "dependencies": {
       "@gorhom/bottom-sheet": "^4",
       "@react-native-async-storage/async-storage": "1.17.11",
+      "@react-native-community/slider": "^4.4.2",
       "@react-navigation/bottom-tabs": "^6.5.7",
       "@react-navigation/native": "^6.1.6",
       "@react-navigation/stack": "^6.3.16",
@@ -52,11 +53,12 @@ npm manifest:
       "expo-updates": "~0.16.4",
       "react": "18.2.0",
       "react-native": "0.71.8",
+      "react-native-custom-slider": "^1.0.2",
+      "react-native-dropdown-picker": "^5.4.6",
       "react-native-gesture-handler": "~2.9.0",
       "react-native-reanimated": "~2.14.4",
       "react-native-safe-area-context": "4.5.0",
       "react-native-screens": "~3.20.0",
-      "react-native-slider": "^0.11.0",
       "react-native-svg": "13.4.0"
     },
     "devDependencies": {
@@ -1968,6 +1970,11 @@ Lockfile:
     version "1.3.0"
     resolved "https://registry.yarnpkg.com/@react-native-community/eslint-plugin/-/eslint-plugin-1.3.0.tgz#9e558170c106bbafaa1ef502bd8e6d4651012bf9"
     integrity sha512-+zDZ20NUnSWghj7Ku5aFphMzuM9JulqCW+aPXT6IfIXFbb8tzYTTOSeRFOtuekJ99ibW2fUCSsjuKNlwDIbHFg==
+  
+  "@react-native-community/slider@^4.4.2":
+    version "4.4.2"
+    resolved "https://registry.yarnpkg.com/@react-native-community/slider/-/slider-4.4.2.tgz#1fea0eb3ae31841fe87bd6c4fc67569066e9cf4b"
+    integrity sha512-D9bv+3Vd2gairAhnRPAghwccgEmoM7g562pm8i4qB3Esrms5mggF81G3UvCyc0w3jjtFHh8dpQkfEoKiP0NW/Q==
   
   "@react-native/assets@1.0.0":
     version "1.0.0"
@@ -6464,7 +6471,7 @@ Lockfile:
       kleur "^3.0.3"
       sisteransi "^1.0.5"
   
-  prop-types@*, prop-types@^15.5.6, prop-types@^15.7.2, prop-types@^15.8.1:
+  prop-types@*, prop-types@^15.7.2, prop-types@^15.8.1:
     version "15.8.1"
     resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
     integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -6576,6 +6583,16 @@ Lockfile:
       jscodeshift "^0.13.1"
       nullthrows "^1.1.1"
   
+  react-native-custom-slider@^1.0.2:
+    version "1.0.2"
+    resolved "https://registry.yarnpkg.com/react-native-custom-slider/-/react-native-custom-slider-1.0.2.tgz#0e22fdc7a4b4199915503cbad8650f99b96ade64"
+    integrity sha512-mMRodZBKoVyAaVkVAcVfefPztsId8IlGALQPMOFtNi4OSjAEo/lsNfcsYT8b/BUowXLLdOfGzGyeXT4m2kstfw==
+  
+  react-native-dropdown-picker@^5.4.6:
+    version "5.4.6"
+    resolved "https://registry.yarnpkg.com/react-native-dropdown-picker/-/react-native-dropdown-picker-5.4.6.tgz#3736fc468de4a295e4df8d1f65ed2eadaf9b445f"
+    integrity sha512-T1XBHbE++M6aRU3wFYw3MvcOuabhWZ29RK/Ivdls2r1ZkZ62iEBZknLUPeVLMX3x6iUxj4Zgr3X2DGlEGXeHsA==
+  
   react-native-gesture-handler@~2.9.0:
     version "2.9.0"
     resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.9.0.tgz#2f63812e523c646f25b9ad660fc6f75948e51241"
@@ -6617,13 +6634,6 @@ Lockfile:
     dependencies:
       react-freeze "^1.0.0"
       warn-once "^0.1.0"
-  
-  react-native-slider@^0.11.0:
-    version "0.11.0"
-    resolved "https://registry.yarnpkg.com/react-native-slider/-/react-native-slider-0.11.0.tgz#b68a0bc43c8422b24cd57947cc5ac2bcdb58fadc"
-    integrity sha512-jV9K87eu9uWr0uJIyrSpBLnCKvVlOySC2wynq9TFCdV9oGgjt7Niq8Q1A8R8v+5GHsuBw/s8vEj1AAkkUi+u+w==
-    dependencies:
-      prop-types "^15.5.6"
   
   react-native-svg@13.4.0:
     version "13.4.0"

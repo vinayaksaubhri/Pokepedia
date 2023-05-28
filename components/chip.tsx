@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function ChipIcon({ iconType }: { iconType: IconTypes }) {
+export function ChipIcon({ iconType }: { iconType: IconTypes }) {
   switch (iconType) {
     case "bug":
       return <BugIcon />;
