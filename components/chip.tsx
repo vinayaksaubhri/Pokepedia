@@ -18,6 +18,7 @@ import PsychicIcon from "../assets/svg/ChipIcon/PsychicIcon";
 import SteelIcon from "../assets/svg/ChipIcon/SteelIcon";
 import WaterIcon from "../assets/svg/ChipIcon/WaterIcon";
 import RockIcon from "../assets/svg/ChipIcon/RockIcon";
+import CrossIcon from "../assets/svg/cross_icon";
 
 export type IconTypes =
   | "bug"
@@ -55,12 +56,9 @@ const Chip: React.FC<PropsType> = ({
 }) => {
   return (
     <View style={styles.container}>
-      {showTypeIcon && (
-        <View style={styles.iconContainer}>
-          <ChipIcon iconType={iconType} />
-        </View>
-      )}
+      {showTypeIcon && <ChipIcon iconType={iconType} />}
       <Text style={styles.labelStyle}>{label}</Text>
+      {showCrossIcon && <CrossIcon />}
     </View>
   );
 };
@@ -73,18 +71,16 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignSelf: "flex-start",
     borderColor: COLORS.grey200,
+    gap: 8,
   },
   labelStyle: {
     fontFamily: FONTS.RC_Bold,
     color: COLORS.primaryBlue,
     fontSize: 14,
   },
-  iconContainer: {
-    marginRight: 8,
-  },
 });
 
-function ChipIcon({ iconType }) {
+function ChipIcon({ iconType }: { iconType: IconTypes }) {
   switch (iconType) {
     case "bug":
       return <BugIcon />;
