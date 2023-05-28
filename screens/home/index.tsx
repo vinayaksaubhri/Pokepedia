@@ -6,7 +6,7 @@ import FilterModal from "../../components/filterModal";
 import SearchBar from "../../components/searchBar";
 import { moderateScale, scaleFont, verticalScale } from "../../style/metrics";
 import { COLORS, FONTS } from "../../style/style";
-import { ScrollView } from "react-native-gesture-handler";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Chip from "../../components/chip";
 import PokemonCard from "../../components/pokemonCard";
 
@@ -29,7 +29,6 @@ const Home = ({ navigation, route }) => {
           }}
         />
 
-        <FilterModal bottomSheetRef={bottomSheetRef} navigation={navigation} />
         {showSelectedFilter && (
           <ScrollView
             horizontal
@@ -54,19 +53,45 @@ const Home = ({ navigation, route }) => {
             <Chip label="1.7 m" showCrossIcon />
           </ScrollView>
         )}
-        <View
+        <ScrollView
+          data={[]}
           style={{
             marginTop: 24,
             flex: 1,
-            flexDirection: "row",
+            width: "100%",
             flexWrap: "wrap",
             gap: 8,
           }}
+          showsVerticalScrollIndicator={false}
+          horizontal={false}
+          contentContainerStyle={{
+            gap: 8,
+            flexWrap: "wrap",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
         >
           <PokemonCard />
-          <PokemonCard />
-        </View>
+          <PokemonCard pokeCardType="electric" />
+          <PokemonCard pokeCardType="bug" />
+          <PokemonCard pokeCardType="dark" />
+          <PokemonCard pokeCardType="dragon" />
+          <PokemonCard pokeCardType="fairy" />
+          <PokemonCard pokeCardType="fighting" />
+          <PokemonCard pokeCardType="fire" />
+          <PokemonCard pokeCardType="flying" />
+          <PokemonCard pokeCardType="ghost" />
+          <PokemonCard pokeCardType="ground" />
+          <PokemonCard pokeCardType="ice" />
+          <PokemonCard pokeCardType="normal" />
+          <PokemonCard pokeCardType="poison" />
+          <PokemonCard pokeCardType="psychic" />
+          <PokemonCard pokeCardType="rock" />
+          <PokemonCard pokeCardType="steel" />
+          <PokemonCard pokeCardType="water" />
+        </ScrollView>
       </View>
+      <FilterModal bottomSheetRef={bottomSheetRef} navigation={navigation} />
     </CustomSafeAreaView>
   );
 };

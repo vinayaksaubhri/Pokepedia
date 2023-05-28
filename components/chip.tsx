@@ -19,31 +19,11 @@ import SteelIcon from "../assets/svg/ChipIcon/SteelIcon";
 import WaterIcon from "../assets/svg/ChipIcon/WaterIcon";
 import RockIcon from "../assets/svg/ChipIcon/RockIcon";
 import CrossIcon from "../assets/svg/cross_icon";
+import { PokemonTypes } from "../types/pokemonTypes";
 
-export type IconTypes =
-  | "bug"
-  | "dark"
-  | "electric"
-  | "dragon"
-  | "fire"
-  | "grass"
-  | "fairy"
-  | "fighting"
-  | "fire"
-  | "flying"
-  | "ghost"
-  | "rock"
-  | "ice"
-  | "normal"
-  | "poison"
-  | "psychic"
-  | "ground"
-  | "steel"
-  | "water"
-  | "";
 type PropsType = {
   label: string;
-  iconType?: IconTypes;
+  iconType?: PokemonTypes;
   showCrossIcon?: Boolean;
   showTypeIcon?: Boolean;
 };
@@ -80,7 +60,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function ChipIcon({ iconType }: { iconType: IconTypes }) {
+export function ChipIcon({ iconType }: { iconType: PokemonTypes }) {
   switch (iconType) {
     case "bug":
       return <BugIcon />;

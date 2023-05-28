@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import { COLORS, FONTS } from "../style/style";
 import { ChipIcon } from "./chip";
-const TypeBadge = () => {
+const TypeBadge = ({ badgeType = "", label = "" }) => {
   return (
     <View style={styles.container}>
-      <ChipIcon iconType={"grass"} />
-      <Text style={styles.textStyle}>TypeBadge</Text>
+      <ChipIcon iconType={badgeType} />
+      <Text style={styles.textStyle}>{label}</Text>
     </View>
   );
 };
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 10,
+    marginRight: 6,
     fontFamily: FONTS.RC_Regular,
     color: COLORS.surface,
   },

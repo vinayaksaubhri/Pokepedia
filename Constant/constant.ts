@@ -1,4 +1,4 @@
-import { IconTypes } from "../components/chip";
+import { PokemonTypes } from "../components/chip";
 
 export const GenerationList = [
   "Generation I",
@@ -6,7 +6,7 @@ export const GenerationList = [
   "Generation III",
   "Generation IV",
 ];
-export const TypeList: { label: string; iconType: IconTypes }[] = [
+export const TypeList: { label: string; iconType: PokemonTypes }[] = [
   { label: "Bug", iconType: "bug" },
   { label: "Dark", iconType: "dark" },
   { label: "Dragon", iconType: "dragon" },
