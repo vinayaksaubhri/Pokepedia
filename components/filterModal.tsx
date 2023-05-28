@@ -159,7 +159,7 @@ const FilterModal = ({ bottomSheetRef, navigation }) => {
 export default FilterModal;
 const styles = StyleSheet.create({
   buttonLabelStyle: {
-    fontSize: scaleFont(14),
+    fontSize: scaleFont(16),
     color: COLORS.primaryBlue,
     fontFamily: FONTS.RC_Bold,
   },
@@ -182,12 +182,13 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontFamily: FONTS.RC_Regular,
-    fontSize: scaleFont(14),
+    fontSize: scaleFont(16),
     color: COLORS.primaryBlue,
   },
   listItemLabelStyle: {
     color: COLORS.primaryBlue,
     fontFamily: FONTS.RC_Regular,
+    fontSize: scaleFont(16),
   },
   modalContainer: {
     backgroundColor: COLORS.surface,
