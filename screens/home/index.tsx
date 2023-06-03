@@ -4,7 +4,12 @@ import { Platform, StyleSheet, Text, View } from "react-native";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
 import FilterModal from "../../components/filterModal";
 import SearchBar from "../../components/searchBar";
-import { moderateScale, scaleFont, verticalScale } from "../../style/metrics";
+import {
+  horizontalScale,
+  moderateScale,
+  scaleFont,
+  verticalScale,
+} from "../../style/metrics";
 import { COLORS, FONTS } from "../../style/style";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Chip from "../../components/chip";
@@ -29,13 +34,12 @@ const Home = ({ navigation, route }) => {
             bottomSheetRef.current?.expand();
           }}
         />
-
         {showSelectedFilter && (
           <ScrollView
-            horizontal
             showsHorizontalScrollIndicator={false}
-            style={{ marginTop: 8, marginBottom: 24 }}
-            contentContainerStyle={{ gap: 12 }}
+            horizontal
+            style={styles.selectedFilterContainer}
+            contentContainerStyle={styles.selectedFilterContentContainerStyle}
           >
             <Chip label="Generation III" showCrossIcon />
             <Chip
@@ -57,20 +61,10 @@ const Home = ({ navigation, route }) => {
         <FlatList
           data={pokemonData}
           showsVerticalScrollIndicator={false}
-          style={{
-            flex: 1,
-            marginTop: 4,
-            width: "100%",
-            borderRadius: 16,
-          }}
-          contentContainerStyle={{
-            gap: 16,
-            paddingTop: 20,
-            paddingBottom:
-              Platform.OS === "android" ? moderateScale(90) : moderateScale(60),
-          }}
+          style={styles.flatListStyle}
+          contentContainerStyle={styles.contentContainerStyle}
           numColumns={2}
-          columnWrapperStyle={{ justifyContent: "space-between" }}
+          columnWrapperStyle={styles.columnWrapperStyle}
           renderItem={({ item }) => {
             return <PokemonCard pokeCardType={item.pokeCardType} />;
           }}
@@ -102,5 +96,26 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.RC_Regular,
     marginBottom: verticalScale(16),
     lineHeight: verticalScale(24),
+  },
+  contentContainerStyle: {
+    gap: verticalScale(16),
+    paddingTop: verticalScale(20),
+    paddingBottom: verticalScale(90),
+  },
+  flatListStyle: {
+    flex: 1,
+    marginTop: 4,
+    width: "100%",
+    borderRadius: moderateScale(16),
+  },
+  columnWrapperStyle: {
+    justifyContent: "space-between",
+  },
+  selectedFilterContainer: {
+    marginTop: 8,
+    flexGrow: 0,
+  },
+  selectedFilterContentContainerStyle: {
+    gap: horizontalScale(12),
   },
 });
