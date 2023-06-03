@@ -5,10 +5,18 @@ const { width, height } = Dimensions.get("window");
 const guidelineBaseWidth = 375;
 const guidelineBaseHeight = 812;
 
-const horizontalScale = (size: number) => (width / guidelineBaseWidth) * size;
-const verticalScale = (size: number) => (height / guidelineBaseHeight) * size;
-const moderateScale = (size: number, factor = 0.5) =>
-  size + (horizontalScale(size) - size) * factor;
+const horizontalScale = (size: number) => {
+  const scaledWidth = (width / guidelineBaseWidth) * size;
+  return scaledWidth < 1 ? scaledWidth : Math.floor(scaledWidth);
+};
+const verticalScale = (size: number) => {
+  const scaledHeight = (height / guidelineBaseHeight) * size;
+  return scaledHeight < 1 ? scaledHeight : Math.floor(scaledHeight);
+};
+const moderateScale = (size: number, factor = 0.5) => {
+  const moderatedScale = size + (horizontalScale(size) - size) * factor;
+  return moderatedScale < 1 ? moderatedScale : Math.floor(moderatedScale);
+};
 
 const scaleFont = (size: number): number =>
   Math.floor(size * PixelRatio.getFontScale());
