@@ -9,6 +9,7 @@ export default function App() {
     "RobotoCondense-Bold": require("./assets/Fonts/RobotoCondensed-Bold.ttf"),
     "RobotoCondense-Light": require("./assets/Fonts/RobotoCondensed-Light.ttf"),
     "RobotoCondense-Regular": require("./assets/Fonts/RobotoCondensed-Regular.ttf"),
+    "RobotoCondense-Medium": require("./assets/Fonts/roboto-condensed-medium.ttf"),
     "Roboto-Thin": require("./assets/Fonts/Roboto-Thin.ttf"),
     "Roboto-Black": require("./assets/Fonts/Roboto-Black.ttf"),
     "Roboto-Bold": require("./assets/Fonts/Roboto-Bold.ttf"),
