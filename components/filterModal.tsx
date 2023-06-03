@@ -194,6 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
     padding: moderateScale(16),
     gap: verticalScale(24),
+    paddingBottom: verticalScale(28),
   },
 
   modalHeading: {
