@@ -18,8 +18,8 @@ type buttonProps = {
   label?: string;
   onPress?: (event: GestureResponderEvent) => void;
   onLongPress?: (event: GestureResponderEvent) => void;
-  height?: number;
-  width?: number;
+  height?: number | string;
+  width?: number | string;
   showIcon?: boolean;
 };
 
