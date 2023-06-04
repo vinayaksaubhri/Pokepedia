@@ -8,12 +8,13 @@ import Quiz from "../../screens/quiz";
 import QuizIcon from "../../assets/svg/quiz";
 import Favorites from "../../screens/favorites";
 import FavoriteIcon from "../../assets/svg/favorite";
+import HomeStack from "../stackNavigator/homeStack";
 
 const bottomTab = [
   {
     id: 1,
     name: "Home",
-    component: Home,
+    component: HomeStack,
     icon: <HomeOutlinedIcon />,
   },
   {
