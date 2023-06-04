@@ -4,7 +4,7 @@ import PokemonDetailScreens from "../../screens/home/screens/pokemonDetailScreen
 
 const Stack = createStackNavigator();
 
-const HomeStack = () => {
+const HomeStack = ({ navigation }) => {
   return (
     <Stack.Navigator
       initialRouteName="Home"
@@ -12,7 +12,7 @@ const HomeStack = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Home" component={Home} initialParams={navigation} />
       <Stack.Screen
         name="PokemonDetailScreen"
         component={PokemonDetailScreens}

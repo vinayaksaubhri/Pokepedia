@@ -17,6 +17,7 @@ import PokemonCard from "../../components/pokemonCard";
 import { pokemonData } from "../../constant/constant";
 
 const Home = ({ navigation, route }) => {
+  console.log("🚀 ~ file: index.tsx:20 ~ Home ~ route:", route.params);
   const bottomSheetRef = useRef<BottomSheet>(null);
   let showSelectedFilter = false;
   const onPressCard = () => {
@@ -33,7 +34,7 @@ const Home = ({ navigation, route }) => {
         <SearchBar
           showFilter
           onPressFilter={() => {
-            navigation.setOptions({ tabBarVisible: false });
+            route.params?.setOptions({ tabBarVisible: false });
             bottomSheetRef.current?.expand();
           }}
         />
@@ -78,7 +79,7 @@ const Home = ({ navigation, route }) => {
           }}
         />
       </View>
-      <FilterModal bottomSheetRef={bottomSheetRef} navigation={navigation} />
+      <FilterModal bottomSheetRef={bottomSheetRef} navigation={route.params} />
     </CustomSafeAreaView>
   );
 };
