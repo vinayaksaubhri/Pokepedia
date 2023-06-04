@@ -18,6 +18,7 @@ import { COLORS, FONTS } from "../style/style";
 import Chip from "./chip";
 import CustomSlider from "./customSlider";
 import DropDownPicker from "react-native-dropdown-picker";
+import Button from "./button";
 
 const FilterModal = ({ bottomSheetRef, navigation }) => {
   const initialSnapPoints = useMemo(() => ["CONTENT_HEIGHT"], []);
@@ -143,14 +144,14 @@ const FilterModal = ({ bottomSheetRef, navigation }) => {
               listItemLabelStyle={styles.listItemLabelStyle}
             />
           </View>
-          <Pressable
-            style={styles.buttonStyle}
+          <Button
+            variant="Primary"
+            width={"100%"}
+            label="Apply"
             onPress={() => {
               bottomSheetRef.current?.close();
             }}
-          >
-            <Text style={styles.buttonLabelStyle}>Apply</Text>
-          </Pressable>
+          />
         </View>
       </BottomSheetView>
     </BottomSheet>
