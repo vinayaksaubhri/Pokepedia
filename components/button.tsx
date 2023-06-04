@@ -14,8 +14,8 @@ import {
 } from "../style/metrics";
 import { COLORS, FONTS } from "../style/style";
 type buttonProps = {
-  variant?: "Primary" | "Outline" | "Transparent";
-  label?: string;
+  variant: "Primary" | "Outline" | "Transparent";
+  label: string;
   onPress?: (event: GestureResponderEvent) => void;
   onLongPress?: (event: GestureResponderEvent) => void;
   height?: number | string;
