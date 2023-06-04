@@ -19,6 +19,9 @@ import { pokemonData } from "../../constant/constant";
 const Home = ({ navigation, route }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   let showSelectedFilter = false;
+  const onPressCard = () => {
+    navigation.navigate("PokemonDetailScreen");
+  };
   return (
     <CustomSafeAreaView>
       <View style={styles.container}>
@@ -66,7 +69,12 @@ const Home = ({ navigation, route }) => {
           numColumns={2}
           columnWrapperStyle={styles.columnWrapperStyle}
           renderItem={({ item }) => {
-            return <PokemonCard pokeCardType={item.pokeCardType} />;
+            return (
+              <PokemonCard
+                pokeCardType={item.pokeCardType}
+                onPress={onPressCard}
+              />
+            );
           }}
         />
       </View>

@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  GestureResponderEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import {
   horizontalScale,
   moderateScale,
@@ -17,6 +23,7 @@ type propsType = {
   pokeLabel?: string;
   pokeNumber?: string;
   pokeCardType?: PokemonTypes;
+  onPress?: (event: GestureResponderEvent) => void;
 };
 
 const PokemonCard: React.FC<propsType> = ({
@@ -27,6 +34,7 @@ const PokemonCard: React.FC<propsType> = ({
   pokeLabel = "Label",
   pokeNumber = "#000",
   pokeCardType = "grass",
+  onPress = () => {},
 }) => {
   function pokeCardColor(pokeCardType: PokemonTypes) {
     switch (pokeCardType) {
@@ -100,7 +108,7 @@ const PokemonCard: React.FC<propsType> = ({
     pokeballContainer: { right: -10, bottom: -20, position: "absolute" },
   });
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.textContainer}>
         <Text style={styles.headingText}>{pokeLabel}</Text>
         <Text style={styles.headingText}>{pokeNumber}</Text>
@@ -117,7 +125,7 @@ const PokemonCard: React.FC<propsType> = ({
       <View style={styles.pokeballContainer}>
         <PokeballIcon />
       </View>
-    </View>
+    </Pressable>
   );
 };
 export default PokemonCard;
