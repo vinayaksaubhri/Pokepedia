@@ -28,8 +28,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    position: "absolute",
-    top: 0,
     width: "100%",
   },
   labelStyle: {
