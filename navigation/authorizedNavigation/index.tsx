@@ -1,13 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import BottomTabUI from "../../components/bottomTabUI";
-import Home from "../../screens/home";
-import HomeOutlinedIcon from "../../assets/svg/home-outline";
-import Compare from "../../screens/compare";
 import CompareArrowIcon from "../../assets/svg/compare_arrow";
-import Quiz from "../../screens/quiz";
-import QuizIcon from "../../assets/svg/quiz";
-import Favorites from "../../screens/favorites";
 import FavoriteIcon from "../../assets/svg/favorite";
+import HomeOutlinedIcon from "../../assets/svg/home-outline";
+import QuizIcon from "../../assets/svg/quiz";
+import BottomTabUI from "../../components/bottomTabUI";
+import Compare from "../../screens/compare";
+import Favorites from "../../screens/favorites";
+import Quiz from "../../screens/quiz";
 import HomeStack from "../stackNavigator/homeStack";
 
 const bottomTab = [
