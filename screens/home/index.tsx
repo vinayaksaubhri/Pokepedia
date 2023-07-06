@@ -17,7 +17,8 @@ import PokemonCard from "../../components/pokemonCard";
 import { pokemonData } from "../../constant/constant";
 
 const Home = ({ navigation, route }) => {
-  console.log("🚀 ~ file: index.tsx:20 ~ Home ~ route:", route.params);
+  const { bottomNavigationSetOptions } = route?.params;
+
   const bottomSheetRef = useRef<BottomSheet>(null);
   let showSelectedFilter = false;
   const onPressCard = () => {
@@ -34,7 +35,7 @@ const Home = ({ navigation, route }) => {
         <SearchBar
           showFilter
           onPressFilter={() => {
-            route.params?.setOptions({ tabBarVisible: false });
+            bottomNavigationSetOptions({ tabBarVisible: false });
             bottomSheetRef.current?.expand();
           }}
         />
@@ -69,17 +70,21 @@ const Home = ({ navigation, route }) => {
           contentContainerStyle={styles.contentContainerStyle}
           numColumns={2}
           columnWrapperStyle={styles.columnWrapperStyle}
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
             return (
               <PokemonCard
                 pokeCardType={item.pokeCardType}
                 onPress={onPressCard}
+                key={index}
               />
             );
           }}
         />
       </View>
-      <FilterModal bottomSheetRef={bottomSheetRef} navigation={route.params} />
+      <FilterModal
+        bottomSheetRef={bottomSheetRef}
+        bottomNavigationSetOptions={bottomNavigationSetOptions}
+      />
     </CustomSafeAreaView>
   );
 };

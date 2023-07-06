@@ -19,8 +19,17 @@ import Chip from "./chip";
 import CustomSlider from "./customSlider";
 import DropDownPicker from "react-native-dropdown-picker";
 import Button from "./button";
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 
-const FilterModal = ({ bottomSheetRef, navigation }) => {
+type FilterModalProps = {
+  bottomSheetRef: React.RefObject<BottomSheetMethods>;
+  bottomNavigationSetOptions: any;
+};
+
+const FilterModal: React.FC<FilterModalProps> = ({
+  bottomSheetRef,
+  bottomNavigationSetOptions,
+}) => {
   const initialSnapPoints = useMemo(() => ["CONTENT_HEIGHT"], []);
   const [weight, setWeight] = useState(0);
   const [height, setHeight] = useState(0);
@@ -57,7 +66,7 @@ const FilterModal = ({ bottomSheetRef, navigation }) => {
       backdropComponent={renderBackdrop}
       backgroundStyle={styles.bottomSheetBackgroundSheet}
       onClose={() => {
-        navigation.setOptions({ tabBarVisible: true });
+        bottomNavigationSetOptions({ tabBarVisible: true });
       }}
       snapPoints={animatedSnapPoints}
       handleHeight={animatedHandleHeight}

@@ -5,14 +5,22 @@ import PokemonDetailScreens from "../../screens/home/screens/pokemonDetailScreen
 const Stack = createStackNavigator();
 
 const HomeStack = ({ navigation }) => {
+  const bottomNavigation = navigation;
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeScreen"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Home" component={Home} initialParams={navigation} />
+      <Stack.Screen
+        name="HomeScreen"
+        component={Home}
+        initialParams={{
+          bottomNavigationSetOptions: bottomNavigation?.setOptions,
+          hello: "hello",
+        }}
+      />
       <Stack.Screen
         name="PokemonDetailScreen"
         component={PokemonDetailScreens}
