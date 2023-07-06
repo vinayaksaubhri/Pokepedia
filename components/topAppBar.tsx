@@ -12,8 +12,8 @@ const TopAppBar = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Pressable>
-        <BackIcon onPress={onPressBackButton} />
+      <Pressable hitSlop={5} onPress={onPressBackButton}>
+        <BackIcon />
       </Pressable>
       <Text style={styles.labelStyle}>{label}</Text>
       <FavIcon />

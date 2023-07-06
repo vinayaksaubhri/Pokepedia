@@ -22,7 +22,8 @@ const Home = ({ navigation, route }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   let showSelectedFilter = false;
   const onPressCard = () => {
-    navigation.navigate("PokemonDetailScreen");
+    bottomNavigationSetOptions({ tabBarVisible: false });
+    navigation.navigate("PokemonDetailScreen", { bottomNavigationSetOptions });
   };
   return (
     <CustomSafeAreaView>

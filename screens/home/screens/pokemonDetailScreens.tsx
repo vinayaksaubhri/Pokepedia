@@ -8,7 +8,8 @@ import CharizardImage from "../../../assets/pokemon/6.png";
 import { height, scaleFont } from "../../../style/metrics";
 import { PokemonDetailScreenTab } from "../components/pokemonDetailScreenTab";
 
-const PokemonDetailScreens = ({ navigation }) => {
+const PokemonDetailScreens = ({ navigation, route }) => {
+  const { bottomNavigationSetOptions } = route?.params;
   return (
     <CustomSafeAreaView backgroundColor={POKEMON_COLOR.fire}>
       <View style={styles.container}>
@@ -17,7 +18,14 @@ const PokemonDetailScreens = ({ navigation }) => {
           style={styles.linearGradient}
         >
           <View style={styles.imageHeaderContainer}>
-            <TopAppBar label="#006" navigation={navigation} />
+            <TopAppBar
+              label="#006"
+              navigation={navigation}
+              onPressBackButton={() => {
+                bottomNavigationSetOptions({ tabBarVisible: true });
+                navigation.goBack();
+              }}
+            />
             <Image source={CharizardImage} style={styles.imageStyle} />
             <View style={styles.HeadingSubHeadingContainer}>
               <Text style={styles.headingTextStyle}>Charizard</Text>
