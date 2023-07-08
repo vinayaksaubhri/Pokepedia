@@ -18,12 +18,14 @@ const HomeStack = ({ navigation }) => {
         component={Home}
         initialParams={{
           bottomNavigationSetOptions: bottomNavigation?.setOptions,
-          hello: "hello",
         }}
       />
       <Stack.Screen
         name="PokemonDetailScreen"
         component={PokemonDetailScreens}
+        initialParams={{
+          bottomNavigationSetOptions: bottomNavigation?.setOptions,
+        }}
       />
     </Stack.Navigator>
   );
