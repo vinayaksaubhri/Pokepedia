@@ -8,11 +8,12 @@ import Compare from "../../screens/compare";
 import Favorites from "../../screens/favorites";
 import Quiz from "../../screens/quiz";
 import HomeStack from "../stackNavigator/homeStack";
+import ROUTES from "../../constant/routes";
 
 const bottomTab = [
   {
     id: 1,
-    name: "Home",
+    name: ROUTES.HOME_STACK,
     component: HomeStack,
     icon: <HomeOutlinedIcon />,
   },
@@ -41,7 +42,7 @@ const AuthorizedNavigation = () => {
   return (
     <>
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName={ROUTES.HOME_STACK}
         screenOptions={{
           headerShown: false,
         }}
