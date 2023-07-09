@@ -60,44 +60,53 @@ const styles = StyleSheet.create({
   },
 });
 
-export function ChipIcon({ iconType }: { iconType: PokemonTypes }) {
+export function ChipIcon({
+  iconType,
+  size = "sm",
+}: {
+  iconType: PokemonTypes;
+  size?: "sm" | "md";
+}) {
+  const width = size === "sm" ? 16 : 24;
+  const height = size === "sm" ? 16 : 24;
+  const scale = size === "sm" ? 1 : 1.5;
   switch (iconType) {
     case "bug":
-      return <BugIcon />;
+      return <BugIcon width={width} height={height} scale={scale} />;
     case "electric":
-      return <ElectricIcon />;
+      return <ElectricIcon width={width} height={height} scale={scale} />;
     case "dark":
-      return <DarkIcon />;
+      return <DarkIcon width={width} height={height} scale={scale} />;
     case "dragon":
-      return <DragonIcon />;
+      return <DragonIcon width={width} height={height} scale={scale} />;
     case "fairy":
-      return <FairyIcon />;
+      return <FairyIcon width={width} height={height} scale={scale} />;
     case "fighting":
-      return <FightingIcon />;
+      return <FightingIcon width={width} height={height} scale={scale} />;
     case "fire":
-      return <FireIcon />;
+      return <FireIcon width={width} height={height} scale={scale} />;
     case "flying":
-      return <FlyingIcon />;
+      return <FlyingIcon width={width} height={height} scale={scale} />;
     case "ghost":
-      return <GhostIcon />;
+      return <GhostIcon width={width} height={height} scale={scale} />;
     case "grass":
-      return <GrassIcon />;
+      return <GrassIcon width={width} height={height} scale={scale} />;
     case "ground":
-      return <GroundIcon />;
+      return <GroundIcon width={width} height={height} scale={scale} />;
     case "ice":
-      return <IceIcon />;
+      return <IceIcon width={width} height={height} scale={scale} />;
     case "normal":
-      return <NormalIcon />;
+      return <NormalIcon width={width} height={height} scale={scale} />;
     case "poison":
-      return <PoisonIcon />;
+      return <PoisonIcon width={width} height={height} scale={scale} />;
     case "psychic":
-      return <PsychicIcon />;
+      return <PsychicIcon width={width} height={height} scale={scale} />;
     case "steel":
-      return <SteelIcon />;
+      return <SteelIcon width={width} height={height} scale={scale} />;
     case "water":
-      return <WaterIcon />;
+      return <WaterIcon width={width} height={height} scale={scale} />;
     case "rock":
-      return <RockIcon />;
+      return <RockIcon width={width} height={height} scale={scale} />;
     default:
       return <></>;
   }
