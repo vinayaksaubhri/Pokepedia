@@ -17,6 +17,7 @@ export const COLORS = {
   grey100: "#F2F4F7",
   grey200: "#DFE4EC",
   grey300: "#8D9DB9",
+  grey400: "#4E5F7E",
   modalBackdropColor: "rgba(40, 49, 65, 0.16)",
   typeBadgeBackground: "rgba(40, 49, 65, 0.2)",
 };
