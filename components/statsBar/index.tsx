@@ -13,7 +13,7 @@ const StatsBar = ({ value = 0, statsTitle = "" }) => {
       <Text style={styles.value}>{value}</Text>
       <View style={styles.statsBarContainer}>
         {arr.map((_, index) => (
-          <Stats isActive={index < valueInStatsBar} />
+          <Stats isActive={index < valueInStatsBar} key={index} />
         ))}
       </View>
     </View>
