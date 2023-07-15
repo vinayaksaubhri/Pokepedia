@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { COLORS } from "../../../style/style";
 import PokemonMoveCard from "./pokemonMoveCard";
-import { ScrollView } from "react-native-gesture-handler";
 
 const PokemonTabMovesComponent = () => {
   return (
