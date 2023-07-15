@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     color: COLORS.primaryBlue,
     fontFamily: FONTS.RC_Medium,
     fontSize: scaleFont(16),
-    flex: 0.2,
+    flex: 0.15,
   },
   statsBarContainer: {
     flexDirection: "row",
