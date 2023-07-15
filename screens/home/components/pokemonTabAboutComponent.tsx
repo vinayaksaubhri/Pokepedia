@@ -40,7 +40,6 @@ const PokemonTabAboutComponent = () => {
           </View>
           <View style={styles.pokemonInfoContainer}>
             <View style={styles.pokemonHeightWeightContainer}>
-              {/* <Text style={styles.primaryText}>90.5 kg</Text> */}
               <View style={{ flexDirection: "row", gap: 8 }}>
                 <ChipIcon iconType="fire" size="md" />
                 <ChipIcon iconType="flying" size="md" />
