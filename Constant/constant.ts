@@ -1,4 +1,4 @@
-import { PokemonTypes } from "../components/chip";
+import { PokemonTypes } from "../types/pokemonTypes";
 export const MAX_BASE_STATS = 255;
 
 export const GenerationList = [
