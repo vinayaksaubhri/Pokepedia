@@ -20,15 +20,16 @@ import WaterIcon from "../assets/svg/ChipIcon/WaterIcon";
 import RockIcon from "../assets/svg/ChipIcon/RockIcon";
 import CrossIcon from "../assets/svg/cross_icon";
 import { PokemonTypes } from "../types/pokemonTypes";
+import { horizontalScale, moderateScale, scaleFont } from "../style/metrics";
 
-type PropsType = {
+export type chipPropsType = {
   label: string;
   iconType?: PokemonTypes;
   showCrossIcon?: Boolean;
   showTypeIcon?: Boolean;
 };
 
-const Chip: React.FC<PropsType> = ({
+const Chip: React.FC<chipPropsType> = ({
   label = "chip",
   iconType = "",
   showCrossIcon = false,
@@ -45,18 +46,18 @@ const Chip: React.FC<PropsType> = ({
 export default Chip;
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
+    padding: moderateScale(8),
     flexDirection: "row",
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: moderateScale(8),
     alignSelf: "flex-start",
     borderColor: COLORS.grey200,
-    gap: 8,
+    gap: horizontalScale(8),
   },
   labelStyle: {
     fontFamily: FONTS.RC_Bold,
     color: COLORS.primaryBlue,
-    fontSize: 14,
+    fontSize: scaleFont(14),
   },
 });
 
