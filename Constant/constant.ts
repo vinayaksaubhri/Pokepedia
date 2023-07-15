@@ -1,4 +1,5 @@
 import { PokemonTypes } from "../components/chip";
+export const MAX_BASE_STATS = 255;
 
 export const GenerationList = [
   "Generation I",
