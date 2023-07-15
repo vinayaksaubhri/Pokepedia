@@ -5,6 +5,7 @@ import { COLORS, FONTS } from "../../../style/style";
 import { StyleSheet } from "react-native";
 import PokemonTabAboutComponent from "./pokemonTabAboutComponent";
 import PokemonTabStatsComponent from "./pokemonTabStatsComponent";
+import PokemonTabMovesComponent from "./pokemonTabMovesComponent";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -30,23 +31,7 @@ export const PokemonDetailScreenTab = () => {
     >
       <Tab.Screen name="About" component={PokemonTabAboutComponent} />
       <Tab.Screen name="Stats" component={PokemonTabStatsComponent} />
-      <Tab.Screen
-        name="Moves"
-        component={() => {
-          return (
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: "#A7ECEE",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text>Moves</Text>
-            </View>
-          );
-        }}
-      />
+      <Tab.Screen name="Moves" component={PokemonTabMovesComponent} />
       <Tab.Screen
         name="Evolution"
         component={() => {
