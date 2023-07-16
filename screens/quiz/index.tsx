@@ -1,15 +1,16 @@
 import { Image, StyleSheet, View } from "react-native";
+import WhoThatPokemon from "../../assets/images/WhoThatPokemon.png";
+import Button from "../../components/button";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
 import { moderateScale } from "../../style/metrics";
-import Button from "../../components/button";
-const whoThatPokemon = require("../../assets/images/WhoThatPokemon.png");
+
 const Quiz = () => {
   return (
     <CustomSafeAreaView>
       <View style={styles.container}>
         <Image
-          source={whoThatPokemon}
-          style={{ width: "100%", height: "40%" }}
+          source={WhoThatPokemon}
+          style={styles.imageStyle}
           resizeMode="contain"
         />
         <Button variant="Primary" label="START" width={"90%"} />
@@ -25,5 +26,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: moderateScale(24),
     gap: moderateScale(32),
+  },
+  imageStyle: {
+    width: "100%",
+    height: "40%",
   },
 });
