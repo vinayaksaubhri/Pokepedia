@@ -1,14 +1,20 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import BackIcon from "../assets/svg/backIcon";
 import FavIcon from "../assets/svg/favIcon";
-import { COLORS, FONTS } from "../style/style";
 import { scaleFont } from "../style/metrics";
-const TopAppBar = ({
+import { COLORS, FONTS } from "../style/style";
+const TopAppBar: React.FC<{
+  label: string;
+  navigation: any;
+  onPressBackButton?: () => void;
+  showFavIcon?: boolean;
+}> = ({
   label = "Label",
   navigation,
   onPressBackButton = () => {
     navigation.goBack();
   },
+  showFavIcon = false,
 }) => {
   return (
     <View style={styles.container}>
@@ -16,7 +22,7 @@ const TopAppBar = ({
         <BackIcon />
       </Pressable>
       <Text style={styles.labelStyle}>{label}</Text>
-      <FavIcon />
+      <View style={!showFavIcon && styles.opacityZero}>{<FavIcon />}</View>
     </View>
   );
 };
@@ -34,5 +40,8 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.RC_Regular,
     fontSize: scaleFont(22),
     color: COLORS.primaryBlue,
+  },
+  opacityZero: {
+    opacity: 0,
   },
 });
