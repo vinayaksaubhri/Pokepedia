@@ -20,6 +20,10 @@ const BottomTabUI = ({
 
   ...props
 }: BottomTabUiBarProps) => {
+  const showBottomNavigator =
+    props.descriptors[state.routes[0].key].options?.tabBarVisible &&
+    props.descriptors[state.routes[2].key].options?.tabBarVisible;
+
   const styles = StyleSheet.create({
     container: {
       height: verticalScale(60),
@@ -33,10 +37,7 @@ const BottomTabUI = ({
       flexDirection: "row",
       padding: moderateScale(16),
       zIndex: 1,
-      display:
-        props.descriptors[state.routes[0].key].options?.tabBarVisible === false
-          ? "none"
-          : "flex",
+      display: showBottomNavigator === false ? "none" : "flex",
     },
   });
   return (

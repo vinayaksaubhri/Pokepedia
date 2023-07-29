@@ -4,11 +4,11 @@ import FavoriteIcon from "../../assets/svg/favorite";
 import HomeOutlinedIcon from "../../assets/svg/home-outline";
 import QuizIcon from "../../assets/svg/quiz";
 import BottomTabUI from "../../components/bottomTabUI";
+import ROUTES from "../../constant/routes";
 import Compare from "../../screens/compare";
 import Favorites from "../../screens/favorites";
-import Quiz from "../../screens/quiz";
 import HomeStack from "../stackNavigator/homeStack";
-import ROUTES from "../../constant/routes";
+import QuizStack from "../stackNavigator/quizStack";
 
 const bottomTab = [
   {
@@ -25,8 +25,8 @@ const bottomTab = [
   },
   {
     id: 3,
-    name: "Quiz",
-    component: Quiz,
+    name: ROUTES.QUIZ_STACK,
+    component: QuizStack,
     icon: <QuizIcon />,
   },
   {

@@ -1,19 +1,23 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../../screens/home";
-import PokemonDetailScreens from "../../screens/home/screens/pokemonDetailScreens";
 import {
   getFocusedRouteNameFromRoute,
   useFocusEffect,
 } from "@react-navigation/native";
 import ROUTES from "../../constant/routes";
+import Quiz from "../../screens/quiz";
+import QuizGameScreen from "../../screens/quiz/screen/quizGameScreen";
 
 const Stack = createStackNavigator();
 
-const HomeStack = ({ navigation, route }) => {
+const QuizStack = ({ navigation, route }) => {
   const bottomNavigation = navigation;
   const routeName = getFocusedRouteNameFromRoute(route) as ROUTES;
+  console.log(
+    "🚀 ~ file: quizStack.tsx:15 ~ QuizStack ~ routeName:",
+    routeName
+  );
   useFocusEffect(() => {
-    if ([ROUTES.POKEMON_DETAIL_SCREEN]?.includes(routeName)) {
+    if ([ROUTES.QUIZ_GAME_SCREEN]?.includes(routeName)) {
       bottomNavigation?.setOptions({ tabBarVisible: false });
     } else {
       bottomNavigation?.setOptions({ tabBarVisible: true });
@@ -21,21 +25,21 @@ const HomeStack = ({ navigation, route }) => {
   });
   return (
     <Stack.Navigator
-      initialRouteName={ROUTES.HOME_SCREEN}
+      initialRouteName={ROUTES.QUIZ_START_SCREEN}
       screenOptions={{
         headerShown: false,
       }}
     >
       <Stack.Screen
-        name={ROUTES.HOME_SCREEN}
-        component={Home}
+        name={ROUTES.QUIZ_START_SCREEN}
+        component={Quiz}
         initialParams={{
           bottomNavigationSetOptions: bottomNavigation?.setOptions,
         }}
       />
       <Stack.Screen
-        name={ROUTES.POKEMON_DETAIL_SCREEN}
-        component={PokemonDetailScreens}
+        name={ROUTES.QUIZ_GAME_SCREEN}
+        component={QuizGameScreen}
         initialParams={{
           bottomNavigationSetOptions: bottomNavigation?.setOptions,
         }}
@@ -43,4 +47,4 @@ const HomeStack = ({ navigation, route }) => {
     </Stack.Navigator>
   );
 };
-export default HomeStack;
+export default QuizStack;

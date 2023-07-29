@@ -15,6 +15,7 @@ import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Chip from "../../components/chip";
 import PokemonCard from "../../components/pokemonCard";
 import { pokemonData } from "../../constant/constant";
+import ROUTES from "../../constant/routes";
 
 const Home = ({ navigation, route }) => {
   const { bottomNavigationSetOptions } = route?.params;
@@ -23,7 +24,9 @@ const Home = ({ navigation, route }) => {
   let showSelectedFilter = false;
   const onPressCard = () => {
     bottomNavigationSetOptions({ tabBarVisible: false });
-    navigation.navigate("PokemonDetailScreen", { bottomNavigationSetOptions });
+    navigation.navigate(ROUTES.POKEMON_DETAIL_SCREEN, {
+      bottomNavigationSetOptions,
+    });
   };
   return (
     <CustomSafeAreaView>
