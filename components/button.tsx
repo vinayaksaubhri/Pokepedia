@@ -50,7 +50,7 @@ const Button: React.FC<buttonProps> = ({
       backgroundColor: COLORS.primaryYellow + "80",
     },
     pressFeedbackOutline: {
-      backgroundColor: COLORS.surface + "80",
+      backgroundColor: COLORS.feedbackColor,
     },
     buttonContainerOutline: {
       backgroundColor: COLORS.surface,

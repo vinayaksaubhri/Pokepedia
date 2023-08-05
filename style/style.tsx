@@ -20,6 +20,7 @@ export const COLORS = {
   grey400: "#4E5F7E",
   modalBackdropColor: "rgba(40, 49, 65, 0.16)",
   typeBadgeBackground: "rgba(40, 49, 65, 0.2)",
+  outlineButtonFeedbackColor: "#F8F8F8",
 };
 
 export const POKEMON_COLOR = {
