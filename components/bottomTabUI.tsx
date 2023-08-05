@@ -20,9 +20,16 @@ const BottomTabUI = ({
 
   ...props
 }: BottomTabUiBarProps) => {
-  const showBottomNavigator =
-    props.descriptors[state.routes[0].key].options?.tabBarVisible &&
-    props.descriptors[state.routes[2].key].options?.tabBarVisible;
+  const homeTabBarVisible =
+    props.descriptors[state.routes[0].key].options?.tabBarVisible === undefined
+      ? true
+      : props.descriptors[state.routes[0].key].options?.tabBarVisible;
+  const quizTabBarVisible =
+    props.descriptors[state.routes[2].key].options?.tabBarVisible === undefined
+      ? true
+      : props.descriptors[state.routes[2].key].options?.tabBarVisible;
+
+  const showBottomNavigator = homeTabBarVisible && quizTabBarVisible;
 
   const styles = StyleSheet.create({
     container: {
