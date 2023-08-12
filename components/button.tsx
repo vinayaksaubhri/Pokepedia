@@ -2,6 +2,7 @@ import React from "react";
 import {
   GestureResponderEvent,
   Pressable,
+  PressableProps,
   StyleSheet,
   Text,
 } from "react-native";
@@ -21,7 +22,8 @@ type buttonProps = {
   height?: number | string;
   width?: number | string;
   showIcon?: boolean;
-};
+  hidden?: boolean;
+} & PressableProps;
 
 const Button: React.FC<buttonProps> = ({
   variant = "Primary",
@@ -31,15 +33,19 @@ const Button: React.FC<buttonProps> = ({
   height = verticalScale(44),
   width = horizontalScale(233),
   showIcon = false,
+  hidden = false,
+  ...rest
 }) => {
   const styles = StyleSheet.create({
     buttonContainerPrimary: {
       backgroundColor: COLORS.primaryYellow,
+
       width: width,
       height: height,
       borderRadius: moderateScale(16),
       justifyContent: "center",
       alignItems: "center",
+      display: hidden ? "none" : "flex",
     },
     buttonTextStyle: {
       fontSize: scaleFont(14),
@@ -61,9 +67,11 @@ const Button: React.FC<buttonProps> = ({
       borderRadius: moderateScale(16),
       justifyContent: "center",
       alignItems: "center",
+      display: hidden ? "none" : "flex",
     },
     buttonContainerTransparent: {
       backgroundColor: COLORS.surface,
+
       width: width,
       height: height,
       borderRadius: moderateScale(16),
@@ -71,6 +79,7 @@ const Button: React.FC<buttonProps> = ({
       alignItems: "center",
       flexDirection: "row",
       gap: 8,
+      display: hidden ? "none" : "flex",
     },
   });
   switch (variant) {
@@ -83,6 +92,7 @@ const Button: React.FC<buttonProps> = ({
             styles.buttonContainerPrimary,
             pressed ? styles.pressFeedbackPrimary : {},
           ]}
+          {...rest}
         >
           <Text style={styles.buttonTextStyle}>{label}</Text>
         </Pressable>
@@ -96,6 +106,7 @@ const Button: React.FC<buttonProps> = ({
             styles.buttonContainerOutline,
             pressed ? styles.pressFeedbackOutline : {},
           ]}
+          {...rest}
         >
           <Text style={styles.buttonTextStyle}>{label}</Text>
         </Pressable>
@@ -109,6 +120,7 @@ const Button: React.FC<buttonProps> = ({
             styles.buttonContainerTransparent,
             pressed ? styles.pressFeedbackOutline : {},
           ]}
+          {...rest}
         >
           {showIcon && <ReplaceIcon />}
           <Text style={styles.buttonTextStyle}>{label}</Text>
@@ -123,6 +135,7 @@ const Button: React.FC<buttonProps> = ({
             styles.buttonContainerPrimary,
             pressed ? styles.pressFeedbackPrimary : {},
           ]}
+          {...rest}
         >
           <Text style={styles.buttonTextStyle}>{label}</Text>
         </Pressable>
