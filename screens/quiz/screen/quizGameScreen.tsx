@@ -1,18 +1,63 @@
 import { Image, StyleSheet, View } from "react-native";
-import Pokemon from "../../../assets/pokemon_sprites/17.png";
 import CustomSafeAreaView from "../../../components/customSafeAreaView";
 import TopAppBar from "../../../components/topAppBar";
 import Button from "../../../components/button";
-import { moderateScale, verticalScale } from "../../../style/metrics";
-import React, { useState } from "react";
+import {
+  height,
+  moderateScale,
+  verticalScale,
+  width,
+} from "../../../style/metrics";
+import React, { useEffect, useRef, useState } from "react";
+import { getRandomPokemon, selectCurrentPokemon } from "../utils/data";
+import { PokemonListType } from "../utils/pokemonListQuiz";
+import Confetti from "react-native-confetti";
 
 const QuizGameScreen = ({ route, navigation }) => {
   const { bottomNavigationSetOptions } = route?.params;
+  const confettiRef = useRef(null);
   const [gameState, setGameState] = useState<"start" | "end">("start");
-  const [currentPokemon, setCurrentPokemon] = useState({
-    name: "Pidgeotto",
-    index: 17,
+  const [pokemonList, setPokemonList] = useState<PokemonListType[]>([]);
+  const [answerState, setAnswerState] = useState<"correct" | "wrong" | null>(
+    null
+  );
+  const [answer, setAnswer] = useState({
+    name: "",
   });
+
+  const [currentPokemon, setCurrentPokemon] = useState<PokemonListType>({
+    name: "",
+    id: 0,
+    source: require("../../../assets/pokemon_sprites/0.png"),
+  });
+
+  const startOrResetTheGame = () => {
+    if (gameState === "end") {
+      setAnswer({ name: "" });
+      setAnswerState(null);
+      setGameState("start");
+      confettiRef.current?.stopConfetti();
+    }
+    const randomPokemonList = getRandomPokemon();
+    const selectedPokemon = selectCurrentPokemon(randomPokemonList);
+    setPokemonList(randomPokemonList);
+    setCurrentPokemon(selectedPokemon);
+  };
+
+  const checkAnswer = (pokemonName: string) => {
+    setAnswer({ name: pokemonName });
+    if (pokemonName === currentPokemon?.name) {
+      setAnswerState("correct");
+      confettiRef.current?.startConfetti();
+    } else {
+      setAnswerState("wrong");
+    }
+    setGameState("end");
+  };
+
+  useEffect(() => {
+    startOrResetTheGame();
+  }, []);
 
   return (
     <CustomSafeAreaView>
@@ -25,25 +70,49 @@ const QuizGameScreen = ({ route, navigation }) => {
         }}
       />
       <View style={styles.imageAndButtonContainer}>
-        <Image
-          source={Pokemon}
-          style={styles.imageStyle}
-          resizeMode="contain"
-          tintColor={gameState === "start" ? "black" : ""}
-        />
+        {gameState === "start" ? (
+          <Image
+            style={styles.imageStyle}
+            resizeMode="contain"
+            source={currentPokemon?.source}
+            tintColor={"#000000"}
+          />
+        ) : (
+          <Image
+            style={styles.imageStyle}
+            resizeMode="contain"
+            source={currentPokemon?.source}
+          />
+        )}
         <View style={styles.buttonContainer}>
-          <Button variant="Outline" width={"100%"} label="Ponyta" />
-          <Button variant="Outline" width={"100%"} label="Pidgeotto" />
-          <Button variant="Outline" width={"100%"} label="Metapod" />
-          {gameState === "end" && (
+          {pokemonList?.map((pokemon) => (
             <Button
-              variant="Transparent"
+              variant={
+                pokemon?.name === answer?.name
+                  ? answerState === "correct"
+                    ? "Primary"
+                    : "Warning"
+                  : pokemon?.name === currentPokemon?.name &&
+                    gameState === "end"
+                  ? "Primary"
+                  : "Outline"
+              }
               width={"100%"}
-              label="Again"
-              showIcon
+              label={pokemon?.name}
+              onPress={() => checkAnswer(pokemon?.name)}
+              disabled={answer?.name !== ""}
             />
-          )}
+          ))}
+          <Button
+            hidden={gameState !== "end"}
+            variant="Transparent"
+            width="100%"
+            label="Again"
+            showIcon
+            onPress={startOrResetTheGame}
+          />
         </View>
+        <Confetti ref={confettiRef} confettiCount={50} />
       </View>
     </CustomSafeAreaView>
   );
@@ -52,7 +121,7 @@ export default QuizGameScreen;
 const styles = StyleSheet.create({
   imageStyle: {
     aspectRatio: 1,
-    height: "50%",
+    height: height * 0.3,
     alignSelf: "center",
     marginBottom: verticalScale(48),
   },
