@@ -15,7 +15,7 @@ import {
 } from "../style/metrics";
 import { COLORS, FONTS } from "../style/style";
 type buttonProps = {
-  variant: "Primary" | "Outline" | "Transparent";
+  variant: "Primary" | "Outline" | "Transparent" | "Warning";
   label: string;
   onPress?: (event: GestureResponderEvent) => void;
   onLongPress?: (event: GestureResponderEvent) => void;
@@ -47,13 +47,31 @@ const Button: React.FC<buttonProps> = ({
       alignItems: "center",
       display: hidden ? "none" : "flex",
     },
+    buttonContainerWarning: {
+      backgroundColor: COLORS.primaryRed,
+
+      width: width,
+      height: height,
+      borderRadius: moderateScale(16),
+      justifyContent: "center",
+      alignItems: "center",
+      display: hidden ? "none" : "flex",
+    },
     buttonTextStyle: {
       fontSize: scaleFont(14),
       fontFamily: FONTS.RC_Medium,
       color: COLORS.primaryBlue,
     },
+    warningButtonTextStyle: {
+      fontSize: scaleFont(14),
+      fontFamily: FONTS.RC_Medium,
+      color: COLORS.surface,
+    },
     pressFeedbackPrimary: {
       backgroundColor: COLORS.primaryYellow + "80",
+    },
+    pressFeedbackWaring: {
+      backgroundColor: COLORS.primaryRed + "80",
     },
     pressFeedbackOutline: {
       backgroundColor: COLORS.outlineButtonFeedbackColor,
@@ -95,6 +113,20 @@ const Button: React.FC<buttonProps> = ({
           {...rest}
         >
           <Text style={styles.buttonTextStyle}>{label}</Text>
+        </Pressable>
+      );
+    case "Warning":
+      return (
+        <Pressable
+          onPress={onPress}
+          onLongPress={onLongPress}
+          style={({ pressed }) => [
+            styles.buttonContainerWarning,
+            pressed ? styles.pressFeedbackWaring : {},
+          ]}
+          {...rest}
+        >
+          <Text style={styles.warningButtonTextStyle}>{label}</Text>
         </Pressable>
       );
     case "Outline":

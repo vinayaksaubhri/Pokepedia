@@ -21,6 +21,7 @@ export const COLORS = {
   modalBackdropColor: "rgba(40, 49, 65, 0.16)",
   typeBadgeBackground: "rgba(40, 49, 65, 0.2)",
   outlineButtonFeedbackColor: "#F8F8F8",
+  primaryRed: "rgba(255, 0, 0, 0.80)",
 };
 
 export const POKEMON_COLOR = {
