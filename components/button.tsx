@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  DimensionValue,
   GestureResponderEvent,
   Pressable,
   PressableProps,
@@ -19,8 +20,8 @@ type buttonProps = {
   label: string;
   onPress?: (event: GestureResponderEvent) => void;
   onLongPress?: (event: GestureResponderEvent) => void;
-  height?: number | string;
-  width?: number | string;
+  height?: DimensionValue | undefined;
+  width?: DimensionValue | undefined;
   showIcon?: boolean;
   hidden?: boolean;
 } & PressableProps;
@@ -39,7 +40,6 @@ const Button: React.FC<buttonProps> = ({
   const styles = StyleSheet.create({
     buttonContainerPrimary: {
       backgroundColor: COLORS.primaryYellow,
-
       width: width,
       height: height,
       borderRadius: moderateScale(16),
