@@ -4,6 +4,8 @@ import { LoadAssets } from "./components/loadAssets";
 import Navigation from "./navigation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { LogBox } from "react-native";
+
+import { SafeAreaProvider } from "react-native-safe-area-context";
 LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
@@ -21,9 +23,11 @@ export default function App() {
 
   return (
     <LoadAssets fonts={Fonts}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Navigation />
-      </GestureHandlerRootView>
+      <SafeAreaProvider>
+        <GestureHandlerRootView style={styles.container}>
+          <Navigation />
+        </GestureHandlerRootView>
+      </SafeAreaProvider>
     </LoadAssets>
   );
 }
@@ -31,8 +35,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
