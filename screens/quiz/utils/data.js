@@ -1,6 +1,6 @@
 import { list as pokemonList } from "./pokemonListQuiz";
 const min = 1;
-const max = 1273;
+const max = 1008;
 
 function getRandomPokemon() {
   const result = [];
