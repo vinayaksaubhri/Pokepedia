@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { moderateScale, verticalScale } from "../style/metrics";
 import { COLORS, width } from "../style/style";
 import TabIcon from "./tabIcon";
+import { useHaptic } from "../hooks/useHaptic";
 
 type BottomTabUiBarProps = BottomTabBarProps & {
   bottomTab: {
@@ -20,6 +21,8 @@ const BottomTabUI = ({
 
   ...props
 }: BottomTabUiBarProps) => {
+  const hapticSelection = useHaptic("light");
+
   const homeTabBarVisible =
     props.descriptors[state.routes[0].key].options?.tabBarVisible === undefined
       ? true
@@ -56,7 +59,10 @@ const BottomTabUI = ({
             key={item.id}
             label={item.name}
             isFocused={state.index === index}
-            onPress={() => navigation.navigate(item.name)}
+            onPress={() => {
+              hapticSelection();
+              navigation.navigate(item.name);
+            }}
           />
         );
       })}
