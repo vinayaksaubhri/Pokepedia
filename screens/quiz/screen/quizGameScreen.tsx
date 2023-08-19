@@ -12,8 +12,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { getRandomPokemon, selectCurrentPokemon } from "../utils/data";
 import { PokemonListType } from "../utils/pokemonListQuiz";
 import Confetti from "react-native-confetti";
+import { useHaptic } from "../../../hooks/useHaptic";
 
 const QuizGameScreen = ({ route, navigation }) => {
+  const hapticSuccess = useHaptic("success");
+  const hapticError = useHaptic("error");
   const { bottomNavigationSetOptions } = route?.params;
   const confettiRef = useRef(null);
   const [gameState, setGameState] = useState<"start" | "end">("start");
@@ -48,8 +51,10 @@ const QuizGameScreen = ({ route, navigation }) => {
     setAnswer({ name: pokemonName });
     if (pokemonName === currentPokemon?.name) {
       setAnswerState("correct");
+      hapticSuccess();
       confettiRef.current?.startConfetti();
     } else {
+      hapticError();
       setAnswerState("wrong");
     }
     setGameState("end");
@@ -101,6 +106,7 @@ const QuizGameScreen = ({ route, navigation }) => {
               label={pokemon?.name}
               onPress={() => checkAnswer(pokemon?.name)}
               disabled={answer?.name !== ""}
+              feedbackType="none"
             />
           ))}
           <Button
