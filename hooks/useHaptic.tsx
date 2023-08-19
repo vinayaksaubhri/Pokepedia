@@ -2,14 +2,15 @@ import { useCallback, useMemo } from "react";
 import { Platform } from "react-native";
 import * as Haptics from "expo-haptics";
 
-type FeedbackType =
+export type FeedbackType =
   | "light"
   | "medium"
   | "heavy"
   | "selection"
   | "success"
   | "warning"
-  | "error";
+  | "error"
+  | "none";
 
 export const useHaptic = (feedbackType: FeedbackType = "selection") => {
   const createHapticHandler = useCallback(
@@ -42,9 +43,10 @@ export const useHaptic = (feedbackType: FeedbackType = "selection") => {
         Haptics.NotificationFeedbackType.Warning
       ),
       error: createNotificationFeedback(Haptics.NotificationFeedbackType.Error),
+      none: () => {},
     }),
     [createHapticHandler, createNotificationFeedback]
   );
 
-  return hapticHandlers[feedbackType];
+  return hapticHandlers[feedbackType] || (() => {});
 };

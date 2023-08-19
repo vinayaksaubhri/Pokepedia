@@ -15,6 +15,7 @@ import {
   verticalScale,
 } from "../style/metrics";
 import { COLORS, FONTS } from "../style/style";
+import { FeedbackType, useHaptic } from "../hooks/useHaptic";
 type buttonProps = {
   variant: "Primary" | "Outline" | "Transparent" | "Warning";
   label: string;
@@ -24,6 +25,7 @@ type buttonProps = {
   width?: DimensionValue | undefined;
   showIcon?: boolean;
   hidden?: boolean;
+  feedbackType?: FeedbackType | "none";
 } & PressableProps;
 
 const Button: React.FC<buttonProps> = ({
@@ -35,8 +37,11 @@ const Button: React.FC<buttonProps> = ({
   width = horizontalScale(233),
   showIcon = false,
   hidden = false,
+  feedbackType = "light",
   ...rest
 }) => {
+  const hapticSelection = useHaptic(feedbackType);
+
   const styles = StyleSheet.create({
     buttonContainerPrimary: {
       backgroundColor: COLORS.primaryYellow,
@@ -100,12 +105,20 @@ const Button: React.FC<buttonProps> = ({
       display: hidden ? "none" : "flex",
     },
   });
+  const onLongPressButton = (event: GestureResponderEvent) => {
+    hapticSelection();
+    onLongPress(event);
+  };
+  const onPressButton = (event: GestureResponderEvent) => {
+    hapticSelection();
+    onPress(event);
+  };
   switch (variant) {
     case "Primary":
       return (
         <Pressable
-          onPress={onPress}
-          onLongPress={onLongPress}
+          onPress={onPressButton}
+          onLongPress={onLongPressButton}
           style={({ pressed }) => [
             styles.buttonContainerPrimary,
             pressed ? styles.pressFeedbackPrimary : {},
@@ -118,8 +131,8 @@ const Button: React.FC<buttonProps> = ({
     case "Warning":
       return (
         <Pressable
-          onPress={onPress}
-          onLongPress={onLongPress}
+          onPress={onPressButton}
+          onLongPress={onLongPressButton}
           style={({ pressed }) => [
             styles.buttonContainerWarning,
             pressed ? styles.pressFeedbackWaring : {},
@@ -132,8 +145,8 @@ const Button: React.FC<buttonProps> = ({
     case "Outline":
       return (
         <Pressable
-          onPress={onPress}
-          onLongPress={onLongPress}
+          onPress={onPressButton}
+          onLongPress={onLongPressButton}
           style={({ pressed }) => [
             styles.buttonContainerOutline,
             pressed ? styles.pressFeedbackOutline : {},
@@ -146,8 +159,8 @@ const Button: React.FC<buttonProps> = ({
     case "Transparent":
       return (
         <Pressable
-          onPress={onPress}
-          onLongPress={onLongPress}
+          onPress={onPressButton}
+          onLongPress={onLongPressButton}
           style={({ pressed }) => [
             styles.buttonContainerTransparent,
             pressed ? styles.pressFeedbackOutline : {},
@@ -161,8 +174,8 @@ const Button: React.FC<buttonProps> = ({
     default:
       return (
         <Pressable
-          onPress={onPress}
-          onLongPress={onLongPress}
+          onPress={onPressButton}
+          onLongPress={onLongPressButton}
           style={({ pressed }) => [
             styles.buttonContainerPrimary,
             pressed ? styles.pressFeedbackPrimary : {},
