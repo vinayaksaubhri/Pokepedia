@@ -42,6 +42,7 @@ const QuizGameScreen = ({ route, navigation }) => {
       confettiRef.current?.stopConfetti();
     }
     const randomPokemonList = getRandomPokemon();
+
     const selectedPokemon = selectCurrentPokemon(randomPokemonList);
     setPokemonList(randomPokemonList);
     setCurrentPokemon(selectedPokemon);
