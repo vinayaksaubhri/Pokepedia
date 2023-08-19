@@ -1,11 +1,14 @@
 import LottieView from "lottie-react-native";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { GestureResponderEvent, StyleSheet, Text, View } from "react-native";
 import { moderateScale, scaleFont, width } from "../style/metrics";
-import CustomSafeAreaView from "./customSafeAreaView";
 import { COLORS } from "../style/style";
 import Button from "./button";
+import CustomSafeAreaView from "./customSafeAreaView";
 
-const NoInternet = () => {
+type NoInternetProps = {
+  onPressReload?: (event: GestureResponderEvent) => void;
+};
+const NoInternet: React.FC<NoInternetProps> = ({ onPressReload }) => {
   return (
     <CustomSafeAreaView>
       <View
@@ -44,7 +47,7 @@ const NoInternet = () => {
         >
           Please turn on the internet to explore the Pokémon universe.
         </Text>
-        <Button label="Reload" />
+        <Button variant="Primary" label="Reload" onPress={onPressReload} />
       </View>
     </CustomSafeAreaView>
   );
