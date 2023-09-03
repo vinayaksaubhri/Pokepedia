@@ -7,7 +7,7 @@ type BlurScrollViewProps = ScrollViewProps & { blurHeight: number };
 
 const BlurScrollView: React.FC<BlurScrollViewProps> = ({
   children,
-  blurHeight,
+  blurHeight = 0,
   ...rest
 }) => {
   const styles = StyleSheet.create({
