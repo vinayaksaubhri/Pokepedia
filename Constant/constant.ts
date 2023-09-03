@@ -6,6 +6,9 @@ export const GenerationList = [
   "Generation II",
   "Generation III",
   "Generation IV",
+  "Generation V",
+  "Generation VI",
+  "Generation VII",
 ];
 export const TypeList: { label: string; iconType: PokemonTypes }[] = [
   { label: "Bug", iconType: "bug" },
