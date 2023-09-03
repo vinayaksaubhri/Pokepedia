@@ -1,11 +1,13 @@
 import { StyleSheet, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 import { COLORS } from "../../../style/style";
 import PokemonMoveCard from "./pokemonMoveCard";
+import { moderateScale } from "../../../style/metrics";
+import BlurScrollView from "../../../components/blurScrollView";
 
 const PokemonTabMovesComponent = () => {
   return (
-    <ScrollView
+    <BlurScrollView
+      blurHeight={24}
       bounces={false}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.scrollViewContainer}
@@ -18,7 +20,7 @@ const PokemonTabMovesComponent = () => {
         <PokemonMoveCard label="Cut" />
         <PokemonMoveCard label="Wind-attack" />
       </View>
-    </ScrollView>
+    </BlurScrollView>
   );
 };
 export default PokemonTabMovesComponent;
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
   },
   container: {
-    padding: 24,
+    padding: moderateScale(24),
     backgroundColor: COLORS.surface,
     flex: 1,
   },

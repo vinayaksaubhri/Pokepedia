@@ -1,19 +1,20 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { COLORS, FONTS } from "../../../style/style";
+import { StyleSheet, Text, View } from "react-native";
+import BlurScrollView from "../../../components/blurScrollView";
+import { ChipIcon } from "../../../components/chip";
 import {
-  height,
   horizontalScale,
   moderateScale,
   scaleFont,
   verticalScale,
 } from "../../../style/metrics";
-import { ChipIcon } from "../../../components/chip";
+import { COLORS, FONTS } from "../../../style/style";
 const PokemonTabAboutComponent = () => {
   return (
-    <ScrollView
+    <BlurScrollView
       bounces={false}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.scrollViewContainer}
+      blurHeight={24}
     >
       <View style={styles.container}>
         <Text style={styles.pokemonDescriptionText}>
@@ -54,7 +55,7 @@ const PokemonTabAboutComponent = () => {
           </View>
         </View>
       </View>
-    </ScrollView>
+    </BlurScrollView>
   );
 };
 export default PokemonTabAboutComponent;
