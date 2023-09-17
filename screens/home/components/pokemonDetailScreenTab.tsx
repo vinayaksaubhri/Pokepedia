@@ -13,7 +13,32 @@ const Tab = createMaterialTopTabNavigator();
 const TAB_BAR_WIDTH = width / 4;
 const TAB_BAR_INDICATOR_WIDTH = width * 0.04;
 
-export const PokemonDetailScreenTab = ({
+type PokemonDetailScreenTabProps = {
+  pokemonWeight: number;
+  pokemonHeight: number;
+  pokemonDescription: string[];
+  pokemonCategories: {
+    pokemonCategory: {
+      name: string;
+      badgeType: string;
+    };
+  }[];
+  pokemonAbilities: {
+    pokemonAbility: {
+      name: string;
+    };
+  }[];
+  pokemonStats: {
+    attack: number;
+    defense: number;
+    hp: number;
+    specialAttack: number;
+    specialDefense: number;
+    speed: number;
+  };
+};
+
+export const PokemonDetailScreenTab: React.FC<PokemonDetailScreenTabProps> = ({
   pokemonStats,
   pokemonWeight,
   pokemonHeight,

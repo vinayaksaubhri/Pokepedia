@@ -18,12 +18,8 @@ import { PokemonDetailScreenTab } from "../components/pokemonDetailScreenTab";
 
 const PokemonDetailScreens = ({ navigation, route }) => {
   const { bottomNavigationSetOptions, pokemonIndex } = route?.params;
-  const {
-    data: pokemonDetail,
-    // error,
-    isLoading: isPokemonDetailsLoading,
-    // refetch: pokemonDetailsRefetch,
-  } = useGetPokemon(pokemonIndex);
+  const { data: pokemonDetail, isLoading: isPokemonDetailsLoading } =
+    useGetPokemon(pokemonIndex);
 
   if (isPokemonDetailsLoading) {
     return <LoadingIndicator />;
