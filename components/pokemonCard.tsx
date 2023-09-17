@@ -1,10 +1,12 @@
 import {
   GestureResponderEvent,
+  Image,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from "react-native";
+import PokeballIcon from "../assets/svg/pokeball_icon";
 import {
   horizontalScale,
   moderateScale,
@@ -13,10 +15,9 @@ import {
   width,
 } from "../style/metrics";
 import { COLORS, FONTS, POKEMON_COLOR } from "../style/style";
-import PokeballIcon from "../assets/svg/pokeball_icon";
-import TypeBadge from "./typeBadge";
-import Bulbasaur from "../assets/pokemon/bulbasaur";
 import { PokemonTypes } from "../types/pokemonTypes";
+import TypeBadge from "./typeBadge";
+import { list as pokemonImageList } from "../assets/pokemonImageData";
 
 type propsType = {
   badgeArray?: Array<{ badgeType: PokemonTypes; name: string }>;
@@ -24,6 +25,7 @@ type propsType = {
   pokeNumber?: string;
   pokeCardType?: PokemonTypes;
   onPress?: (event: GestureResponderEvent) => void;
+  pokemonImageIndex: number;
 };
 
 const PokemonCard: React.FC<propsType> = ({
@@ -34,6 +36,7 @@ const PokemonCard: React.FC<propsType> = ({
   pokeLabel = "Label",
   pokeNumber = "#000",
   pokeCardType = "grass",
+  pokemonImageIndex = 0,
   onPress = () => {},
 }) => {
   function pokeCardColor(pokeCardType: PokemonTypes) {
@@ -105,7 +108,15 @@ const PokemonCard: React.FC<propsType> = ({
     badgeContainer: {
       gap: 6,
     },
-    pokeballContainer: { right: -10, bottom: -20, position: "absolute" },
+    pokeballContainer: {
+      right: -10,
+      bottom: -20,
+      position: "absolute",
+    },
+    imageStyle: {
+      aspectRatio: 1,
+      width: horizontalScale(60),
+    },
   });
   return (
     <Pressable style={styles.container} onPress={onPress}>
@@ -119,7 +130,10 @@ const PokemonCard: React.FC<propsType> = ({
             <TypeBadge badgeType={badgeType} label={name} key={index} />
           ))}
         </View>
-        <Bulbasaur width={verticalScale(74)} height={horizontalScale(74)} />
+        <Image
+          source={pokemonImageList[pokemonImageIndex - 1]?.source}
+          style={styles.imageStyle}
+        />
       </View>
 
       <View style={styles.pokeballContainer}>

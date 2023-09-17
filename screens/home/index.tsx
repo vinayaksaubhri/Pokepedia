@@ -1,9 +1,14 @@
 import BottomSheet from "@gorhom/bottom-sheet";
 import { useRef } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
+import Chip from "../../components/chip";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
 import FilterModal from "../../components/filterModal";
+import PokemonCard from "../../components/pokemonCard";
 import SearchBar from "../../components/searchBar";
+import ROUTES from "../../constant/routes";
+import { useGetAllPokemon } from "../../graphql/useGetAllPokemon";
 import {
   horizontalScale,
   moderateScale,
@@ -11,12 +16,6 @@ import {
   verticalScale,
 } from "../../style/metrics";
 import { COLORS, FONTS } from "../../style/style";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
-import Chip from "../../components/chip";
-import PokemonCard from "../../components/pokemonCard";
-import { pokemonData } from "../../constant/constant";
-import ROUTES from "../../constant/routes";
-import { useGetAllPokemon } from "../../graphql/useGetAllPokemon";
 import { getPokeNumberFromPokemonIndex } from "../../utils/utils";
 
 const Home = ({ navigation, route }) => {
@@ -101,6 +100,7 @@ const Home = ({ navigation, route }) => {
                 pokeCardType={pokemonCategory[0]?.badgeType}
                 onPress={onPressCard}
                 key={item?.id}
+                pokemonImageIndex={pokemonIndex}
               />
             );
           }}
