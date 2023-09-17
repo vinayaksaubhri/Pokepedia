@@ -76,6 +76,8 @@ const PokemonDetailScreens = ({ navigation, route }) => {
           pokemonCategories={pokemonCategories}
           pokemonAbilities={pokemonAbilities}
           pokemonDescription={pokemonDescription.description}
+          pokemonMoves={pokemonMoves}
+          pokemonEvolutions={pokemonEvolutions}
         />
       </View>
     </CustomSafeAreaView>

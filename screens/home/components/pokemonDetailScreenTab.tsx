@@ -36,6 +36,31 @@ type PokemonDetailScreenTabProps = {
     specialDefense: number;
     speed: number;
   };
+  pokemonMoves: {
+    pokemonMove: {
+      id: string;
+      name: string;
+    };
+  }[];
+  pokemonEvolutions: {
+    pokemonEvolution: {
+      chainData: {
+        evolutionLevel: number | null;
+        evolvesFrom: boolean;
+        name: string;
+        pokemonId: string;
+        pokemonIndex: number;
+        pokemonType: {
+          badgeType: string;
+          id: string;
+          name: string;
+        }[];
+        trigger: string | null;
+        triggerItem: any | null; // Replace 'any' with the actual type
+      }[];
+      id: string;
+    };
+  }[];
 };
 
 export const PokemonDetailScreenTab: React.FC<PokemonDetailScreenTabProps> = ({
@@ -45,7 +70,13 @@ export const PokemonDetailScreenTab: React.FC<PokemonDetailScreenTabProps> = ({
   pokemonDescription,
   pokemonCategories,
   pokemonAbilities,
+  pokemonMoves,
+  pokemonEvolutions,
 }) => {
+  console.log(
+    "🚀 ~ file: pokemonDetailScreenTab.tsx:51 ~ pokemonMoves:",
+    pokemonEvolutions
+  );
   return (
     <Tab.Navigator
       initialLayout={{
@@ -78,8 +109,16 @@ export const PokemonDetailScreenTab: React.FC<PokemonDetailScreenTabProps> = ({
         component={PokemonTabStatsComponent}
         initialParams={{ pokemonStats }}
       />
-      <Tab.Screen name="Moves" component={PokemonTabMovesComponent} />
-      <Tab.Screen name="Evolution" component={PokemonTabEvolutionComponent} />
+      <Tab.Screen
+        name="Moves"
+        component={PokemonTabMovesComponent}
+        initialParams={{ pokemonMoves }}
+      />
+      <Tab.Screen
+        name="Evolution"
+        component={PokemonTabEvolutionComponent}
+        initialParams={{ pokemonEvolutions }}
+      />
     </Tab.Navigator>
   );
 };
