@@ -18,6 +18,7 @@ import { COLORS, FONTS, POKEMON_COLOR } from "../style/style";
 import { PokemonTypes } from "../types/pokemonTypes";
 import TypeBadge from "./typeBadge";
 import { list as pokemonImageList } from "../assets/pokemonImageData";
+import { pokeCardColor } from "../utils/utils";
 
 type propsType = {
   badgeArray?: Array<{ badgeType: PokemonTypes; name: string }>;
@@ -39,48 +40,6 @@ const PokemonCard: React.FC<propsType> = ({
   pokemonImageIndex = 0,
   onPress = () => {},
 }) => {
-  function pokeCardColor(pokeCardType: PokemonTypes) {
-    switch (pokeCardType) {
-      case "grass":
-        return POKEMON_COLOR.grass;
-      case "poison":
-        return POKEMON_COLOR.poison;
-      case "fire":
-        return POKEMON_COLOR.fire;
-      case "water":
-        return POKEMON_COLOR.water;
-      case "bug":
-        return POKEMON_COLOR.bug;
-      case "normal":
-        return POKEMON_COLOR.normal;
-      case "electric":
-        return POKEMON_COLOR.electric;
-      case "ground":
-        return POKEMON_COLOR.ground;
-      case "fairy":
-        return POKEMON_COLOR.fairy;
-      case "fighting":
-        return POKEMON_COLOR.fighting;
-      case "psychic":
-        return POKEMON_COLOR.psychic;
-      case "rock":
-        return POKEMON_COLOR.rock;
-      case "steel":
-        return POKEMON_COLOR.steel;
-      case "ice":
-        return POKEMON_COLOR.ice;
-      case "ghost":
-        return POKEMON_COLOR.ghost;
-      case "dragon":
-        return POKEMON_COLOR.dragon;
-      case "dark":
-        return POKEMON_COLOR.dark;
-      case "flying":
-        return POKEMON_COLOR.flying;
-      default:
-        return POKEMON_COLOR.grass;
-    }
-  }
   const styles = StyleSheet.create({
     container: {
       width: width * 0.42,

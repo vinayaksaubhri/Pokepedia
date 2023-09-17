@@ -13,7 +13,14 @@ const Tab = createMaterialTopTabNavigator();
 const TAB_BAR_WIDTH = width / 4;
 const TAB_BAR_INDICATOR_WIDTH = width * 0.04;
 
-export const PokemonDetailScreenTab = () => {
+export const PokemonDetailScreenTab = ({
+  pokemonStats,
+  pokemonWeight,
+  pokemonHeight,
+  pokemonDescription,
+  pokemonCategories,
+  pokemonAbilities,
+}) => {
   return (
     <Tab.Navigator
       initialLayout={{
@@ -30,7 +37,17 @@ export const PokemonDetailScreenTab = () => {
         tabBarLabelStyle: styles.tabBarLabelStyle,
       }}
     >
-      <Tab.Screen name="About" component={PokemonTabAboutComponent} />
+      <Tab.Screen
+        name="About"
+        component={PokemonTabAboutComponent}
+        initialParams={{
+          pokemonWeight,
+          pokemonCategories,
+          pokemonHeight,
+          pokemonDescription,
+          pokemonAbilities,
+        }}
+      />
       <Tab.Screen name="Stats" component={PokemonTabStatsComponent} />
       <Tab.Screen name="Moves" component={PokemonTabMovesComponent} />
       <Tab.Screen name="Evolution" component={PokemonTabEvolutionComponent} />

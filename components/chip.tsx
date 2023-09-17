@@ -109,6 +109,6 @@ export function ChipIcon({
     case "rock":
       return <RockIcon width={width} height={height} scale={scale} />;
     default:
-      return <></>;
+      return <NormalIcon width={width} height={height} scale={scale} />;
   }
 }

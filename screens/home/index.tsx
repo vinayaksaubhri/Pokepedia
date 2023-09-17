@@ -39,10 +39,11 @@ const Home = ({ navigation, route }) => {
 
   const bottomSheetRef = useRef<BottomSheet>(null);
   let showSelectedFilter = false;
-  const onPressCard = () => {
+  const onPressCard = (pokemonIndex: number) => {
     bottomNavigationSetOptions({ tabBarVisible: false });
     navigation.navigate(ROUTES.POKEMON_DETAIL_SCREEN, {
       bottomNavigationSetOptions,
+      pokemonIndex,
     });
   };
 
@@ -117,7 +118,7 @@ const Home = ({ navigation, route }) => {
                   pokeNumber={getPokeNumberFromPokemonIndex(pokemonIndex)}
                   badgeArray={pokemonCategory}
                   pokeCardType={pokemonCategory[0]?.badgeType}
-                  onPress={onPressCard}
+                  onPress={() => onPressCard(pokemonIndex)}
                   key={item?.id}
                   pokemonImageIndex={pokemonIndex}
                 />

@@ -1,40 +1,86 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { Image, StyleSheet, Text, View } from "react-native";
-import CustomSafeAreaView from "../../../components/customSafeAreaView";
-import TopAppBar from "../../../components/topAppBar";
-import { COLORS, FONTS, POKEMON_COLOR } from "../../../style/style";
-// import Charizard from "../../../assets/pokemon/charizard";
 import CharizardImage from "../../../assets/pokemon/6.png";
-import { height, scaleFont } from "../../../style/metrics";
+import CustomSafeAreaView from "../../../components/customSafeAreaView";
+import LoadingIndicator from "../../../components/loadingIndicator";
+import TopAppBar from "../../../components/topAppBar";
+import { useGetPokemon } from "../../../graphql/useGetPokemon";
+import { height, scaleFont, width } from "../../../style/metrics";
+import { COLORS, FONTS } from "../../../style/style";
+import { PokemonTypes } from "../../../types/pokemonTypes";
+import {
+  capitalizeFirstLetter,
+  getPokeNumberFromPokemonIndex,
+  pokeCardColor,
+} from "../../../utils/utils";
+import { list as pokemonImageList } from "../../../assets/pokemonImageData";
 import { PokemonDetailScreenTab } from "../components/pokemonDetailScreenTab";
 
 const PokemonDetailScreens = ({ navigation, route }) => {
-  const { bottomNavigationSetOptions } = route?.params;
+  const { bottomNavigationSetOptions, pokemonIndex } = route?.params;
+  const {
+    data: pokemonDetail,
+    // error,
+    isLoading: isPokemonDetailsLoading,
+    // refetch: pokemonDetailsRefetch,
+  } = useGetPokemon(pokemonIndex);
+
+  if (isPokemonDetailsLoading) {
+    return <LoadingIndicator />;
+  }
+  const {
+    weight: pokemonWeight,
+    stats: pokemonStats,
+    pokemonDetails_pokemonMoves: pokemonMoves,
+    pokemonDetails_pokemonCategories: pokemonCategories,
+    pokemonDetails_pokemonAbilities: pokemonAbilities,
+    name: pokemonName,
+    height: pokemonHeight,
+    description: pokemonDescription,
+    pokemonDetails_pokemonEvolutions: pokemonEvolutions,
+  } = pokemonDetail!;
+
+  const pokemonColor = pokeCardColor(
+    pokemonCategories[0]?.pokemonCategory?.badgeType as PokemonTypes
+  );
+
+  const pokemonImageSource = pokemonImageList[pokemonIndex - 1]?.source;
+
   return (
-    <CustomSafeAreaView backgroundColor={POKEMON_COLOR.fire}>
+    <CustomSafeAreaView backgroundColor={pokemonColor}>
       <View style={styles.container}>
         <LinearGradient
-          colors={[POKEMON_COLOR.fire, "#fff"]}
+          colors={[pokemonColor, "#fff"]}
           style={styles.linearGradient}
         >
           <View style={styles.imageHeaderContainer}>
             <TopAppBar
-              label="#006"
+              label={getPokeNumberFromPokemonIndex(pokemonIndex)}
               navigation={navigation}
               onPressBackButton={() => {
                 bottomNavigationSetOptions({ tabBarVisible: true });
                 navigation.goBack();
               }}
             />
-            <Image source={CharizardImage} style={styles.imageStyle} />
+            <Image source={pokemonImageSource} style={styles.imageStyle} />
             <View style={styles.HeadingSubHeadingContainer}>
-              <Text style={styles.headingTextStyle}>Charizard</Text>
-              <Text style={styles.subHeadingTextStyle}>Flame Pokémon</Text>
+              <Text style={styles.headingTextStyle}>
+                {capitalizeFirstLetter(pokemonName)}
+              </Text>
+              <Text
+                style={styles.subHeadingTextStyle}
+              >{`${pokemonCategories[0].pokemonCategory.name} Pokémon`}</Text>
             </View>
           </View>
         </LinearGradient>
-
-        <PokemonDetailScreenTab />
+        <PokemonDetailScreenTab
+          pokemonWeight={pokemonWeight}
+          pokemonStats={pokemonStats}
+          pokemonHeight={pokemonHeight}
+          pokemonCategories={pokemonCategories}
+          pokemonAbilities={pokemonAbilities}
+          pokemonDescription={pokemonDescription.description}
+        />
       </View>
     </CustomSafeAreaView>
   );
@@ -56,7 +102,8 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     aspectRatio: 1,
-    height: "60%",
+    height: "65%",
+    transform: [{ scale: 1.3 }],
   },
   HeadingSubHeadingContainer: {
     justifyContent: "center",

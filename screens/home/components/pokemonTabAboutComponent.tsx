@@ -8,7 +8,21 @@ import {
   verticalScale,
 } from "../../../style/metrics";
 import { COLORS, FONTS } from "../../../style/style";
-const PokemonTabAboutComponent = () => {
+import { capitalizeFirstLetter } from "../../../utils/utils";
+const PokemonTabAboutComponent = ({ route, navigation }) => {
+  const {
+    pokemonWeight,
+    pokemonHeight,
+    pokemonDescription,
+    pokemonCategories,
+    pokemonAbilities,
+  } = route?.params;
+  const abilityName = pokemonAbilities[0]?.pokemonAbility?.name;
+  console.log(
+    "🚀 ~ file: pokemonTabAboutComponent.tsx:18 ~ PokemonTabAboutComponent ~ pokemonCategories:",
+    pokemonAbilities[0]
+  );
+
   return (
     <BlurScrollView
       bounces={false}
@@ -18,8 +32,11 @@ const PokemonTabAboutComponent = () => {
     >
       <View style={styles.container}>
         <Text style={styles.pokemonDescriptionText}>
-          Thanks to its powerful wings it can fly up to 1,400 m high. The flames
-          it spits can reach extremely high temperatures.
+          {pokemonDescription[0] +
+            "\n" +
+            pokemonDescription[1] +
+            "\n" +
+            pokemonDescription[2]}
         </Text>
         <View
           style={{
@@ -30,26 +47,34 @@ const PokemonTabAboutComponent = () => {
         >
           <View style={styles.pokemonInfoContainer}>
             <View style={styles.pokemonHeightWeightContainer}>
-              <Text style={styles.primaryText}>90.5 kg</Text>
+              <Text style={styles.primaryText}>{`${pokemonWeight} kg`}</Text>
               <Text style={styles.secondaryText}>Weight</Text>
             </View>
             <View style={styles.infoDivider} />
             <View style={styles.pokemonHeightWeightContainer}>
-              <Text style={styles.primaryText}>1.7 m</Text>
+              <Text style={styles.primaryText}>{`${pokemonHeight} m`}</Text>
               <Text style={styles.secondaryText}>Height</Text>
             </View>
           </View>
           <View style={styles.pokemonInfoContainer}>
             <View style={styles.pokemonHeightWeightContainer}>
               <View style={{ flexDirection: "row", gap: 8 }}>
-                <ChipIcon iconType="fire" size="md" />
-                <ChipIcon iconType="flying" size="md" />
+                <ChipIcon
+                  iconType={pokemonCategories[0]?.pokemonCategory?.badgeType}
+                  size="md"
+                />
+                <ChipIcon
+                  iconType={pokemonCategories[1]?.pokemonCategory?.badgeType}
+                  size="md"
+                />
               </View>
               <Text style={styles.secondaryText}>Category</Text>
             </View>
             <View style={styles.infoDivider} />
             <View style={styles.pokemonHeightWeightContainer}>
-              <Text style={styles.primaryText}>Solar-Power</Text>
+              <Text style={styles.primaryText}>
+                {capitalizeFirstLetter(abilityName)}
+              </Text>
               <Text style={styles.secondaryText}>Ability</Text>
             </View>
           </View>
