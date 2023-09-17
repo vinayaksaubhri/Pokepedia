@@ -22,11 +22,23 @@ export const FONT_OBJECT = {
 export function getPokeNumberFromPokemonIndex(pokemonIndex: number) {
   return "#" + pokemonIndex?.toString()?.padStart(3, "0");
 }
-export function capitalizeFirstLetter(word: string): string {
-  if (!word) {
+export function capitalizeFirstLetter(inputString: string): string {
+  if (!inputString) {
     return "";
   }
-  return word.charAt(0).toUpperCase() + word.slice(1);
+  const words = inputString.split(" ");
+  const capitalizedWords = words.map((word) => {
+    if (word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    } else {
+      return "";
+    }
+  });
+  return capitalizedWords.join(" ");
+}
+export function removeHyphen(inputString: string): string {
+  // Use the replace method with a regular expression to remove hyphens
+  return inputString.replace(/-/g, " ");
 }
 export function pokeCardColor(pokeCardType: PokemonTypes) {
   switch (pokeCardType) {

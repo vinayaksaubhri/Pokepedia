@@ -73,10 +73,6 @@ export const PokemonDetailScreenTab: React.FC<PokemonDetailScreenTabProps> = ({
   pokemonMoves,
   pokemonEvolutions,
 }) => {
-  console.log(
-    "🚀 ~ file: pokemonDetailScreenTab.tsx:51 ~ pokemonMoves:",
-    pokemonEvolutions
-  );
   return (
     <Tab.Navigator
       initialLayout={{

@@ -3,8 +3,11 @@ import { COLORS } from "../../../style/style";
 import PokemonMoveCard from "./pokemonMoveCard";
 import { moderateScale } from "../../../style/metrics";
 import BlurScrollView from "../../../components/blurScrollView";
+import { capitalizeFirstLetter, removeHyphen } from "../../../utils/utils";
 
-const PokemonTabMovesComponent = () => {
+const PokemonTabMovesComponent = ({ route, navigation }) => {
+  const { pokemonMoves } = route?.params;
+
   return (
     <BlurScrollView
       blurHeight={24}
@@ -13,12 +16,15 @@ const PokemonTabMovesComponent = () => {
       contentContainerStyle={styles.scrollViewContainer}
     >
       <View style={styles.container}>
-        <PokemonMoveCard label="Mega-punch" paddingTop={false} />
-        <PokemonMoveCard label="Thunder-punch" />
-        <PokemonMoveCard label="Scratch" />
-        <PokemonMoveCard label="Sword-dance" />
-        <PokemonMoveCard label="Cut" />
-        <PokemonMoveCard label="Wind-attack" />
+        {pokemonMoves.map((pokemonMove, index) => (
+          <PokemonMoveCard
+            key={pokemonMove?.pokemonMove?.id}
+            label={capitalizeFirstLetter(
+              removeHyphen(pokemonMove?.pokemonMove?.name)
+            )}
+            paddingTop={index !== 0}
+          />
+        ))}
       </View>
     </BlurScrollView>
   );
