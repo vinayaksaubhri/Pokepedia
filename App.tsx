@@ -9,7 +9,13 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 3,
+    },
+  },
+});
 export default function App() {
   useAppState(onAppStateChange);
   return (
