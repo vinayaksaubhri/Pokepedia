@@ -1,6 +1,6 @@
 import BottomSheet from "@gorhom/bottom-sheet";
 import { useRef } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { RefreshControl, StyleSheet, Text, View } from "react-native";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Chip from "../../components/chip";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
@@ -17,17 +17,25 @@ import {
 } from "../../style/metrics";
 import { COLORS, FONTS } from "../../style/style";
 import { getPokeNumberFromPokemonIndex } from "../../utils/utils";
+import LoadingIndicator from "../../components/loadingIndicator";
+import { useRefreshByUser } from "../../hooks/useRefreshByUser";
+import { useRefreshOnFocus } from "../../hooks/useRefreshOnFoucs";
 
 const Home = ({ navigation, route }) => {
   const { bottomNavigationSetOptions } = route?.params;
-  const { data } = useGetAllPokemon({
+  const {
+    data: pokemonDetails,
+    error,
+    isLoading: isPokemonDetailsLoading,
+    refetch: pokemonDetailsRefetch,
+  } = useGetAllPokemon({
     limit: 10,
   });
-  const pokemonDetails = data;
-  console.log(
-    "🚀 ~ file: index.tsx:28 ~ Home ~ pokemonDetails:",
-    pokemonDetails
+  const { isRefetchingByUser, refetchByUser } = useRefreshByUser(
+    pokemonDetailsRefetch
   );
+
+  useRefreshOnFocus(pokemonDetailsRefetch);
 
   const bottomSheetRef = useRef<BottomSheet>(null);
   let showSelectedFilter = false;
@@ -37,6 +45,7 @@ const Home = ({ navigation, route }) => {
       bottomNavigationSetOptions,
     });
   };
+
   return (
     <CustomSafeAreaView>
       <View style={styles.container}>
@@ -76,35 +85,46 @@ const Home = ({ navigation, route }) => {
             <Chip label="1.7 m" showCrossIcon />
           </ScrollView>
         )}
-        <FlatList
-          data={pokemonDetails}
-          showsVerticalScrollIndicator={false}
-          style={styles.flatListStyle}
-          contentContainerStyle={styles.contentContainerStyle}
-          numColumns={2}
-          columnWrapperStyle={styles.columnWrapperStyle}
-          renderItem={({ item, index }) => {
-            const pokemonLabel = item?.name;
-            const pokemonCategory = item?.pokemonDetails_pokemonCategories?.map(
-              ({ pokemonCategory }) => ({
-                badgeType: pokemonCategory?.badgeType,
-                name: pokemonCategory?.name,
-              })
-            );
-            const pokemonIndex = item?.pokemonIndex;
-            return (
-              <PokemonCard
-                pokeLabel={pokemonLabel}
-                pokeNumber={getPokeNumberFromPokemonIndex(pokemonIndex)}
-                badgeArray={pokemonCategory}
-                pokeCardType={pokemonCategory[0]?.badgeType}
-                onPress={onPressCard}
-                key={item?.id}
-                pokemonImageIndex={pokemonIndex}
+        {isPokemonDetailsLoading ? (
+          <LoadingIndicator />
+        ) : (
+          <FlatList
+            data={pokemonDetails}
+            refreshControl={
+              <RefreshControl
+                onRefresh={refetchByUser}
+                refreshing={isRefetchingByUser}
               />
-            );
-          }}
-        />
+            }
+            showsVerticalScrollIndicator={false}
+            style={styles.flatListStyle}
+            contentContainerStyle={styles.contentContainerStyle}
+            numColumns={2}
+            columnWrapperStyle={styles.columnWrapperStyle}
+            renderItem={({ item, index }) => {
+              const pokemonLabel = item?.name;
+              const pokemonCategory =
+                item?.pokemonDetails_pokemonCategories?.map(
+                  ({ pokemonCategory }) => ({
+                    badgeType: pokemonCategory?.badgeType,
+                    name: pokemonCategory?.name,
+                  })
+                );
+              const pokemonIndex = item?.pokemonIndex;
+              return (
+                <PokemonCard
+                  pokeLabel={pokemonLabel}
+                  pokeNumber={getPokeNumberFromPokemonIndex(pokemonIndex)}
+                  badgeArray={pokemonCategory}
+                  pokeCardType={pokemonCategory[0]?.badgeType}
+                  onPress={onPressCard}
+                  key={item?.id}
+                  pokemonImageIndex={pokemonIndex}
+                />
+              );
+            }}
+          />
+        )}
       </View>
       <FilterModal
         bottomSheetRef={bottomSheetRef}
