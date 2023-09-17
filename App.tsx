@@ -1,28 +1,17 @@
-import { StyleSheet } from "react-native";
-import "react-native-gesture-handler";
+import { LogBox, StyleSheet } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { LoadAssets } from "./components/loadAssets";
 import Navigation from "./navigation";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { LogBox } from "react-native";
-
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { useAppState } from "./hooks/useAppState";
+import { FONT_OBJECT, onAppStateChange } from "./utils/utils";
 LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 export default function App() {
-  const Fonts = {
-    "RobotoCondense-Bold": require("./assets/fonts/RobotoCondensed-Bold.ttf"),
-    "RobotoCondense-Light": require("./assets/fonts/RobotoCondensed-Light.ttf"),
-    "RobotoCondense-Regular": require("./assets/fonts/RobotoCondensed-Regular.ttf"),
-    "RobotoCondense-Medium": require("./assets/fonts/roboto-condensed-medium.ttf"),
-    "Roboto-Thin": require("./assets/fonts/Roboto-Thin.ttf"),
-    "Roboto-Black": require("./assets/fonts/Roboto-Black.ttf"),
-    "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
-    "Roboto-Light": require("./assets/fonts/Roboto-Light.ttf"),
-  };
-
+  useAppState(onAppStateChange);
   return (
-    <LoadAssets fonts={Fonts}>
+    <LoadAssets fonts={FONT_OBJECT}>
       <SafeAreaProvider>
         <GestureHandlerRootView style={styles.container}>
           <Navigation />

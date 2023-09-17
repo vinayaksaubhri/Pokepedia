@@ -1,6 +1,7 @@
 import NetInfo from "@react-native-community/netinfo";
 import { useEffect, useState } from "react";
 import { GestureResponderEvent } from "react-native";
+import { onlineManager } from "react-query";
 
 const useNetworkInfo = () => {
   const [isOnline, setIsOnline] = useState(true);
@@ -8,6 +9,7 @@ const useNetworkInfo = () => {
     const unsubscribe = NetInfo.addEventListener((state) => {
       const online = state.isConnected && state.isInternetReachable;
       if (online === null) return;
+      onlineManager.setOnline(online);
       setIsOnline(online);
     });
 
