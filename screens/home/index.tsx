@@ -24,7 +24,11 @@ const Home = ({ navigation, route }) => {
   const { data } = useGetAllPokemon({
     limit: 10,
   });
-  const pokemonDetails = data?.pokemonDetails;
+  const pokemonDetails = data;
+  console.log(
+    "🚀 ~ file: index.tsx:28 ~ Home ~ pokemonDetails:",
+    pokemonDetails
+  );
 
   const bottomSheetRef = useRef<BottomSheet>(null);
   let showSelectedFilter = false;

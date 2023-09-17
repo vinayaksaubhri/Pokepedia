@@ -1,6 +1,7 @@
 import request, { gql } from "graphql-request";
 import { useQuery } from "react-query";
 import client from "./config";
+import { PokemonTypes } from "../types/pokemonTypes";
 
 const query = gql`
   query getAllPokemon($limit: Int = 10) {
@@ -17,22 +18,25 @@ const query = gql`
     }
   }
 `;
-
-export function useGetAllPokemon(variable) {
+type PokemonList = {
+  id: string;
+  name: string;
+  pokemonIndex: number;
+  pokemonDetails_pokemonCategories: {
+    pokemonCategory: {
+      badgeType: PokemonTypes;
+      name: string;
+    };
+  }[];
+}[];
+export function useGetAllPokemon(variable: { limit: number }) {
   const { limit } = variable;
 
-  return useQuery("getAllPokemon", async () => {
-    try {
-      const data = await client.request(query, {
-        limit: limit,
-      });
+  return useQuery<PokemonList, unknown>("getAllPokemon", async () => {
+    const data: any = await client.request(query, {
+      limit: limit,
+    });
 
-      return data;
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: useGetAllPokemon.ts:31 ~ returnuseQuery ~ error:",
-        error
-      );
-    }
+    return data.pokemonDetails;
   });
 }
