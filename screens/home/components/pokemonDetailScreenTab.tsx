@@ -73,7 +73,11 @@ export const PokemonDetailScreenTab: React.FC<PokemonDetailScreenTabProps> = ({
           pokemonAbilities,
         }}
       />
-      <Tab.Screen name="Stats" component={PokemonTabStatsComponent} />
+      <Tab.Screen
+        name="Stats"
+        component={PokemonTabStatsComponent}
+        initialParams={{ pokemonStats }}
+      />
       <Tab.Screen name="Moves" component={PokemonTabMovesComponent} />
       <Tab.Screen name="Evolution" component={PokemonTabEvolutionComponent} />
     </Tab.Navigator>

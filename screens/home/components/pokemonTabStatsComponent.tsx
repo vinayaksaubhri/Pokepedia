@@ -2,15 +2,19 @@ import { StyleSheet, View } from "react-native";
 import StatsBar from "../../../components/statsBar";
 import { COLORS } from "../../../style/style";
 import { moderateScale, verticalScale } from "../../../style/metrics";
-const PokemonTabStatsComponent = () => {
+const PokemonTabStatsComponent = ({ route, navigation }) => {
+  const { pokemonStats } = route.params;
+  const { attack, defense, hp, specialAttack, specialDefense, speed } =
+    pokemonStats;
+
   return (
     <View style={styles.container}>
-      <StatsBar value={78} statsTitle="HP" />
-      <StatsBar value={84} statsTitle="Attack" />
-      <StatsBar value={78} statsTitle="Defense" />
-      <StatsBar value={109} statsTitle="Sp. Atk" />
-      <StatsBar value={85} statsTitle="Sp. Def" />
-      <StatsBar value={100} statsTitle="Speed" />
+      <StatsBar value={hp} statsTitle="HP" />
+      <StatsBar value={attack} statsTitle="Attack" />
+      <StatsBar value={defense} statsTitle="Defense" />
+      <StatsBar value={specialAttack} statsTitle="Sp. Atk" />
+      <StatsBar value={specialDefense} statsTitle="Sp. Def" />
+      <StatsBar value={speed} statsTitle="Speed" />
     </View>
   );
 };

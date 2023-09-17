@@ -18,10 +18,6 @@ const PokemonTabAboutComponent = ({ route, navigation }) => {
     pokemonAbilities,
   } = route?.params;
   const abilityName = pokemonAbilities[0]?.pokemonAbility?.name;
-  console.log(
-    "🚀 ~ file: pokemonTabAboutComponent.tsx:18 ~ PokemonTabAboutComponent ~ pokemonCategories:",
-    pokemonAbilities[0]
-  );
 
   return (
     <BlurScrollView
