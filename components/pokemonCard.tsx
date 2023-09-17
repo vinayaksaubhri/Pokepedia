@@ -19,7 +19,7 @@ import Bulbasaur from "../assets/pokemon/bulbasaur";
 import { PokemonTypes } from "../types/pokemonTypes";
 
 type propsType = {
-  badgeArray?: Array<{ badgeType: string; label: string }>;
+  badgeArray?: Array<{ badgeType: PokemonTypes; name: string }>;
   pokeLabel?: string;
   pokeNumber?: string;
   pokeCardType?: PokemonTypes;
@@ -28,8 +28,8 @@ type propsType = {
 
 const PokemonCard: React.FC<propsType> = ({
   badgeArray = [
-    { badgeType: "grass", label: "Grass" },
-    { badgeType: "poison", label: "Poison" },
+    { badgeType: "grass", name: "Grass" },
+    { badgeType: "poison", name: "Poison" },
   ],
   pokeLabel = "Label",
   pokeNumber = "#000",
@@ -115,8 +115,8 @@ const PokemonCard: React.FC<propsType> = ({
       </View>
       <View style={styles.badgeAndImageContainer}>
         <View style={styles.badgeContainer}>
-          {badgeArray.map(({ badgeType, label }) => (
-            <TypeBadge badgeType={badgeType} label={label} />
+          {badgeArray.map(({ badgeType, name }, index) => (
+            <TypeBadge badgeType={badgeType} label={name} key={index} />
           ))}
         </View>
         <Bulbasaur width={verticalScale(74)} height={horizontalScale(74)} />

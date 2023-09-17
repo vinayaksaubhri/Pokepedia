@@ -17,3 +17,6 @@ export const FONT_OBJECT = {
   "Roboto-Bold": require("../assets/fonts/Roboto-Bold.ttf"),
   "Roboto-Light": require("../assets/fonts/Roboto-Light.ttf"),
 };
+export function getPokeNumberFromPokemonIndex(pokemonIndex: number) {
+  return "#" + pokemonIndex?.toString()?.padStart(3, "0");
+}

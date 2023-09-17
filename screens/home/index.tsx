@@ -16,9 +16,15 @@ import Chip from "../../components/chip";
 import PokemonCard from "../../components/pokemonCard";
 import { pokemonData } from "../../constant/constant";
 import ROUTES from "../../constant/routes";
+import { useGetAllPokemon } from "../../graphql/useGetAllPokemon";
+import { getPokeNumberFromPokemonIndex } from "../../utils/utils";
 
 const Home = ({ navigation, route }) => {
   const { bottomNavigationSetOptions } = route?.params;
+  const { data } = useGetAllPokemon({
+    limit: 10,
+  });
+  const pokemonDetails = data?.pokemonDetails;
 
   const bottomSheetRef = useRef<BottomSheet>(null);
   let showSelectedFilter = false;
@@ -68,18 +74,29 @@ const Home = ({ navigation, route }) => {
           </ScrollView>
         )}
         <FlatList
-          data={pokemonData}
+          data={pokemonDetails}
           showsVerticalScrollIndicator={false}
           style={styles.flatListStyle}
           contentContainerStyle={styles.contentContainerStyle}
           numColumns={2}
           columnWrapperStyle={styles.columnWrapperStyle}
           renderItem={({ item, index }) => {
+            const pokemonLabel = item?.name;
+            const pokemonCategory = item?.pokemonDetails_pokemonCategories?.map(
+              ({ pokemonCategory }) => ({
+                badgeType: pokemonCategory?.badgeType,
+                name: pokemonCategory?.name,
+              })
+            );
+            const pokemonIndex = item?.pokemonIndex;
             return (
               <PokemonCard
-                pokeCardType={item.pokeCardType}
+                pokeLabel={pokemonLabel}
+                pokeNumber={getPokeNumberFromPokemonIndex(pokemonIndex)}
+                badgeArray={pokemonCategory}
+                pokeCardType={pokemonCategory[0]?.badgeType}
                 onPress={onPressCard}
-                key={index}
+                key={item?.id}
               />
             );
           }}
