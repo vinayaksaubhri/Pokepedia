@@ -5,16 +5,20 @@ import Navigation from "./navigation";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useAppState } from "./hooks/useAppState";
 import { FONT_OBJECT, onAppStateChange } from "./utils/utils";
+import { QueryClient, QueryClientProvider } from "react-query";
+
 LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
-
+const queryClient = new QueryClient();
 export default function App() {
   useAppState(onAppStateChange);
   return (
     <LoadAssets fonts={FONT_OBJECT}>
       <SafeAreaProvider>
         <GestureHandlerRootView style={styles.container}>
-          <Navigation />
+          <QueryClientProvider client={queryClient}>
+            <Navigation />
+          </QueryClientProvider>
         </GestureHandlerRootView>
       </SafeAreaProvider>
     </LoadAssets>
