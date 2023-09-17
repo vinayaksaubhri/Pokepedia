@@ -17,6 +17,13 @@ const BlurScrollView: React.FC<BlurScrollViewProps> = ({
       position: "absolute",
       zIndex: 10,
     },
+    linearGradientBottom: {
+      width: width,
+      height: verticalScale(blurHeight),
+      position: "absolute",
+      zIndex: 10,
+      bottom: 0,
+    },
   });
   return (
     <>
@@ -28,6 +35,13 @@ const BlurScrollView: React.FC<BlurScrollViewProps> = ({
         pointerEvents="none"
       />
       <ScrollView {...rest}>{children}</ScrollView>
+      <LinearGradient
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+        colors={["rgba(255, 255, 255, 0)", "white"]}
+        style={styles.linearGradientBottom}
+        pointerEvents="none"
+      />
     </>
   );
 };
