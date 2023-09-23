@@ -27,6 +27,7 @@ export type chipPropsType = {
   iconType?: PokemonTypes;
   showCrossIcon?: Boolean;
   showTypeIcon?: Boolean;
+  showLabel?: Boolean;
 };
 
 const Chip: React.FC<chipPropsType> = ({
@@ -34,11 +35,12 @@ const Chip: React.FC<chipPropsType> = ({
   iconType = "",
   showCrossIcon = false,
   showTypeIcon = false,
+  showLabel = true,
 }) => {
   return (
     <View style={styles.container}>
       {showTypeIcon && <ChipIcon iconType={iconType} />}
-      <Text style={styles.labelStyle}>{label}</Text>
+      {showLabel && <Text style={styles.labelStyle}>{label}</Text>}
       {showCrossIcon && <CrossIcon />}
     </View>
   );
