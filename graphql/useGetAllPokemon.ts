@@ -1,11 +1,15 @@
 import request, { gql } from "graphql-request";
-import { useQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "react-query";
 import client from "./config";
 import { PokemonTypes } from "../types/pokemonTypes";
 
 const query = gql`
-  query getAllPokemon($limit: Int = 10) {
-    pokemonDetails(order_by: { pokemonIndex: asc }, limit: $limit) {
+  query getAllPokemon($limit: Int = 10, $offset: Int = null) {
+    pokemonDetails(
+      order_by: { pokemonIndex: asc }
+      limit: $limit
+      offset: $offset
+    ) {
       id
       name
       pokemonIndex
@@ -29,14 +33,21 @@ type PokemonList = {
     };
   }[];
 }[];
-export function useGetAllPokemon(variable: { limit: number }) {
-  const { limit } = variable;
+export function useGetAllPokemon() {
+  return useInfiniteQuery<PokemonList, unknown>(
+    "getAllPokemon",
+    async ({ pageParam }) => {
+      const data: any = await client.request(query, {
+        offset: pageParam ? pageParam : null,
+      });
 
-  return useQuery<PokemonList, unknown>("getAllPokemon", async () => {
-    const data: any = await client.request(query, {
-      limit: limit,
-    });
-
-    return data.pokemonDetails;
-  });
+      return data.pokemonDetails;
+    },
+    {
+      keepPreviousData: true,
+      getNextPageParam: (lastPage, allPages) => {
+        return allPages.length * 10;
+      },
+    }
+  );
 }

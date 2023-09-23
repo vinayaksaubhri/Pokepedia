@@ -28,9 +28,10 @@ const Home = ({ navigation, route }) => {
     error,
     isLoading: isPokemonDetailsLoading,
     refetch: pokemonDetailsRefetch,
-  } = useGetAllPokemon({
-    limit: 10,
-  });
+    fetchNextPage,
+    isFetching,
+  } = useGetAllPokemon();
+
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(
     pokemonDetailsRefetch
   );
@@ -90,18 +91,29 @@ const Home = ({ navigation, route }) => {
           <LoadingIndicator />
         ) : (
           <FlatList
-            data={pokemonDetails}
+            data={pokemonDetails!.pages.flat()}
             refreshControl={
               <RefreshControl
                 onRefresh={refetchByUser}
                 refreshing={isRefetchingByUser}
               />
             }
+            onEndReachedThreshold={0.1}
+            onEndReached={() => fetchNextPage()}
             showsVerticalScrollIndicator={false}
             style={styles.flatListStyle}
             contentContainerStyle={styles.contentContainerStyle}
             numColumns={2}
             columnWrapperStyle={styles.columnWrapperStyle}
+            ListFooterComponent={() => {
+              return (
+                isFetching && (
+                  <View>
+                    <LoadingIndicator />
+                  </View>
+                )
+              );
+            }}
             renderItem={({ item, index }) => {
               const pokemonLabel = item?.name;
               const pokemonCategory =

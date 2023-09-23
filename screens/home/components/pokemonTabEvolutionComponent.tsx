@@ -32,10 +32,7 @@ const PokemonTabEvolutionComponent = ({ route, navigation }) => {
               pokemonType,
               evolutionLevel,
             } = pokemonEvolution;
-            console.log(
-              "🚀 ~ file: pokemonTabEvolutionComponent.tsx:36 ~ {pokemonEvolutions.map ~ pokemonEvolution:",
-              pokemonEvolution
-            );
+
             return (
               <PokemonEvolutionCard
                 label={getPokeNumberFromPokemonIndex(pokemonIndex)}
