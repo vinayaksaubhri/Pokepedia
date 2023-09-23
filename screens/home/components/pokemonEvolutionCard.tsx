@@ -30,6 +30,13 @@ const PokemonEvolutionCard: React.FC<{
 }) => {
   return (
     <View>
+      {pokemonLevel && (
+        <View style={styles.pokemonLevelContainer}>
+          <Text style={styles.pokemonLevelTextStyle}>
+            {"Level " + pokemonLevel}
+          </Text>
+        </View>
+      )}
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image source={imageSource} style={styles.imageStyle} />
@@ -44,11 +51,6 @@ const PokemonEvolutionCard: React.FC<{
           </View>
         </View>
       </View>
-      {pokemonLevel && (
-        <View style={styles.pokemonLevelContainer}>
-          <Text style={styles.pokemonLevelTextStyle}>{pokemonLevel}</Text>
-        </View>
-      )}
     </View>
   );
 };
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     maxHeight: verticalScale(110),
     height: "100%",
-    width: "45%",
+    width: "50%",
   },
   imageStyle: {
     aspectRatio: 1,
@@ -105,5 +107,6 @@ const styles = StyleSheet.create({
   },
   pokemonChipContainer: {
     gap: verticalScale(8),
+    flexDirection: "row",
   },
 });

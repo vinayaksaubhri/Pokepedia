@@ -43,23 +43,14 @@ type PokemonDetailScreenTabProps = {
     };
   }[];
   pokemonEvolutions: {
-    pokemonEvolution: {
-      chainData: {
-        evolutionLevel: number | null;
-        evolvesFrom: boolean;
-        name: string;
-        pokemonId: string;
-        pokemonIndex: number;
-        pokemonType: {
-          badgeType: string;
-          id: string;
-          name: string;
-        }[];
-        trigger: string | null;
-        triggerItem: any | null; // Replace 'any' with the actual type
-      }[];
-      id: string;
-    };
+    evolutionLevel: number | null;
+    evolvesFrom: boolean;
+    name: string;
+    pokemonId: string;
+    pokemonIndex: number;
+    pokemonType: { badgeType: string; id: string; name: string }[];
+    trigger: string | null;
+    triggerItem: any;
   }[];
 };
 

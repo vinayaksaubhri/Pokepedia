@@ -6,8 +6,15 @@ import { COLORS } from "../../../style/style";
 import BlurScrollView from "../../../components/blurScrollView";
 import { moderateScale, verticalScale } from "../../../style/metrics";
 import PokemonEvolutionCard from "./pokemonEvolutionCard";
+import {
+  capitalizeFirstLetter,
+  getPokeNumberFromPokemonIndex,
+} from "../../../utils/utils";
+import { list as pokemonImageList } from "../../../assets/pokemonImageData";
 
-const PokemonTabEvolutionComponent = () => {
+const PokemonTabEvolutionComponent = ({ route, navigation }) => {
+  const { pokemonEvolutions } = route?.params;
+
   return (
     <>
       <BlurScrollView
@@ -17,33 +24,34 @@ const PokemonTabEvolutionComponent = () => {
         contentContainerStyle={styles.scrollViewContainer}
       >
         <View style={styles.container}>
-          <PokemonEvolutionCard
-            label="#004"
-            pokemonName="Charmander"
-            pokemonTypes={[
-              { label: "Fire", iconType: "fire", showTypeIcon: true },
-            ]}
-            imageSource={Charmander}
-            pokemonLevel="Level 16"
-          />
-          <PokemonEvolutionCard
-            label="#005"
-            pokemonName="Chameleon"
-            pokemonTypes={[
-              { label: "Fire", iconType: "fire", showTypeIcon: true },
-            ]}
-            imageSource={Chameleon}
-            pokemonLevel="Level 36"
-          />
-          <PokemonEvolutionCard
-            label="#006"
-            pokemonName="Charizard"
-            pokemonTypes={[
-              { label: "Fire", iconType: "fire", showTypeIcon: true },
-              { label: "Flying", iconType: "flying", showTypeIcon: true },
-            ]}
-            imageSource={Charizard}
-          />
+          {pokemonEvolutions.map((pokemonEvolution) => {
+            const {
+              name,
+              pokemonId,
+              pokemonIndex,
+              pokemonType,
+              evolutionLevel,
+            } = pokemonEvolution;
+            console.log(
+              "🚀 ~ file: pokemonTabEvolutionComponent.tsx:36 ~ {pokemonEvolutions.map ~ pokemonEvolution:",
+              pokemonEvolution
+            );
+            return (
+              <PokemonEvolutionCard
+                label={getPokeNumberFromPokemonIndex(pokemonIndex)}
+                pokemonName={capitalizeFirstLetter(name)}
+                pokemonTypes={pokemonType.map(({ badgeType, name }) => ({
+                  label: "",
+                  showLabel: false,
+                  showTypeIcon: true,
+                  iconType: badgeType,
+                }))}
+                imageSource={pokemonImageList[pokemonIndex - 1]?.source}
+                pokemonLevel={evolutionLevel}
+                key={pokemonId}
+              />
+            );
+          })}
         </View>
       </BlurScrollView>
     </>
