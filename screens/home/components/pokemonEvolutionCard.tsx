@@ -52,8 +52,8 @@ const PokemonEvolutionCard: React.FC<{
           <Text style={styles.pokemonNumberTextStyle}>{label}</Text>
           <Text style={styles.pokemonNameTextStyle}>{pokemonName}</Text>
           <View style={styles.pokemonChipContainer}>
-            {pokemonTypes.map((item) => (
-              <Chip {...item} />
+            {pokemonTypes.map((item, index) => (
+              <Chip {...item} key={index} />
             ))}
           </View>
         </View>
