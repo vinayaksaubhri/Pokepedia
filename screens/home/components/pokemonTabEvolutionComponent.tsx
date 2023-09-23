@@ -11,6 +11,7 @@ import {
   getPokeNumberFromPokemonIndex,
 } from "../../../utils/utils";
 import { list as pokemonImageList } from "../../../assets/pokemonImageData";
+import { PokemonTypes } from "../../../types/pokemonTypes";
 
 const PokemonTabEvolutionComponent = ({ route, navigation }) => {
   const { pokemonEvolutions } = route?.params;
@@ -31,21 +32,29 @@ const PokemonTabEvolutionComponent = ({ route, navigation }) => {
               pokemonIndex,
               pokemonType,
               evolutionLevel,
+              evolvesFrom,
+              trigger,
+              triggerItem,
             } = pokemonEvolution;
 
             return (
               <PokemonEvolutionCard
                 label={getPokeNumberFromPokemonIndex(pokemonIndex)}
                 pokemonName={capitalizeFirstLetter(name)}
-                pokemonTypes={pokemonType.map(({ badgeType, name }) => ({
-                  label: "",
-                  showLabel: false,
-                  showTypeIcon: true,
-                  iconType: badgeType,
-                }))}
+                pokemonTypes={pokemonType.map(
+                  ({ badgeType }: { badgeType: PokemonTypes }) => ({
+                    label: "",
+                    showLabel: false,
+                    showTypeIcon: true,
+                    iconType: badgeType,
+                  })
+                )}
                 imageSource={pokemonImageList[pokemonIndex - 1]?.source}
                 pokemonLevel={evolutionLevel}
                 key={pokemonId}
+                evolvesFrom={evolvesFrom}
+                trigger={trigger}
+                triggerItem={triggerItem}
               />
             );
           })}

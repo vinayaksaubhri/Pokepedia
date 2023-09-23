@@ -14,28 +14,35 @@ import {
 } from "../../../style/metrics";
 import { COLORS, FONTS } from "../../../style/style";
 import Chip, { chipPropsType } from "../../../components/chip";
+import EvolutionTrigger from "./EvolutionTrigger";
 
 const PokemonEvolutionCard: React.FC<{
   imageSource: ImageSourcePropType;
   label: string;
   pokemonName: string;
   pokemonTypes: chipPropsType[];
-  pokemonLevel?: string | undefined;
+  evolvesFrom: boolean;
+  trigger: string;
+  triggerItem: string;
+  pokemonLevel: number | null;
 }> = ({
   imageSource,
   label = "",
   pokemonName = "",
   pokemonTypes = [],
-  pokemonLevel = undefined,
+  pokemonLevel,
+  evolvesFrom,
+  trigger,
+  triggerItem,
 }) => {
   return (
     <View>
-      {pokemonLevel && (
-        <View style={styles.pokemonLevelContainer}>
-          <Text style={styles.pokemonLevelTextStyle}>
-            {"Level " + pokemonLevel}
-          </Text>
-        </View>
+      {evolvesFrom && (
+        <EvolutionTrigger
+          pokemonLevel={pokemonLevel}
+          trigger={trigger}
+          triggerItem={triggerItem}
+        />
       )}
       <View style={styles.container}>
         <View style={styles.imageContainer}>

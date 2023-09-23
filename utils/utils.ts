@@ -2,6 +2,7 @@ import { AppStateStatus, Platform } from "react-native";
 import { focusManager } from "react-query";
 import { POKEMON_COLOR } from "../style/style";
 import { PokemonTypes } from "../types/pokemonTypes";
+import pokemonEvolutionItem from "../assets/pokemonEvolutionItem";
 
 export function onAppStateChange(status: AppStateStatus) {
   if (Platform.OS !== "web") {
@@ -81,4 +82,7 @@ export function pokeCardColor(pokeCardType: PokemonTypes) {
     default:
       return POKEMON_COLOR.grass;
   }
+}
+export function getPokemonEvolutionItemSource(itemName: string) {
+  return pokemonEvolutionItem.find((item) => item.label === itemName)?.source;
 }
