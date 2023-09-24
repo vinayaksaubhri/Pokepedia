@@ -1,11 +1,11 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { Image, StyleSheet, Text, View } from "react-native";
-import CharizardImage from "../../../assets/pokemon/6.png";
+import { list as pokemonImageList } from "../../../assets/pokemonImageData";
 import CustomSafeAreaView from "../../../components/customSafeAreaView";
 import LoadingIndicator from "../../../components/loadingIndicator";
 import TopAppBar from "../../../components/topAppBar";
 import { useGetPokemon } from "../../../graphql/useGetPokemon";
-import { height, scaleFont, width } from "../../../style/metrics";
+import { height, scaleFont } from "../../../style/metrics";
 import { COLORS, FONTS } from "../../../style/style";
 import { PokemonTypes } from "../../../types/pokemonTypes";
 import {
@@ -13,7 +13,6 @@ import {
   getPokeNumberFromPokemonIndex,
   pokeCardColor,
 } from "../../../utils/utils";
-import { list as pokemonImageList } from "../../../assets/pokemonImageData";
 import { PokemonDetailScreenTab } from "../components/pokemonDetailScreenTab";
 
 const PokemonDetailScreens = ({ navigation, route }) => {
@@ -77,7 +76,8 @@ const PokemonDetailScreens = ({ navigation, route }) => {
           pokemonAbilities={pokemonAbilities}
           pokemonDescription={pokemonDescription.description}
           pokemonMoves={pokemonMoves}
-          pokemonEvolutions={pokemonEvolutions[0]?.pokemonEvolution?.chainData}
+          pokemonEvolutions={pokemonEvolutions}
+          isMultipleEvolutions={pokemonEvolutions.length > 1}
         />
       </View>
     </CustomSafeAreaView>

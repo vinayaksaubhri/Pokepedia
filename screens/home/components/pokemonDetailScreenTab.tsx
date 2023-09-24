@@ -1,12 +1,11 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { height, scaleFont, width } from "../../../style/metrics";
 import { COLORS, FONTS } from "../../../style/style";
-import { StyleSheet } from "react-native";
 import PokemonTabAboutComponent from "./pokemonTabAboutComponent";
-import PokemonTabStatsComponent from "./pokemonTabStatsComponent";
-import PokemonTabMovesComponent from "./pokemonTabMovesComponent";
 import PokemonTabEvolutionComponent from "./pokemonTabEvolutionComponent";
+import PokemonTabMovesComponent from "./pokemonTabMovesComponent";
+import PokemonTabStatsComponent from "./pokemonTabStatsComponent";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -43,15 +42,25 @@ type PokemonDetailScreenTabProps = {
     };
   }[];
   pokemonEvolutions: {
-    evolutionLevel: number | null;
-    evolvesFrom: boolean;
-    name: string;
-    pokemonId: string;
-    pokemonIndex: number;
-    pokemonType: { badgeType: string; id: string; name: string }[];
-    trigger: string | null;
-    triggerItem: any;
+    pokemonEvolution: {
+      chainData: {
+        evolutionLevel: number | null;
+        evolvesFrom: boolean;
+        name: string;
+        pokemonId: string;
+        pokemonIndex: number;
+        pokemonType: {
+          badgeType: string;
+          id: string;
+          name: string;
+        }[];
+        trigger: string | null;
+        triggerItem: any;
+      }[];
+      id: string;
+    };
   }[];
+  isMultipleEvolutions: boolean;
 };
 
 export const PokemonDetailScreenTab: React.FC<PokemonDetailScreenTabProps> = ({
@@ -63,6 +72,7 @@ export const PokemonDetailScreenTab: React.FC<PokemonDetailScreenTabProps> = ({
   pokemonAbilities,
   pokemonMoves,
   pokemonEvolutions,
+  isMultipleEvolutions,
 }) => {
   return (
     <Tab.Navigator
@@ -104,7 +114,10 @@ export const PokemonDetailScreenTab: React.FC<PokemonDetailScreenTabProps> = ({
       <Tab.Screen
         name="Evolution"
         component={PokemonTabEvolutionComponent}
-        initialParams={{ pokemonEvolutions }}
+        initialParams={{
+          pokemonEvolutions,
+          isMultipleEvolutions,
+        }}
       />
     </Tab.Navigator>
   );
