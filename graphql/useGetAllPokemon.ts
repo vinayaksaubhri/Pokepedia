@@ -4,7 +4,7 @@ import client from "./config";
 import { PokemonTypes } from "../types/pokemonTypes";
 
 const query = gql`
-  query getAllPokemon($limit: Int = 10, $offset: Int = null) {
+  query getAllPokemon($limit: Int = 10, $offset: Int = null) @cached {
     pokemonDetails(
       order_by: { pokemonIndex: asc }
       limit: $limit
