@@ -76,11 +76,11 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
     height: verticalScale(48),
     marginVertical: verticalScale(16),
-    left: "60%",
     flexDirection: "row",
     alignItems: "center",
     borderColor: COLORS.grey200,
     paddingLeft: horizontalScale(16),
     gap: horizontalScale(8),
+    left: "50%",
   },
 });

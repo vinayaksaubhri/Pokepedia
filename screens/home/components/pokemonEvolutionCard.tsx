@@ -36,7 +36,7 @@ const PokemonEvolutionCard: React.FC<{
   triggerItem,
 }) => {
   return (
-    <View>
+    <View style={styles.pokemonEvolutionContainer}>
       {evolvesFrom && (
         <EvolutionTrigger
           pokemonLevel={pokemonLevel}
@@ -78,14 +78,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     maxHeight: verticalScale(110),
     height: "100%",
-    width: "50%",
+    flex: 2,
   },
-  imageStyle: {
-    aspectRatio: 1,
-    flex: 1,
-  },
+  imageStyle: {},
   textContainer: {
     gap: horizontalScale(8),
+    flex: 1,
   },
   pokemonNumberTextStyle: {
     fontSize: scaleFont(16),
@@ -115,5 +113,8 @@ const styles = StyleSheet.create({
   pokemonChipContainer: {
     gap: verticalScale(8),
     flexDirection: "row",
+  },
+  pokemonEvolutionContainer: {
+    width: "100%",
   },
 });
