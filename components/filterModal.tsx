@@ -36,8 +36,8 @@ const FilterModal: React.FC<FilterModalProps> = ({
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    { label: "A-Z", value: "A-Z" },
-    { label: "Z-A", value: "Z-A" },
+    { label: "Ascending", value: "asc" },
+    { label: "Descending", value: "desc" },
   ]);
 
   const {

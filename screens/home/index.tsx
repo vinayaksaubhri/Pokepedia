@@ -1,5 +1,5 @@
 import BottomSheet from "@gorhom/bottom-sheet";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { RefreshControl, StyleSheet, Text, View } from "react-native";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Chip from "../../components/chip";
@@ -31,6 +31,15 @@ const Home = ({ navigation, route }) => {
     fetchNextPage,
     isFetching,
   } = useGetAllPokemon();
+
+  const [filterData, setFilterData] = useState({
+    generation: "",
+    type: [],
+    weakness: [],
+    height: "",
+    weight: "",
+    orderByPokemonIndex: "",
+  });
 
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(
     pokemonDetailsRefetch
@@ -114,7 +123,7 @@ const Home = ({ navigation, route }) => {
                 )
               );
             }}
-            renderItem={({ item, index }) => {
+            renderItem={({ item }) => {
               const pokemonLabel = item?.name;
               const pokemonCategory =
                 item?.pokemonDetails_pokemonCategories?.map(

@@ -86,3 +86,34 @@ export function pokeCardColor(pokeCardType: PokemonTypes) {
 export function getPokemonEvolutionItemSource(itemName: string) {
   return pokemonEvolutionItem.find((item) => item.label === itemName)?.source;
 }
+const PokemonWeaknessData: {
+  [K in PokemonTypes]: PokemonTypes[];
+} = {
+  normal: ["rock", "steel", "ghost"],
+  fighting: ["flying", "psychic", "fairy", "bug", "ghost", "poison"],
+  flying: ["rock", "electric", "steel"],
+  poison: ["ground", "poison", "rock", "ghost", "steel"],
+  ground: ["grass", "bug", "flying"],
+  rock: ["fighting", "ground", "steel"],
+  bug: ["fighting", "flying", "poison", "ghost", "steel", "fire", "fairy"],
+  ghost: ["normal", "dark"],
+  steel: ["steel", "fire", "water", "electric"],
+  fire: ["rock", "fire", "water", "dragon"],
+  water: ["water", "grass", "dragon"],
+  grass: ["flying", "poison", "bug", "steel", "fire", "grass", "dragon"],
+  electric: ["ground", "grass", "electric", "dragon"],
+  psychic: ["steel", "psychic", "dark"],
+  ice: ["steel", "fire", "water", "ice"],
+  dragon: ["steel", "fairy"],
+  fairy: ["poison", "steel", "fire"],
+  dark: ["fighting", "dark", "fairy"],
+  "": [],
+};
+export function getPokemonTypeFromWeakness(pokemonType: PokemonTypes) {
+  return PokemonWeaknessData[pokemonType];
+}
+
+export function generateWhereFormFilterData(filterData) {
+ 
+
+}
