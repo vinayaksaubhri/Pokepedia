@@ -19,3 +19,12 @@ export type PokemonTypes =
   | "steel"
   | "water"
   | "";
+export type pokemonGenerationType =
+  | "generation-i"
+  | "generation-ii"
+  | "generation-iii"
+  | "generation-iv"
+  | "generation-v"
+  | "generation-vi"
+  | "generation-vii"
+  | "generation-viii";

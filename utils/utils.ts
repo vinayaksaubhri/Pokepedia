@@ -1,7 +1,8 @@
+import { GenerationList } from "./../constant/constant";
 import { AppStateStatus, Platform } from "react-native";
 import { focusManager } from "react-query";
 import { POKEMON_COLOR } from "../style/style";
-import { PokemonTypes } from "../types/pokemonTypes";
+import { PokemonTypes, pokemonGenerationType } from "../types/pokemonTypes";
 import pokemonEvolutionItem from "../assets/pokemonEvolutionItem";
 
 export function onAppStateChange(status: AppStateStatus) {
@@ -113,7 +114,46 @@ export function getPokemonTypeFromWeakness(pokemonType: PokemonTypes) {
   return PokemonWeaknessData[pokemonType];
 }
 
-export function generateWhereFormFilterData(filterData) {
- 
+export function generateWhereFormFilterData(filterData: {
+  searchName?: "" | undefined;
+  height?: null | undefined;
+  weight?: null | undefined;
+  generation?: pokemonGenerationType | undefined;
+  pokemonType?: never[] | undefined;
+}) {
+  const {
+    searchName = "",
+    height = null,
+    weight = null,
+    generation = "",
+    pokemonType = [],
+  } = filterData;
 
+  const whereCondition = {
+    _and: [{ name: { _ilike: searchName } }],
+  };
+
+  if (pokemonType.length !== 0) {
+    whereCondition._and.push({
+      pokemonDetails_pokemonCategories: {
+        pokemonCategory: {
+          _or: pokemonType.map((type) => ({ badgeType: { _eq: type } })),
+        },
+      },
+    });
+  }
+
+  if (generation !== "") {
+    whereCondition._and.push({ generation: { _eq: generation } });
+  }
+
+  if (height !== null) {
+    whereCondition._and.push({ height: { _gte: height } });
+  }
+
+  if (weight !== null) {
+    whereCondition._and.push({ weight: { _gte: weight } });
+  }
+
+  return whereCondition;
 }

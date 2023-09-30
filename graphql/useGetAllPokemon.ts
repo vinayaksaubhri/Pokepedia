@@ -1,7 +1,7 @@
-import request, { gql } from "graphql-request";
-import { useInfiniteQuery, useQuery } from "react-query";
-import client from "./config";
+import { gql } from "graphql-request";
+import { useInfiniteQuery } from "react-query";
 import { PokemonTypes } from "../types/pokemonTypes";
+import client from "./config";
 
 const query = gql`
   query getAllPokemon($limit: Int = 10, $offset: Int = null) @cached {
