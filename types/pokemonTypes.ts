@@ -27,7 +27,6 @@ export type pokemonGenerationType =
   | "generation-v"
   | "generation-vi"
   | "generation-vii"
-  | "generation-viii"
   | "";
 
 export type filterType = {

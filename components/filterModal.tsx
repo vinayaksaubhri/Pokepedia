@@ -4,10 +4,14 @@ import BottomSheet, {
   useBottomSheetDynamicSnapPoints,
 } from "@gorhom/bottom-sheet";
 import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useMemo, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import DropDownPicker from "react-native-dropdown-picker";
 import { ScrollView } from "react-native-gesture-handler";
 import { GenerationList, TypeList } from "../constant/constant";
+import { useHaptic } from "../hooks/useHaptic";
 import {
   horizontalScale,
   moderateScale,
@@ -15,19 +19,16 @@ import {
   verticalScale,
 } from "../style/metrics";
 import { COLORS, FONTS } from "../style/style";
+import { filterType, pokemonGenerationType } from "../types/pokemonTypes";
+import Button from "./button";
 import Chip from "./chip";
 import CustomSlider from "./customSlider";
-import DropDownPicker from "react-native-dropdown-picker";
-import Button from "./button";
-import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
-import { filterType } from "../types/pokemonTypes";
-import { useHaptic } from "../hooks/useHaptic";
 
 type FilterModalProps = {
   bottomSheetRef: React.RefObject<BottomSheetMethods>;
   bottomNavigationSetOptions: any;
-  filterData: filterType;
-  setFilterData: React.Dispatch<React.SetStateAction<filterType>>;
+  filterDataFromQuery: filterType;
+  setFilterDataFromQuery: React.Dispatch<React.SetStateAction<filterType>>;
 };
 const dropDownItems = [
   { label: "Ascending", value: "asc" },
@@ -36,12 +37,21 @@ const dropDownItems = [
 const FilterModal: React.FC<FilterModalProps> = ({
   bottomSheetRef,
   bottomNavigationSetOptions,
-  filterData,
-  setFilterData,
+  filterDataFromQuery,
+  setFilterDataFromQuery,
 }) => {
   const initialSnapPoints = useMemo(() => ["CONTENT_HEIGHT"], []);
   const [open, setOpen] = useState(false);
   const hapticSelection = useHaptic("light");
+  const [filterData, setFilterData] = useState<filterType>({
+    generation: "",
+    type: "",
+    weakness: "",
+    height: null,
+    weight: null,
+    orderByPokemonIndex: null,
+    name: "",
+  });
 
   const {
     animatedHandleHeight,
@@ -60,7 +70,26 @@ const FilterModal: React.FC<FilterModalProps> = ({
     ),
     []
   );
-
+  const onPressApply = () => {
+    setFilterDataFromQuery((prev) => ({
+      ...prev,
+      generation: filterData.generation,
+      type: filterData.type,
+      weakness: filterData.weakness,
+      height: filterData.height,
+      weight: filterData.weight,
+      orderByPokemonIndex: filterData.orderByPokemonIndex,
+    }));
+    bottomSheetRef.current?.close();
+  };
+  useFocusEffect(
+    useCallback(() => {
+      setFilterData((prev) => ({
+        ...prev,
+        ...filterDataFromQuery,
+      }));
+    }, [filterDataFromQuery])
+  );
   return (
     <BottomSheet
       ref={bottomSheetRef}
@@ -86,8 +115,18 @@ const FilterModal: React.FC<FilterModalProps> = ({
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.scrollViewContentContainerStyle}
             >
-              {GenerationList.map((item, index) => (
-                <Chip label={item} key={index} />
+              {GenerationList.map(({ value, label }, index) => (
+                <Chip
+                  label={label}
+                  key={index}
+                  isSelected={filterData.generation === value}
+                  onPress={() =>
+                    setFilterData((prev) => ({
+                      ...prev,
+                      generation: value as pokemonGenerationType,
+                    }))
+                  }
+                />
               ))}
             </ScrollView>
           </View>
@@ -104,6 +143,10 @@ const FilterModal: React.FC<FilterModalProps> = ({
                   key={index}
                   iconType={iconType}
                   showTypeIcon={true}
+                  isSelected={filterData.type === iconType}
+                  onPress={() =>
+                    setFilterData((prev) => ({ ...prev, type: iconType }))
+                  }
                 />
               ))}
             </ScrollView>
@@ -121,6 +164,10 @@ const FilterModal: React.FC<FilterModalProps> = ({
                   key={index}
                   iconType={iconType}
                   showTypeIcon={true}
+                  isSelected={filterData.weakness === iconType}
+                  onPress={() =>
+                    setFilterData((prev) => ({ ...prev, weakness: iconType }))
+                  }
                 />
               ))}
             </ScrollView>
@@ -187,9 +234,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
             variant="Primary"
             width={"100%"}
             label="Apply"
-            onPress={() => {
-              bottomSheetRef.current?.close();
-            }}
+            onPress={onPressApply}
           />
         </View>
       </BottomSheetView>

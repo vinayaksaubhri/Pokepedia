@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  PressableProps,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { COLORS, FONTS } from "../style/style";
 import BugIcon from "../assets/svg/ChipIcon/BugIcon";
 import ElectricIcon from "../assets/svg/ChipIcon/ElectricIcon";
@@ -22,7 +28,7 @@ import CrossIcon from "../assets/svg/cross_icon";
 import { PokemonTypes } from "../types/pokemonTypes";
 import { horizontalScale, moderateScale, scaleFont } from "../style/metrics";
 
-export type chipPropsType = {
+export type chipPropsType = PressableProps & {
   label: string;
   iconType?: PokemonTypes;
   showCrossIcon?: Boolean;
@@ -38,13 +44,17 @@ const Chip: React.FC<chipPropsType> = ({
   showTypeIcon = false,
   showLabel = true,
   isSelected = false,
+  ...rest
 }) => {
   return (
-    <View style={[isSelected ? styles.selectedStyle : styles.container]}>
+    <Pressable
+      style={[isSelected ? styles.selectedStyle : styles.container]}
+      {...rest}
+    >
       {showTypeIcon && <ChipIcon iconType={iconType} />}
       {showLabel && <Text style={styles.labelStyle}>{label}</Text>}
       {showCrossIcon && <CrossIcon />}
-    </View>
+    </Pressable>
   );
 };
 export default Chip;

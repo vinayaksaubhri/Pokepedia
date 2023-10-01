@@ -2,13 +2,34 @@ import { PokemonTypes } from "../types/pokemonTypes";
 export const MAX_BASE_STATS = 255;
 
 export const GenerationList = [
-  "Generation I",
-  "Generation II",
-  "Generation III",
-  "Generation IV",
-  "Generation V",
-  "Generation VI",
-  "Generation VII",
+  {
+    label: "Generation I",
+    value: "generation-i",
+  },
+  {
+    label: "Generation II",
+    value: "generation-ii",
+  },
+  {
+    label: "Generation III",
+    value: "generation-iii",
+  },
+  {
+    label: "Generation IV",
+    value: "generation-iv",
+  },
+  {
+    label: "Generation V",
+    value: "generation-v",
+  },
+  {
+    label: "Generation VI",
+    value: "generation-vi",
+  },
+  {
+    label: "Generation VII",
+    value: "generation-vii",
+  },
 ];
 export const TypeList: { label: string; iconType: PokemonTypes }[] = [
   { label: "Bug", iconType: "bug" },

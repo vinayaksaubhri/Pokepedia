@@ -16,11 +16,15 @@ import {
   verticalScale,
 } from "../../style/metrics";
 import { COLORS, FONTS } from "../../style/style";
-import { getPokeNumberFromPokemonIndex } from "../../utils/utils";
+import {
+  capitalizeFirstLetter,
+  getPokeNumberFromPokemonIndex,
+} from "../../utils/utils";
 import LoadingIndicator from "../../components/loadingIndicator";
 import { useRefreshByUser } from "../../hooks/useRefreshByUser";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFoucs";
 import { filterType } from "../../types/pokemonTypes";
+import SelectedFilter from "../../components/selectedFilter";
 
 const Home = ({ navigation, route }) => {
   const { bottomNavigationSetOptions } = route?.params;
@@ -42,7 +46,7 @@ const Home = ({ navigation, route }) => {
     orderByPokemonIndex: null,
     name: "",
   });
-  console.log("🚀 ~ file: index.tsx:45 ~ Home ~ filterData:", filterData);
+  console.log("🚀 ~ file: index.tsx:49 ~ Home ~ filterData:", filterData);
 
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(
     pokemonDetailsRefetch
@@ -51,7 +55,13 @@ const Home = ({ navigation, route }) => {
   useRefreshOnFocus(pokemonDetailsRefetch);
 
   const bottomSheetRef = useRef<BottomSheet>(null);
-  let showSelectedFilter = false;
+  let showSelectedFilter =
+    filterData.type !== "" ||
+    filterData.generation !== "" ||
+    filterData.height ||
+    filterData.weight ||
+    filterData.orderByPokemonIndex !== null ||
+    filterData.weakness !== "";
   const onPressCard = (pokemonIndex: number) => {
     bottomNavigationSetOptions({ tabBarVisible: false });
     navigation.navigate(ROUTES.POKEMON_DETAIL_SCREEN, {
@@ -59,6 +69,43 @@ const Home = ({ navigation, route }) => {
       pokemonIndex,
     });
   };
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      padding: moderateScale(24),
+      paddingBottom: 0,
+    },
+    headingTextStyle: {
+      alignSelf: "flex-start",
+      fontSize: scaleFont(36),
+      color: COLORS.primaryBlue,
+      fontFamily: FONTS.RC_Regular,
+      marginBottom: verticalScale(4),
+    },
+    subHeadingTextStyle: {
+      alignSelf: "flex-start",
+      fontSize: scaleFont(16),
+      color: COLORS.primaryBlue,
+      fontFamily: FONTS.RC_Regular,
+      marginBottom: verticalScale(16),
+      lineHeight: verticalScale(24),
+    },
+    contentContainerStyle: {
+      gap: verticalScale(16),
+      paddingTop: showSelectedFilter ? verticalScale(4) : verticalScale(20),
+      paddingBottom: verticalScale(90),
+    },
+    flatListStyle: {
+      flex: 1,
+      marginTop: 4,
+      width: "100%",
+      borderRadius: moderateScale(16),
+    },
+    columnWrapperStyle: {
+      justifyContent: "space-between",
+    },
+  });
 
   return (
     <CustomSafeAreaView>
@@ -78,28 +125,10 @@ const Home = ({ navigation, route }) => {
           }}
         />
         {showSelectedFilter && (
-          <ScrollView
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            style={styles.selectedFilterContainer}
-            contentContainerStyle={styles.selectedFilterContentContainerStyle}
-          >
-            <Chip label="Generation III" showCrossIcon />
-            <Chip
-              label="Dark"
-              showCrossIcon
-              showTypeIcon={true}
-              iconType="dark"
-            />
-            <Chip
-              label="Dragon"
-              showCrossIcon
-              showTypeIcon={true}
-              iconType="dragon"
-            />
-            <Chip label="50 kg" showCrossIcon />
-            <Chip label="1.7 m" showCrossIcon />
-          </ScrollView>
+          <SelectedFilter
+            filterData={filterData}
+            setFilterData={setFilterData}
+          />
         )}
         {isPokemonDetailsLoading ? (
           <LoadingIndicator />
@@ -156,54 +185,10 @@ const Home = ({ navigation, route }) => {
       <FilterModal
         bottomSheetRef={bottomSheetRef}
         bottomNavigationSetOptions={bottomNavigationSetOptions}
-        setFilterData={setFilterData}
-        filterData={filterData}
+        setFilterDataFromQuery={setFilterData}
+        filterDataFromQuery={filterData}
       />
     </CustomSafeAreaView>
   );
 };
 export default Home;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    padding: moderateScale(24),
-    paddingBottom: 0,
-  },
-  headingTextStyle: {
-    alignSelf: "flex-start",
-    fontSize: scaleFont(36),
-    color: COLORS.primaryBlue,
-    fontFamily: FONTS.RC_Regular,
-    marginBottom: verticalScale(4),
-  },
-  subHeadingTextStyle: {
-    alignSelf: "flex-start",
-    fontSize: scaleFont(16),
-    color: COLORS.primaryBlue,
-    fontFamily: FONTS.RC_Regular,
-    marginBottom: verticalScale(16),
-    lineHeight: verticalScale(24),
-  },
-  contentContainerStyle: {
-    gap: verticalScale(16),
-    paddingTop: verticalScale(20),
-    paddingBottom: verticalScale(90),
-  },
-  flatListStyle: {
-    flex: 1,
-    marginTop: 4,
-    width: "100%",
-    borderRadius: moderateScale(16),
-  },
-  columnWrapperStyle: {
-    justifyContent: "space-between",
-  },
-  selectedFilterContainer: {
-    marginTop: 8,
-    flexGrow: 0,
-  },
-  selectedFilterContentContainerStyle: {
-    gap: horizontalScale(12),
-  },
-});
