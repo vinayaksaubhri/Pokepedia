@@ -162,6 +162,6 @@ export function getGenerationFromGenerationName(
   generationName: pokemonGenerationType
 ) {
   return GenerationList[
-    GenerationList.findIndex(({ label }) => label === generationName) + 1
+    GenerationList.findIndex(({ value }) => value === generationName)
   ].label;
 }
