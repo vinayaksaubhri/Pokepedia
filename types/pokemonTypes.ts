@@ -27,4 +27,15 @@ export type pokemonGenerationType =
   | "generation-v"
   | "generation-vi"
   | "generation-vii"
-  | "generation-viii";
+  | "generation-viii"
+  | "";
+
+export type filterType = {
+  generation: pokemonGenerationType;
+  type: PokemonTypes;
+  weakness: PokemonTypes;
+  height: number | null;
+  weight: number | null;
+  orderByPokemonIndex: "asc" | "desc" | null;
+  name: string;
+};

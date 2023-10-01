@@ -20,6 +20,7 @@ import { getPokeNumberFromPokemonIndex } from "../../utils/utils";
 import LoadingIndicator from "../../components/loadingIndicator";
 import { useRefreshByUser } from "../../hooks/useRefreshByUser";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFoucs";
+import { filterType } from "../../types/pokemonTypes";
 
 const Home = ({ navigation, route }) => {
   const { bottomNavigationSetOptions } = route?.params;
@@ -32,13 +33,14 @@ const Home = ({ navigation, route }) => {
     isFetching,
   } = useGetAllPokemon();
 
-  const [filterData, setFilterData] = useState({
+  const [filterData, setFilterData] = useState<filterType>({
     generation: "",
-    type: [],
-    weakness: [],
-    height: "",
-    weight: "",
-    orderByPokemonIndex: "",
+    type: "",
+    weakness: "",
+    height: null,
+    weight: null,
+    orderByPokemonIndex: null,
+    name: "",
   });
 
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(
@@ -66,6 +68,8 @@ const Home = ({ navigation, route }) => {
           more!
         </Text>
         <SearchBar
+          setFilterData={setFilterData}
+          filterData={filterData}
           showFilter
           onPressFilter={() => {
             bottomNavigationSetOptions({ tabBarVisible: false });

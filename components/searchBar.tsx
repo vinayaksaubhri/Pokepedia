@@ -15,21 +15,23 @@ import {
   verticalScale,
 } from "../style/metrics";
 import { COLORS, FONTS } from "../style/style";
+import { filterType } from "../types/pokemonTypes";
 
 type props = {
   showFilter?: Boolean;
   onPressFilter?: (event: GestureResponderEvent) => void;
+  setFilterData: React.Dispatch<React.SetStateAction<filterType>>;
+  filterData: filterType;
 };
 
 const SearchBar: React.FC<props> = ({
+  setFilterData,
+  filterData,
   showFilter = false,
   onPressFilter = () => {
     console.log("filter press");
   },
 }) => {
-  const [value, setValue] = useState("");
-  const [showModal, setShowModal] = useState(false);
-
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
@@ -38,8 +40,10 @@ const SearchBar: React.FC<props> = ({
           placeholder="Search a pokémon"
           style={styles.searchBarStyle}
           placeholderTextColor={COLORS.grey300}
-          value={value}
-          onChangeText={setValue}
+          value={filterData.name}
+          onChangeText={(value) => {
+            setFilterData((prev) => ({ ...prev, name: value }));
+          }}
           autoCorrect={false}
         />
       </View>
@@ -54,10 +58,6 @@ const SearchBar: React.FC<props> = ({
           <FilterIcon />
         </Pressable>
       )}
-
-      {/* {showModal && (
-        <FilterModal showModal={showModal} setShowModal={setShowModal} />
-      )} */}
     </View>
   );
 };
