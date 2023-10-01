@@ -133,10 +133,13 @@ export function generateWhereFormFilterData(filterData: filterType) {
     weakness,
     type,
   });
-  const whereCondition = {
-    _and: [{ name: { _ilike: name + "%" } }],
-  };
 
+  const whereCondition = {
+    _and: [],
+  };
+  if (name !== "") {
+    whereCondition._and.push({ name: { _ilike: `%${name}%` } });
+  }
   if (pokemonType.length !== 0) {
     whereCondition._and.push({
       pokemonDetails_pokemonCategories: {
@@ -168,6 +171,12 @@ export function getPokemonTypeFromWeaknessAndType({
   weakness: PokemonTypes;
   type: PokemonTypes;
 }) {
+  if (type === "") {
+    return getPokemonTypeFromWeakness(weakness);
+  }
+  if (weakness === "") {
+    return [type];
+  }
   return [type, ...getPokemonTypeFromWeakness(weakness)];
 }
 export function getGenerationFromGenerationName(

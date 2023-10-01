@@ -1,14 +1,21 @@
+import { filterType } from "./../types/pokemonTypes";
 import { gql } from "graphql-request";
-import { useInfiniteQuery } from "react-query";
+import { QueryClient, useInfiniteQuery } from "react-query";
 import { PokemonTypes } from "../types/pokemonTypes";
 import client from "./config";
+import { generateWhereFormFilterData } from "../utils/utils";
 
 const query = gql`
-  query getAllPokemon($limit: Int = 10, $offset: Int = null) @cached {
+  query getAllPokemon(
+    $limit: Int = 10
+    $offset: Int = null
+    $where: pokemonDetails_bool_exp = {}
+  ) @cached {
     pokemonDetails(
       order_by: { pokemonIndex: asc }
       limit: $limit
       offset: $offset
+      where: $where
     ) {
       id
       name
@@ -33,12 +40,13 @@ type PokemonList = {
     };
   }[];
 }[];
-export function useGetAllPokemon() {
+export function useGetAllPokemon(filterType: filterType) {
   return useInfiniteQuery<PokemonList, unknown>(
-    "getAllPokemon",
+    ["getAllPokemon", filterType],
     async ({ pageParam }) => {
       const data: any = await client.request(query, {
         offset: pageParam ? pageParam : null,
+        where: generateWhereFormFilterData(filterType),
       });
 
       return data.pokemonDetails;
@@ -46,6 +54,9 @@ export function useGetAllPokemon() {
     {
       keepPreviousData: true,
       getNextPageParam: (lastPage, allPages) => {
+        if (lastPage.length < 10) {
+          return undefined;
+        }
         return allPages.length * 10;
       },
     }
