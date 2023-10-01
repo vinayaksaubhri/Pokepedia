@@ -28,6 +28,7 @@ export type chipPropsType = {
   showCrossIcon?: Boolean;
   showTypeIcon?: Boolean;
   showLabel?: Boolean;
+  isSelected?: Boolean;
 };
 
 const Chip: React.FC<chipPropsType> = ({
@@ -36,9 +37,10 @@ const Chip: React.FC<chipPropsType> = ({
   showCrossIcon = false,
   showTypeIcon = false,
   showLabel = true,
+  isSelected = false,
 }) => {
   return (
-    <View style={styles.container}>
+    <View style={[isSelected ? styles.selectedStyle : styles.container]}>
       {showTypeIcon && <ChipIcon iconType={iconType} />}
       {showLabel && <Text style={styles.labelStyle}>{label}</Text>}
       {showCrossIcon && <CrossIcon />}
@@ -47,6 +49,16 @@ const Chip: React.FC<chipPropsType> = ({
 };
 export default Chip;
 const styles = StyleSheet.create({
+  selectedStyle: {
+    padding: moderateScale(8),
+    flexDirection: "row",
+    borderWidth: 1,
+    borderRadius: moderateScale(8),
+    alignSelf: "flex-start",
+    borderColor: COLORS.grey300,
+    backgroundColor: COLORS.grey100,
+    gap: horizontalScale(8),
+  },
   container: {
     padding: moderateScale(8),
     flexDirection: "row",
