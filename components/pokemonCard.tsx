@@ -18,7 +18,7 @@ import { COLORS, FONTS, POKEMON_COLOR } from "../style/style";
 import { PokemonTypes } from "../types/pokemonTypes";
 import TypeBadge from "./typeBadge";
 import { list as pokemonImageList } from "../assets/pokemonImageData";
-import { pokeCardColor } from "../utils/utils";
+import { capitalizeFirstLetter, pokeCardColor } from "../utils/utils";
 
 type propsType = {
   badgeArray?: Array<{ badgeType: PokemonTypes; name: string }>;
@@ -80,7 +80,9 @@ const PokemonCard: React.FC<propsType> = ({
   return (
     <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.textContainer}>
-        <Text style={styles.headingText}>{pokeLabel}</Text>
+        <Text style={styles.headingText}>
+          {capitalizeFirstLetter(pokeLabel)}
+        </Text>
         <Text style={styles.headingText}>{pokeNumber}</Text>
       </View>
       <View style={styles.badgeAndImageContainer}>
