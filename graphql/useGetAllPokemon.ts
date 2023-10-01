@@ -10,9 +10,10 @@ const query = gql`
     $limit: Int = 10
     $offset: Int = null
     $where: pokemonDetails_bool_exp = {}
+    $pokemonIndexOrderBy: order_by = asc
   ) @cached {
     pokemonDetails(
-      order_by: { pokemonIndex: asc }
+      order_by: { pokemonIndex: $pokemonIndexOrderBy }
       limit: $limit
       offset: $offset
       where: $where
@@ -47,6 +48,10 @@ export function useGetAllPokemon(filterType: filterType) {
       const data: any = await client.request(query, {
         offset: pageParam ? pageParam : null,
         where: generateWhereFormFilterData(filterType),
+        pokemonIndexOrderBy:
+          filterType.orderByPokemonIndex === null
+            ? "asc"
+            : filterType.orderByPokemonIndex,
       });
 
       return data.pokemonDetails;

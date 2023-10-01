@@ -119,15 +119,7 @@ export function getPokemonTypeFromWeakness(pokemonType: PokemonTypes) {
 }
 
 export function generateWhereFormFilterData(filterData: filterType) {
-  const {
-    generation,
-    type,
-    weakness,
-    height,
-    weight,
-    orderByPokemonIndex,
-    name,
-  } = filterData;
+  const { generation, type, weakness, height, weight, name } = filterData;
 
   const pokemonType = getPokemonTypeFromWeaknessAndType({
     weakness,
