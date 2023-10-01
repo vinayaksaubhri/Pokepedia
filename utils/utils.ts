@@ -2,7 +2,11 @@ import { GenerationList } from "./../constant/constant";
 import { AppStateStatus, Platform } from "react-native";
 import { focusManager } from "react-query";
 import { POKEMON_COLOR } from "../style/style";
-import { PokemonTypes, pokemonGenerationType } from "../types/pokemonTypes";
+import {
+  PokemonTypes,
+  filterType,
+  pokemonGenerationType,
+} from "../types/pokemonTypes";
 import pokemonEvolutionItem from "../assets/pokemonEvolutionItem";
 
 export function onAppStateChange(status: AppStateStatus) {
@@ -114,23 +118,23 @@ export function getPokemonTypeFromWeakness(pokemonType: PokemonTypes) {
   return PokemonWeaknessData[pokemonType];
 }
 
-export function generateWhereFormFilterData(filterData: {
-  searchName?: "" | undefined;
-  height?: null | undefined;
-  weight?: null | undefined;
-  generation?: pokemonGenerationType | undefined;
-  pokemonType?: never[] | undefined;
-}) {
+export function generateWhereFormFilterData(filterData: filterType) {
   const {
-    searchName = "",
-    height = null,
-    weight = null,
-    generation = "",
-    pokemonType = [],
+    generation,
+    type,
+    weakness,
+    height,
+    weight,
+    orderByPokemonIndex,
+    name,
   } = filterData;
 
+  const pokemonType = getPokemonTypeFromWeaknessAndType({
+    weakness,
+    type,
+  });
   const whereCondition = {
-    _and: [{ name: { _ilike: searchName } }],
+    _and: [{ name: { _ilike: name + "%" } }],
   };
 
   if (pokemonType.length !== 0) {
@@ -157,7 +161,15 @@ export function generateWhereFormFilterData(filterData: {
 
   return whereCondition;
 }
-
+export function getPokemonTypeFromWeaknessAndType({
+  weakness,
+  type,
+}: {
+  weakness: PokemonTypes;
+  type: PokemonTypes;
+}) {
+  return [type, ...getPokemonTypeFromWeakness(weakness)];
+}
 export function getGenerationFromGenerationName(
   generationName: pokemonGenerationType
 ) {

@@ -28,14 +28,6 @@ import SelectedFilter from "../../components/selectedFilter";
 
 const Home = ({ navigation, route }) => {
   const { bottomNavigationSetOptions } = route?.params;
-  const {
-    data: pokemonDetails,
-    error,
-    isLoading: isPokemonDetailsLoading,
-    refetch: pokemonDetailsRefetch,
-    fetchNextPage,
-    isFetching,
-  } = useGetAllPokemon();
 
   const [filterData, setFilterData] = useState<filterType>({
     generation: "",
@@ -46,7 +38,14 @@ const Home = ({ navigation, route }) => {
     orderByPokemonIndex: null,
     name: "",
   });
-  console.log("🚀 ~ file: index.tsx:49 ~ Home ~ filterData:", filterData);
+  const {
+    data: pokemonDetails,
+    error,
+    isLoading: isPokemonDetailsLoading,
+    refetch: pokemonDetailsRefetch,
+    fetchNextPage,
+    isFetching,
+  } = useGetAllPokemon(filterData);
 
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(
     pokemonDetailsRefetch
