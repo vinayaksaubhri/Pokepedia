@@ -100,8 +100,7 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     aspectRatio: 1,
-    height: "65%",
-    transform: [{ scale: 1.3 }],
+    flex: 1,
   },
   HeadingSubHeadingContainer: {
     justifyContent: "center",
