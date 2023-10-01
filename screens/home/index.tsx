@@ -42,6 +42,7 @@ const Home = ({ navigation, route }) => {
     orderByPokemonIndex: null,
     name: "",
   });
+  console.log("🚀 ~ file: index.tsx:45 ~ Home ~ filterData:", filterData);
 
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(
     pokemonDetailsRefetch
@@ -155,6 +156,8 @@ const Home = ({ navigation, route }) => {
       <FilterModal
         bottomSheetRef={bottomSheetRef}
         bottomNavigationSetOptions={bottomNavigationSetOptions}
+        setFilterData={setFilterData}
+        filterData={filterData}
       />
     </CustomSafeAreaView>
   );

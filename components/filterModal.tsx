@@ -20,25 +20,28 @@ import CustomSlider from "./customSlider";
 import DropDownPicker from "react-native-dropdown-picker";
 import Button from "./button";
 import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+import { filterType } from "../types/pokemonTypes";
+import { useHaptic } from "../hooks/useHaptic";
 
 type FilterModalProps = {
   bottomSheetRef: React.RefObject<BottomSheetMethods>;
   bottomNavigationSetOptions: any;
+  filterData: filterType;
+  setFilterData: React.Dispatch<React.SetStateAction<filterType>>;
 };
-
+const dropDownItems = [
+  { label: "Ascending", value: "asc" },
+  { label: "Descending", value: "desc" },
+];
 const FilterModal: React.FC<FilterModalProps> = ({
   bottomSheetRef,
   bottomNavigationSetOptions,
+  filterData,
+  setFilterData,
 }) => {
   const initialSnapPoints = useMemo(() => ["CONTENT_HEIGHT"], []);
-  const [weight, setWeight] = useState(0);
-  const [height, setHeight] = useState(0);
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "Ascending", value: "asc" },
-    { label: "Descending", value: "desc" },
-  ]);
+  const hapticSelection = useHaptic("light");
 
   const {
     animatedHandleHeight,
@@ -125,32 +128,59 @@ const FilterModal: React.FC<FilterModalProps> = ({
           <View>
             <View style={styles.customSliderHeading}>
               <Text style={styles.modalCategoryHeading}>Weight</Text>
-              <Text style={styles.customSliderSubHeading}>{weight} kg</Text>
+              <Text style={styles.customSliderSubHeading}>
+                {filterData.weight} kg
+              </Text>
             </View>
-            <CustomSlider value={weight} setValue={setWeight} />
+            <CustomSlider
+              value={filterData.weight ? filterData.weight : 0}
+              onValueChange={(value: number) => {
+                if (value !== filterData.weight) {
+                  hapticSelection();
+                  setFilterData((prev) => ({ ...prev, weight: value }));
+                }
+              }}
+            />
           </View>
           <View>
             <View style={styles.customSliderHeading}>
               <Text style={styles.modalCategoryHeading}>Height</Text>
-              <Text style={styles.customSliderSubHeading}>{height} m</Text>
+              <Text style={styles.customSliderSubHeading}>
+                {filterData.height} m
+              </Text>
             </View>
-            <CustomSlider value={height} setValue={setHeight} />
+            <CustomSlider
+              value={filterData.height ? filterData.height : 0}
+              maximumValue={20}
+              step={2}
+              onValueChange={(value: number) => {
+                if (value !== filterData.height) {
+                  hapticSelection();
+                  setFilterData((prev) => ({ ...prev, height: value }));
+                }
+              }}
+            />
           </View>
           <View>
             <Text style={styles.modalCategoryHeading}>Order</Text>
             <DropDownPicker
               open={open}
-              value={value}
-              items={items}
+              value={filterData?.orderByPokemonIndex}
+              items={dropDownItems}
               setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
+              onSelectItem={({ value }) => {
+                setFilterData((prev) => ({
+                  ...prev,
+                  orderByPokemonIndex: value as "asc" | "desc" | null,
+                }));
+              }}
               placeholder="Order By"
               showTickIcon={false}
               dropDownContainerStyle={styles.dropDownContainerStyle}
               style={styles.dropDownScale}
               placeholderStyle={styles.placeholderStyle}
               listItemLabelStyle={styles.listItemLabelStyle}
+              multiple={false}
             />
           </View>
           <Button
