@@ -5,8 +5,8 @@ import HomeOutlinedIcon from "../../assets/svg/home-outline";
 import QuizIcon from "../../assets/svg/quiz";
 import BottomTabUI from "../../components/bottomTabUI";
 import ROUTES from "../../constant/routes";
-import Compare from "../../screens/compare";
 import Favorites from "../../screens/favorites";
+import CompareStack from "../stackNavigator/compareStack";
 import HomeStack from "../stackNavigator/homeStack";
 import QuizStack from "../stackNavigator/quizStack";
 
@@ -19,8 +19,8 @@ const bottomTab = [
   },
   {
     id: 2,
-    name: "Compare",
-    component: Compare,
+    name: ROUTES.COMPARE_STACK,
+    component: CompareStack,
     icon: <CompareArrowIcon />,
   },
   {

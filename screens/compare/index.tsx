@@ -6,8 +6,12 @@ import { FONTS } from "../../style/style";
 import PokemonSelectCard from "../../components/pokemonSelectCard";
 import Button from "../../components/button";
 import DiceButton from "../../components/DiceButton";
+import ROUTES from "../../constant/routes";
+import { useState } from "react";
 
-const Compare = () => {
+const Compare = ({ navigation, route }) => {
+  const [pokemon1, setPokemon1] = useState(null);
+  const [pokemon2, setPokemon2] = useState(null);
   return (
     <CustomSafeAreaView>
       <View style={styles.container}>
@@ -27,7 +31,18 @@ const Compare = () => {
           <PokemonSelectCard />
           <PokemonSelectCard />
           <DiceButton />
-          <Button variant="Primary" width={"100%"} label="COMPARE!" />
+          <Button
+            variant="Primary"
+            width={"100%"}
+            label="COMPARE!"
+            onPress={() => {
+              navigation.navigate(ROUTES.COMPARE_RESULT_SCREEN, {
+                bottomNavigationSetOptions: navigation?.setOptions,
+                pokemon1,
+                pokemon2,
+              });
+            }}
+          />
         </View>
       </View>
     </CustomSafeAreaView>

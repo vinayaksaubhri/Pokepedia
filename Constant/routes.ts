@@ -5,5 +5,8 @@ enum ROUTES {
   QUIZ_STACK = "Quiz",
   QUIZ_START_SCREEN = "QuizStartScreen",
   QUIZ_GAME_SCREEN = "QuizGameScreen",
+  COMPARE_STACK = "Compare",
+  COMPARE_SCREEN = "CompareScreen",
+  COMPARE_RESULT_SCREEN = "CompareResultScreen",
 }
 export default ROUTES;
