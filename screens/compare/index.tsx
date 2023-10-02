@@ -10,6 +10,7 @@ import ROUTES from "../../constant/routes";
 import { useState } from "react";
 
 const Compare = ({ navigation, route }) => {
+  const { bottomNavigationSetOptions } = route?.params;
   const [pokemon1, setPokemon1] = useState(null);
   const [pokemon2, setPokemon2] = useState(null);
   return (
@@ -36,8 +37,9 @@ const Compare = ({ navigation, route }) => {
             width={"100%"}
             label="COMPARE!"
             onPress={() => {
+              bottomNavigationSetOptions({ tabBarVisible: false });
               navigation.navigate(ROUTES.COMPARE_RESULT_SCREEN, {
-                bottomNavigationSetOptions: navigation?.setOptions,
+                bottomNavigationSetOptions,
                 pokemon1,
                 pokemon2,
               });
