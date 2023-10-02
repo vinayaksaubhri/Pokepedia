@@ -13,7 +13,8 @@ const ListEmptyComponent = () => {
         resizeMode="cover"
       />
       <Text style={styles.headingTextStyle}>
-        Diglett's gone underground. Keep searching, you might find its tunnel!
+        Diglett's sneaky hideaway left us empty-handed. Keep exploring, there
+        are more Pokémon out there!
       </Text>
     </View>
   );
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    height: height * 0.5,
+    // height: height * 0.5,
   },
   lottieViewStyle: {
     width: width * 0.8,
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
   },
   headingTextStyle: {
     color: COLORS.primaryBlue,
-    fontSize: scaleFont(24),
+    fontSize: scaleFont(20),
     fontFamily: FONTS.RC_Regular,
     textAlign: "center",
     marginTop: 30,
