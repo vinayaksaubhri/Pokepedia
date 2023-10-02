@@ -10,21 +10,20 @@ import SearchBar from "../../components/searchBar";
 import ROUTES from "../../constant/routes";
 import { useGetAllPokemon } from "../../graphql/useGetAllPokemon";
 import {
+  height,
   horizontalScale,
   moderateScale,
   scaleFont,
   verticalScale,
 } from "../../style/metrics";
 import { COLORS, FONTS } from "../../style/style";
-import {
-  capitalizeFirstLetter,
-  getPokeNumberFromPokemonIndex,
-} from "../../utils/utils";
+import { getPokeNumberFromPokemonIndex } from "../../utils/utils";
 import LoadingIndicator from "../../components/loadingIndicator";
 import { useRefreshByUser } from "../../hooks/useRefreshByUser";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFoucs";
 import { filterType } from "../../types/pokemonTypes";
 import SelectedFilter from "../../components/selectedFilter";
+import ListEmptyComponent from "./components/listEmptyComponent";
 
 const Home = ({ navigation, route }) => {
   const { bottomNavigationSetOptions } = route?.params;
@@ -140,6 +139,7 @@ const Home = ({ navigation, route }) => {
                 refreshing={isRefetchingByUser}
               />
             }
+            ListEmptyComponent={<ListEmptyComponent />}
             onEndReachedThreshold={0.1}
             onEndReached={() => fetchNextPage()}
             showsVerticalScrollIndicator={false}
