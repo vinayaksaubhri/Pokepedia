@@ -8,7 +8,7 @@ const CustomThumb = ({ value = 0, thumbVisible = true }) => {
       justifyContent: "center",
       alignItems: "center",
       overflow: "visible",
-      top: thumbVisible ? -thumbWidth / 2 : 0,
+      top: -thumbWidth / 2,
       height: verticalScale(80),
     },
     thumbDropView: {
@@ -23,6 +23,7 @@ const CustomThumb = ({ value = 0, thumbVisible = true }) => {
       transform: [{ rotateZ: "45deg" }],
       overflow: "visible",
       top: -6,
+      opacity: thumbVisible ? 1 : 0,
     },
     thumbDropText: {
       transform: [{ rotateZ: "-45deg" }],
@@ -39,11 +40,11 @@ const CustomThumb = ({ value = 0, thumbVisible = true }) => {
   });
   return (
     <View style={styles.container}>
-      {thumbVisible && (
-        <View style={styles.thumbDropView}>
-          <Text style={styles.thumbDropText}>{value}</Text>
-        </View>
-      )}
+      {/* {thumbVisible && ( */}
+      <View style={styles.thumbDropView}>
+        <Text style={styles.thumbDropText}>{value}</Text>
+      </View>
+      {/* )} */}
       <View style={styles.thumbStyle} />
     </View>
   );

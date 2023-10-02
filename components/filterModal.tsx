@@ -44,13 +44,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
   const [open, setOpen] = useState(false);
   const hapticSelection = useHaptic("light");
   const [filterData, setFilterData] = useState<filterType>({
-    generation: "",
-    type: "",
-    weakness: "",
-    height: null,
-    weight: null,
-    orderByPokemonIndex: null,
-    name: "",
+    ...filterDataFromQuery,
   });
 
   const {
