@@ -38,3 +38,11 @@ export type filterType = {
   orderByPokemonIndex: "asc" | "desc" | null;
   name: string;
 };
+export type pokemonStatsType = {
+  hp: number;
+  speed: number;
+  attack: number;
+  defense: number;
+  specialAttack: number;
+  specialDefense: number;
+};
