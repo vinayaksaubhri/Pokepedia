@@ -8,11 +8,29 @@ import Button from "../../components/button";
 import DiceButton from "../../components/DiceButton";
 import ROUTES from "../../constant/routes";
 import { useState } from "react";
+import { PokemonTypes } from "../../types/pokemonTypes";
+
+type selectedPokemonType = {
+  id: string;
+  pokemonIndex: number | null;
+  name: string;
+  type: PokemonTypes;
+};
 
 const Compare = ({ navigation, route }) => {
   const { bottomNavigationSetOptions } = route?.params;
-  const [pokemon1, setPokemon1] = useState(null);
-  const [pokemon2, setPokemon2] = useState(null);
+  const [pokemon1, setPokemon1] = useState<selectedPokemonType>({
+    id: "57f30647-28c6-404e-9b07-a9b644d85a99",
+    pokemonIndex: 6,
+    name: "charizard",
+    type: "fire",
+  });
+  const [pokemon2, setPokemon2] = useState<selectedPokemonType>({
+    id: "36bbc227-088b-4b89-8762-d1b0691ac99b",
+    pokemonIndex: 8,
+    name: "wartortle",
+    type: "water",
+  });
   return (
     <CustomSafeAreaView>
       <View style={styles.container}>

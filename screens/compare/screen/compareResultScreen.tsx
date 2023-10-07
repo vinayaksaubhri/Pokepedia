@@ -5,8 +5,18 @@ import { moderateScale, verticalScale } from "../../../style/metrics";
 import { COLORS, FONTS } from "../../../style/style";
 import { list as PokemonImageList } from "../../../assets/pokemonImageData";
 import StatsBar from "../../../components/statsBar";
+import { capitalizeFirstLetter } from "../../../utils/utils";
+import { useGetPokemonStats } from "../../../graphql/useGetPokemonStats";
+import AnimatedStatsComparator from "../components/animatedStatsComparator";
 const CompareResultScreen = ({ navigation, route }) => {
-  const { bottomNavigationSetOptions } = route?.params;
+  const { bottomNavigationSetOptions, pokemon1, pokemon2 } = route?.params;
+  const { data: pokemonStats, isLoading: loadingPokemonStats } =
+    useGetPokemonStats(pokemon1.id, pokemon2.id);
+
+  const pokemon1Stats = pokemonStats && pokemonStats[0]?.stats;
+
+  const pokemon2Stats = pokemonStats && pokemonStats[1]?.stats;
+
   return (
     <CustomSafeAreaView>
       <View style={styles.container}>
@@ -23,31 +33,30 @@ const CompareResultScreen = ({ navigation, route }) => {
           <View style={styles.imageContainer}>
             <View style={styles.imageBackground}>
               <Image
-                source={PokemonImageList[5].source}
+                source={PokemonImageList[pokemon1.pokemonIndex - 1].source}
                 style={styles.imageStyle}
               />
             </View>
             <View style={styles.imageBackground}>
               <Image
-                source={PokemonImageList[1].source}
+                source={PokemonImageList[pokemon2.pokemonIndex - 1].source}
                 style={styles.imageStyle}
               />
             </View>
           </View>
           <View style={styles.textContainer}>
-            <Text style={styles.textStyles}>Vinayak</Text>
-            <Text style={styles.textStyles}>Vinayak</Text>
+            <Text style={styles.textStyles}>
+              {capitalizeFirstLetter(pokemon1.name)}
+            </Text>
+            <Text style={styles.textStyles}>
+              {capitalizeFirstLetter(pokemon2.name)}
+            </Text>
           </View>
           <View>
             <Text style={styles.headingTextStyle}>Wartortle wins!</Text>
           </View>
           <View style={styles.statsContainer}>
-            <StatsBar value={10} statsTitle="HP" comparatorMode />
-            <StatsBar value={20} statsTitle="Attack" comparatorMode />
-            <StatsBar value={30} statsTitle="Defense" comparatorMode />
-            <StatsBar value={40} statsTitle="Sp. Atk" comparatorMode />
-            <StatsBar value={50} statsTitle="Sp. Def" comparatorMode />
-            <StatsBar value={60} statsTitle="Speed" comparatorMode />
+            <AnimatedStatsComparator />
           </View>
         </View>
       </View>
