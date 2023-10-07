@@ -3,7 +3,12 @@ import Stats from "./components/stats";
 import { COLORS, FONTS } from "../../style/style";
 import { scaleFont } from "../../style/metrics";
 import { MAX_BASE_STATS } from "../../constant/constant";
-const StatsBar = ({ value = 0, statsTitle = "" }) => {
+const StatsBar = ({
+  value = 0,
+  statsTitle = "",
+  comparatorMode = false,
+  comparatorSecondValue = 0,
+}) => {
   const arr = new Array(15).fill(0);
   const valueInStatsBar = Math.floor((arr.length / MAX_BASE_STATS) * value);
 
@@ -13,9 +18,18 @@ const StatsBar = ({ value = 0, statsTitle = "" }) => {
       <Text style={styles.value}>{value}</Text>
       <View style={styles.statsBarContainer}>
         {arr.map((_, index) => (
-          <Stats isActive={index < valueInStatsBar} key={index} />
+          <Stats
+            isActive={index < valueInStatsBar}
+            key={index}
+            isSecondaryActive={index >= valueInStatsBar}
+          />
         ))}
       </View>
+      {comparatorMode && (
+        <Text style={[styles.value, styles.textAlignRight]}>
+          {comparatorSecondValue}
+        </Text>
+      )}
     </View>
   );
 };
@@ -41,5 +55,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     flex: 0.6,
+  },
+  textAlignRight: {
+    textAlign: "right",
   },
 });

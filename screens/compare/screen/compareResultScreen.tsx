@@ -42,12 +42,12 @@ const CompareResultScreen = ({ navigation, route }) => {
             <Text style={styles.headingTextStyle}>Wartortle wins!</Text>
           </View>
           <View style={styles.statsContainer}>
-            <StatsBar value={10} statsTitle="HP" />
-            <StatsBar value={20} statsTitle="Attack" />
-            <StatsBar value={30} statsTitle="Defense" />
-            <StatsBar value={40} statsTitle="Sp. Atk" />
-            <StatsBar value={50} statsTitle="Sp. Def" />
-            <StatsBar value={60} statsTitle="Speed" />
+            <StatsBar value={10} statsTitle="HP" comparatorMode />
+            <StatsBar value={20} statsTitle="Attack" comparatorMode />
+            <StatsBar value={30} statsTitle="Defense" comparatorMode />
+            <StatsBar value={40} statsTitle="Sp. Atk" comparatorMode />
+            <StatsBar value={50} statsTitle="Sp. Def" comparatorMode />
+            <StatsBar value={60} statsTitle="Speed" comparatorMode />
           </View>
         </View>
       </View>

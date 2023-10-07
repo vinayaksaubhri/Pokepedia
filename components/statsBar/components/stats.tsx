@@ -6,13 +6,17 @@ import {
   verticalScale,
 } from "../../../style/metrics";
 import { COLORS } from "../../../style/style";
-const stats = ({ isActive = false }) => {
+const stats = ({ isActive = false, isSecondaryActive = false }) => {
   const styles = StyleSheet.create({
     container: {
       width: horizontalScale(8),
       height: verticalScale(24),
       borderRadius: moderateScale(4),
-      backgroundColor: isActive ? COLORS.primaryYellow : COLORS.grey200,
+      backgroundColor: isActive
+        ? COLORS.primaryYellow
+        : isSecondaryActive
+        ? COLORS.primaryBlue
+        : COLORS.grey200,
     },
   });
   return <View style={styles.container} />;
