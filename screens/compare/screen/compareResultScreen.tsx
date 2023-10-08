@@ -1,12 +1,11 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import TopAppBar from "../../../components/topAppBar";
-import CustomSafeAreaView from "../../../components/customSafeAreaView";
-import { moderateScale, verticalScale } from "../../../style/metrics";
-import { COLORS, FONTS } from "../../../style/style";
 import { list as PokemonImageList } from "../../../assets/pokemonImageData";
-import StatsBar from "../../../components/statsBar";
-import { capitalizeFirstLetter } from "../../../utils/utils";
+import CustomSafeAreaView from "../../../components/customSafeAreaView";
+import TopAppBar from "../../../components/topAppBar";
 import { useGetPokemonStats } from "../../../graphql/useGetPokemonStats";
+import { moderateScale } from "../../../style/metrics";
+import { COLORS, FONTS } from "../../../style/style";
+import { capitalizeFirstLetter } from "../../../utils/utils";
 import AnimatedStatsComparator from "../components/animatedStatsComparator";
 const CompareResultScreen = ({ navigation, route }) => {
   const { bottomNavigationSetOptions, pokemon1, pokemon2 } = route?.params;
@@ -109,7 +108,5 @@ const styles = StyleSheet.create({
   },
   statsContainer: {
     flex: 1,
-    gap: verticalScale(24),
-    alignItems: "center",
   },
 });

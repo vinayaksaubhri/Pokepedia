@@ -12,10 +12,19 @@ import {
   verticalScale,
 } from "../../../style/metrics";
 import { COLORS } from "../../../style/style";
-const stats = ({
+
+type StatsProps = {
+  isActive: Boolean;
+  isSecondaryActive: Boolean;
+  delayTime: number;
+  startAnimation: Boolean;
+};
+
+const stats: React.FC<StatsProps> = ({
   isActive = false,
   isSecondaryActive = false,
   delayTime = 0,
+  startAnimation = false,
 }) => {
   const progress = useSharedValue(0);
   const animatedStylePrimaryBlue = useAnimatedStyle(() => {
@@ -37,10 +46,14 @@ const stats = ({
     };
   });
   useEffect(() => {
-    setTimeout(() => {
-      progress.value = withTiming(1, { duration: 100 });
-    }, delayTime);
-  }, [delayTime]);
+    if (startAnimation) {
+      setTimeout(() => {
+        progress.value = withTiming(1, { duration: 100 });
+      }, delayTime);
+    } else {
+      return;
+    }
+  }, [delayTime, startAnimation]);
 
   const styles = StyleSheet.create({
     container: {

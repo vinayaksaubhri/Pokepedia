@@ -4,13 +4,22 @@ import { COLORS, FONTS } from "../../style/style";
 import { scaleFont } from "../../style/metrics";
 import { MAX_BASE_STATS } from "../../constant/constant";
 import { getDelayTime } from "../../utils/utils";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
-const StatsBar = ({
+export type StatsBarProps = {
+  value?: number;
+  statsTitle?: string;
+  comparatorMode?: boolean;
+  comparatorSecondValue?: number;
+  startAnimation?: boolean;
+};
+
+const StatsBar: React.FC<StatsBarProps> = ({
   value = 0,
   statsTitle = "",
   comparatorMode = false,
   comparatorSecondValue = 0,
+  startAnimation = false,
 }) => {
   const arr = new Array(14).fill(0);
   const primaryValue = Math.floor((arr.length / MAX_BASE_STATS) * value);
@@ -30,9 +39,9 @@ const StatsBar = ({
           <Stats
             isActive={index < primaryValue}
             key={index}
-            number={index}
             delayTime={delayTimeArr[index]}
             isSecondaryActive={comparatorMode && index >= primaryValue}
+            startAnimation={startAnimation}
           />
         ))}
       </View>
