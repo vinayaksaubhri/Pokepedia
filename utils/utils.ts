@@ -246,20 +246,20 @@ export function comparePokemon(
   pokemon2Type: PokemonTypes
 ) {
   const pokemon1Score =
-    0.05 * pokemon1.hp +
-    0.3 * pokemon1.attack +
-    0.2 * pokemon1.defense +
-    0.3 * pokemon1.specialAttack +
-    0.2 * pokemon1.specialDefense +
-    0.15 * pokemon1.speed +
+    0.05 * pokemon1?.hp +
+    0.3 * pokemon1?.attack +
+    0.2 * pokemon1?.defense +
+    0.3 * pokemon1?.specialAttack +
+    0.2 * pokemon1?.specialDefense +
+    0.15 * pokemon1?.speed +
     getTypeAdvantageFactor(pokemon1Type, pokemon2Type);
   const pokemon2Score =
-    0.05 * pokemon2.hp +
-    0.3 * pokemon2.attack +
-    0.2 * pokemon2.defense +
-    0.3 * pokemon2.specialAttack +
-    0.2 * pokemon2.specialDefense +
-    0.15 * pokemon2.speed +
+    0.05 * pokemon2?.hp +
+    0.3 * pokemon2?.attack +
+    0.2 * pokemon2?.defense +
+    0.3 * pokemon2?.specialAttack +
+    0.2 * pokemon2?.specialDefense +
+    0.15 * pokemon2?.speed +
     getTypeAdvantageFactor(pokemon2Type, pokemon1Type);
   if (pokemon1Score > pokemon2Score) {
     return 0;
