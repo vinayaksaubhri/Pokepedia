@@ -27,12 +27,14 @@ import { getPokeNumberFromPokemonIndex } from "../../../utils/utils";
 import { selectedPokemonType } from "..";
 type PokemonSelectModalProps = BottomSheetModalProps & {
   bottomSheetRef: React.Ref<BottomSheetModal>;
+  bottomNavigationSetOptions: any;
   setPokemon: React.Dispatch<React.SetStateAction<selectedPokemonType>>;
 };
 
 const PokemonSelectModal: React.FC<PokemonSelectModalProps> = ({
   bottomSheetRef,
   setPokemon,
+  bottomNavigationSetOptions,
   ...rest
 }) => {
   const [filterData, setFilterData] = useState<filterType>({
@@ -90,7 +92,9 @@ const PokemonSelectModal: React.FC<PokemonSelectModalProps> = ({
       enablePanDownToClose
       backdropComponent={renderBackdrop}
       topInset={insets.top ? insets.top : 16}
-      onDismiss={() => {}}
+      onDismiss={() => {
+        bottomNavigationSetOptions({ tabBarVisible: true });
+      }}
       {...rest}
     >
       <BottomSheetView style={styles.container}>

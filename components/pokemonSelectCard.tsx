@@ -11,15 +11,18 @@ import { list as PokemonImageList } from "../assets/pokemonImageData";
 type PokemonSelectCardProps = {
   pokemon: selectedPokemonType;
   setPokemon: React.Dispatch<React.SetStateAction<selectedPokemonType>>;
+  bottomNavigationSetOptions: any;
 };
 
 const PokemonSelectCard: React.FC<PokemonSelectCardProps> = ({
   setPokemon,
   pokemon,
+  bottomNavigationSetOptions,
 }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const onPressCard = () => {
     bottomSheetModalRef.current?.present();
+    bottomNavigationSetOptions({ tabBarVisible: false });
   };
 
   if (pokemon?.pokemonIndex !== null) {
@@ -34,6 +37,7 @@ const PokemonSelectCard: React.FC<PokemonSelectCardProps> = ({
           snapPoints={["100%"]}
           children={undefined}
           setPokemon={setPokemon}
+          bottomNavigationSetOptions={bottomNavigationSetOptions}
         />
       </Pressable>
     );
@@ -41,17 +45,18 @@ const PokemonSelectCard: React.FC<PokemonSelectCardProps> = ({
 
   return (
     <View style={styles.container}>
-      <PokemonSelectModal
-        bottomSheetRef={bottomSheetModalRef}
-        snapPoints={["100%"]}
-        children={undefined}
-        setPokemon={setPokemon}
-      />
       <Button
         variant="Outline"
         label="ADD POKEMON"
         width={"55%"}
         onPress={onPressCard}
+      />
+      <PokemonSelectModal
+        bottomSheetRef={bottomSheetModalRef}
+        snapPoints={["100%"]}
+        children={undefined}
+        setPokemon={setPokemon}
+        bottomNavigationSetOptions={bottomNavigationSetOptions}
       />
     </View>
   );
