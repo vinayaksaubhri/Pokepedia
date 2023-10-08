@@ -6,7 +6,7 @@ import {
 } from "@gorhom/bottom-sheet";
 import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
 import { useCallback, useState } from "react";
-import { FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
+import { RefreshControl, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   horizontalScale,
@@ -25,6 +25,7 @@ import ListEmptyComponent from "../../home/components/listEmptyComponent";
 import PokemonCard from "../../../components/pokemonCard";
 import { getPokeNumberFromPokemonIndex } from "../../../utils/utils";
 import { selectedPokemonType } from "..";
+import { FlatList } from "react-native-gesture-handler";
 type PokemonSelectModalProps = BottomSheetModalProps & {
   bottomSheetRef: React.Ref<BottomSheetModal>;
   bottomNavigationSetOptions: any;
