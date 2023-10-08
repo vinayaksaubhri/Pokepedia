@@ -71,7 +71,7 @@ const PokemonSelectModal: React.FC<PokemonSelectModalProps> = ({
       name,
       type,
     });
-    // bottomSheetRef?.current?.dismiss();
+    bottomSheetRef?.current?.dismiss();
   };
 
   const renderBackdrop = useCallback(

@@ -47,8 +47,8 @@ const Compare = ({ navigation, route }) => {
             gap: 24,
           }}
         >
-          <PokemonSelectCard setPokemon={setPokemon1} />
-          <PokemonSelectCard setPokemon={setPokemon2} />
+          <PokemonSelectCard setPokemon={setPokemon1} pokemon={pokemon1} />
+          <PokemonSelectCard setPokemon={setPokemon2} pokemon={pokemon2} />
           <DiceButton />
           <Button
             variant="Primary"
