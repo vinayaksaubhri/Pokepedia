@@ -5,8 +5,10 @@ import TopAppBar from "../../../components/topAppBar";
 import { useGetPokemonStats } from "../../../graphql/useGetPokemonStats";
 import { moderateScale } from "../../../style/metrics";
 import { COLORS, FONTS } from "../../../style/style";
-import { capitalizeFirstLetter } from "../../../utils/utils";
+import { capitalizeFirstLetter, comparePokemon } from "../../../utils/utils";
 import AnimatedStatsComparator from "../components/animatedStatsComparator";
+import LoadingIndicator from "../../../components/loadingIndicator";
+import { useEffect, useState } from "react";
 const CompareResultScreen = ({ navigation, route }) => {
   const { bottomNavigationSetOptions, pokemon1, pokemon2 } = route?.params;
   const { data: pokemonStats, isLoading: loadingPokemonStats } =
@@ -15,6 +17,37 @@ const CompareResultScreen = ({ navigation, route }) => {
   const pokemon1Stats = pokemonStats && pokemonStats[0]?.stats;
 
   const pokemon2Stats = pokemonStats && pokemonStats[1]?.stats;
+
+  const loadingValue = [
+    "Exploring Tall Grass...",
+    "Training Pokémon...",
+    "Ready to Battle...",
+    "Battling...",
+    comparePokemon(
+      pokemon1Stats,
+      pokemon1.type,
+      pokemon2Stats,
+      pokemon2.type
+    ) === 0
+      ? capitalizeFirstLetter(pokemon1.name) + " Wins!"
+      : capitalizeFirstLetter(pokemon2.name) + " Wins!",
+  ];
+  const [loadingText, setLoadingText] = useState(loadingValue[0]);
+  const delay = 1680;
+  useEffect(() => {
+    let currentIndex = 0;
+
+    const interval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % loadingValue.length;
+      setLoadingText(loadingValue[currentIndex]);
+    }, delay);
+
+    setTimeout(() => {
+      clearInterval(interval);
+    }, 5 * delay);
+
+    return () => clearInterval(interval);
+  }, [pokemon1, pokemon2]);
 
   return (
     <CustomSafeAreaView>
@@ -52,14 +85,20 @@ const CompareResultScreen = ({ navigation, route }) => {
             </Text>
           </View>
           <View>
-            <Text style={styles.headingTextStyle}>Wartortle wins!</Text>
+            <Text style={styles.headingTextStyle}>
+              {loadingPokemonStats ? "" : loadingText}
+            </Text>
           </View>
-          <View style={styles.statsContainer}>
-            <AnimatedStatsComparator
-              pokemon1Stats={pokemon1Stats}
-              pokemon2Stats={pokemon2Stats}
-            />
-          </View>
+          {loadingPokemonStats ? (
+            <LoadingIndicator />
+          ) : (
+            <View style={styles.statsContainer}>
+              <AnimatedStatsComparator
+                pokemon1Stats={pokemon1Stats}
+                pokemon2Stats={pokemon2Stats}
+              />
+            </View>
+          )}
         </View>
       </View>
     </CustomSafeAreaView>

@@ -20,7 +20,7 @@ type selectedPokemonType = {
 const Compare = ({ navigation, route }) => {
   const { bottomNavigationSetOptions } = route?.params;
   const [pokemon1, setPokemon1] = useState<selectedPokemonType>({
-    id: "57f30647-28c6-404e-9b07-a9b644d85a99",
+    id: "4c3786c3-1757-47e6-81e3-9262159c752a",
     pokemonIndex: 6,
     name: "charizard",
     type: "fire",
@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: moderateScale(24),
     paddingBottom: verticalScale(84 + 24),
-    // backgroundColor: "red",
   },
   headingTextStyle: {
     fontSize: scaleFont(36),
