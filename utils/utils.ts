@@ -200,3 +200,42 @@ export function getGenerationFromGenerationName(
 // Ground    | 1    | 1    | 2        | 1      | 1   | 2    | 1     | 1        | 0      | 1     | 2    | 2   | 1      | 0.5    | 1       | 1      | 2     | 1
 // Steel     | 0.5  | 1    | 0.5      | 0.5    | 2   | 0.5  | 0.5   | 2        | 1      | 1     | 0.5  | 2   | 1      | 0.5    | 1       | 1      | 0.5   | 0.5
 // Water     | 1    | 1    | 2        | 0.5    | 2   | 0.5  | 1     | 1        | 1      | 1     | 2    | 1   | 1      | 1      | 1       | 2      | 0.5   | 0.5
+
+export function getDelayTime(
+  primaryValue = 0,
+  secondeValue = 0,
+  delayTime = 200
+) {
+  const arrLength = 14;
+  const delayTimeArr = new Array(14).fill(0);
+  if (primaryValue === secondeValue) {
+    for (let i = 0; i < arrLength / 2; i++) {
+      delayTimeArr[i] = i * delayTime;
+      delayTimeArr[arrLength - 1 - i] = i * delayTime;
+    }
+    return delayTimeArr;
+  }
+  if (primaryValue > secondeValue) {
+    for (let i = 0; i < arrLength - secondeValue; i++) {
+      if (i <= secondeValue) {
+        delayTimeArr[i] = i * delayTime;
+        delayTimeArr[arrLength - 1 - i] = i * delayTime;
+      } else {
+        delayTimeArr[i] = i * delayTime;
+      }
+    }
+    return delayTimeArr;
+  }
+  if (primaryValue < secondeValue) {
+    for (let i = 0; i < arrLength - primaryValue; i++) {
+      if (i <= primaryValue) {
+        delayTimeArr[i] = i * delayTime;
+        delayTimeArr[arrLength - 1 - i] = i * delayTime;
+      } else {
+        delayTimeArr[arrLength - 1 - i] = i * delayTime;
+      }
+    }
+    return delayTimeArr;
+  }
+  return delayTimeArr;
+}

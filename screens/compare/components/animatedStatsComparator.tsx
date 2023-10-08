@@ -3,7 +3,7 @@ import StatsBar from "../../../components/statsBar";
 const AnimatedStatsComparator = () => {
   return (
     <>
-      <StatsBar value={10} statsTitle="HP" comparatorMode />
+      <StatsBar value={20} statsTitle="HP" comparatorMode />
       <StatsBar value={20} statsTitle="Attack" comparatorMode />
       <StatsBar value={30} statsTitle="Defense" comparatorMode />
       <StatsBar value={40} statsTitle="Sp. Atk" comparatorMode />
