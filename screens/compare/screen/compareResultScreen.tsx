@@ -55,7 +55,10 @@ const CompareResultScreen = ({ navigation, route }) => {
             <Text style={styles.headingTextStyle}>Wartortle wins!</Text>
           </View>
           <View style={styles.statsContainer}>
-            <AnimatedStatsComparator />
+            <AnimatedStatsComparator
+              pokemon1Stats={pokemon1Stats}
+              pokemon2Stats={pokemon2Stats}
+            />
           </View>
         </View>
       </View>

@@ -22,8 +22,18 @@ const StatsBar: React.FC<StatsBarProps> = ({
   startAnimation = false,
 }) => {
   const arr = new Array(14).fill(0);
-  const primaryValue = Math.floor((arr.length / MAX_BASE_STATS) * value);
-  const secondeValue = arr.length - primaryValue;
+  let primaryValue = Math.floor((arr.length / MAX_BASE_STATS) * value);
+  let secondeValue = Math.floor(
+    (arr.length / MAX_BASE_STATS) * comparatorSecondValue
+  );
+  if (primaryValue + secondeValue > arr.length) {
+    if (primaryValue > secondeValue) {
+      secondeValue = arr.length - primaryValue;
+    } else {
+      primaryValue = arr.length - secondeValue;
+    }
+  }
+
   const delayTime = 200;
   const delayTimeArr = useMemo(
     () => getDelayTime(primaryValue, secondeValue, delayTime),
@@ -40,7 +50,7 @@ const StatsBar: React.FC<StatsBarProps> = ({
             isActive={index < primaryValue}
             key={index}
             delayTime={delayTimeArr[index]}
-            isSecondaryActive={comparatorMode && index >= primaryValue}
+            isSecondaryActive={arr.length - index <= secondeValue}
             startAnimation={startAnimation}
           />
         ))}
