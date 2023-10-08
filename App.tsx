@@ -6,6 +6,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useAppState } from "./hooks/useAppState";
 import { FONT_OBJECT, onAppStateChange } from "./utils/utils";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
@@ -23,7 +24,9 @@ export default function App() {
       <SafeAreaProvider>
         <GestureHandlerRootView style={styles.container}>
           <QueryClientProvider client={queryClient}>
-            <Navigation />
+            <BottomSheetModalProvider>
+              <Navigation />
+            </BottomSheetModalProvider>
           </QueryClientProvider>
         </GestureHandlerRootView>
       </SafeAreaProvider>

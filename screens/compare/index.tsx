@@ -10,7 +10,7 @@ import ROUTES from "../../constant/routes";
 import { useState } from "react";
 import { PokemonTypes } from "../../types/pokemonTypes";
 
-type selectedPokemonType = {
+export type selectedPokemonType = {
   id: string | null;
   pokemonIndex: number | null;
   name: string;
