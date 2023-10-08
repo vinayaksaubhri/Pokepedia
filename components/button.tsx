@@ -26,6 +26,7 @@ type buttonProps = {
   showIcon?: boolean;
   hidden?: boolean;
   feedbackType?: FeedbackType | "none";
+  disabledColor?: boolean;
 } & PressableProps;
 
 const Button: React.FC<buttonProps> = ({
@@ -38,13 +39,16 @@ const Button: React.FC<buttonProps> = ({
   showIcon = false,
   hidden = false,
   feedbackType = "light",
+  disabledColor = false,
   ...rest
 }) => {
   const hapticSelection = useHaptic(feedbackType);
 
   const styles = StyleSheet.create({
     buttonContainerPrimary: {
-      backgroundColor: COLORS.primaryYellow,
+      backgroundColor: disabledColor
+        ? COLORS.primaryYellow + "4D"
+        : COLORS.primaryYellow,
       width: width,
       height: height,
       borderRadius: moderateScale(16),
