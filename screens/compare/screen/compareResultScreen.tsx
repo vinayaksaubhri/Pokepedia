@@ -54,7 +54,6 @@ const CompareResultScreen = ({ navigation, route }) => {
       <View style={styles.container}>
         <TopAppBar
           label={"Comparator"}
-          showFavIcon
           navigation={navigation}
           onPressBackButton={() => {
             bottomNavigationSetOptions({ tabBarVisible: true });

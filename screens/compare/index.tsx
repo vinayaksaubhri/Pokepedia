@@ -11,7 +11,7 @@ import { useState } from "react";
 import { PokemonTypes } from "../../types/pokemonTypes";
 
 type selectedPokemonType = {
-  id: string;
+  id: string | null;
   pokemonIndex: number | null;
   name: string;
   type: PokemonTypes;
@@ -20,16 +20,16 @@ type selectedPokemonType = {
 const Compare = ({ navigation, route }) => {
   const { bottomNavigationSetOptions } = route?.params;
   const [pokemon1, setPokemon1] = useState<selectedPokemonType>({
-    id: "4c3786c3-1757-47e6-81e3-9262159c752a",
-    pokemonIndex: 6,
-    name: "charizard",
-    type: "fire",
+    id: null,
+    pokemonIndex: null,
+    name: "",
+    type: "",
   });
   const [pokemon2, setPokemon2] = useState<selectedPokemonType>({
-    id: "36bbc227-088b-4b89-8762-d1b0691ac99b",
-    pokemonIndex: 8,
-    name: "wartortle",
-    type: "water",
+    id: null,
+    pokemonIndex: null,
+    name: "",
+    type: "",
   });
   return (
     <CustomSafeAreaView>
@@ -47,13 +47,15 @@ const Compare = ({ navigation, route }) => {
             gap: 24,
           }}
         >
-          <PokemonSelectCard />
-          <PokemonSelectCard />
+          <PokemonSelectCard setPokemon={setPokemon1} />
+          <PokemonSelectCard setPokemon={setPokemon2} />
           <DiceButton />
           <Button
             variant="Primary"
             width={"100%"}
             label="COMPARE!"
+            disabled={pokemon1.id === null || pokemon2.id === null}
+            disabledColor={pokemon1.id === null || pokemon2.id === null}
             onPress={() => {
               bottomNavigationSetOptions({ tabBarVisible: false });
               navigation.navigate(ROUTES.COMPARE_RESULT_SCREEN, {
