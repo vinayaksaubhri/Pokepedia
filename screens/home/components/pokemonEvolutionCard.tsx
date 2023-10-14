@@ -1,11 +1,14 @@
 import {
   Image,
   ImageSourcePropType,
+  Pressable,
+  PressableProps,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 
+import Chip, { chipPropsType } from "../../../components/chip";
 import {
   horizontalScale,
   moderateScale,
@@ -13,19 +16,20 @@ import {
   verticalScale,
 } from "../../../style/metrics";
 import { COLORS, FONTS } from "../../../style/style";
-import Chip, { chipPropsType } from "../../../components/chip";
 import EvolutionTrigger from "./EvolutionTrigger";
 
-const PokemonEvolutionCard: React.FC<{
-  imageSource: ImageSourcePropType;
-  label: string;
-  pokemonName: string;
-  pokemonTypes: chipPropsType[];
-  evolvesFrom: boolean;
-  trigger: string;
-  triggerItem: string;
-  pokemonLevel: number | null;
-}> = ({
+const PokemonEvolutionCard: React.FC<
+  PressableProps & {
+    imageSource: ImageSourcePropType;
+    label: string;
+    pokemonName: string;
+    pokemonTypes: chipPropsType[];
+    evolvesFrom: boolean;
+    trigger: string;
+    triggerItem: string;
+    pokemonLevel: number | null;
+  }
+> = ({
   imageSource,
   label = "",
   pokemonName = "",
@@ -34,9 +38,10 @@ const PokemonEvolutionCard: React.FC<{
   evolvesFrom,
   trigger,
   triggerItem,
+  ...rest
 }) => {
   return (
-    <View style={styles.pokemonEvolutionContainer}>
+    <Pressable style={styles.pokemonEvolutionContainer} {...rest}>
       {evolvesFrom && (
         <EvolutionTrigger
           pokemonLevel={pokemonLevel}
@@ -58,7 +63,7 @@ const PokemonEvolutionCard: React.FC<{
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 export default PokemonEvolutionCard;

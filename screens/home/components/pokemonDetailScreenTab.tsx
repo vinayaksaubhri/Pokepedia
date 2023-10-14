@@ -6,6 +6,8 @@ import PokemonTabAboutComponent from "./pokemonTabAboutComponent";
 import PokemonTabEvolutionComponent from "./pokemonTabEvolutionComponent";
 import PokemonTabMovesComponent from "./pokemonTabMovesComponent";
 import PokemonTabStatsComponent from "./pokemonTabStatsComponent";
+import { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,6 +17,7 @@ const TAB_BAR_INDICATOR_WIDTH = width * 0.04;
 type PokemonDetailScreenTabProps = {
   pokemonWeight: number;
   pokemonHeight: number;
+  pokemonIndex: number;
   pokemonDescription: string[];
   pokemonCategories: {
     pokemonCategory: {
@@ -73,13 +76,22 @@ export const PokemonDetailScreenTab: React.FC<PokemonDetailScreenTabProps> = ({
   pokemonMoves,
   pokemonEvolutions,
   isMultipleEvolutions,
+  pokemonIndex,
 }) => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.jumpTo("About");
+    console.log("pokemonIndex", pokemonIndex);
+  }, [pokemonIndex]);
   return (
     <Tab.Navigator
       initialLayout={{
         width: width,
         height: height / 2,
       }}
+      backBehavior="none"
+      initialRouteName="About"
       screenOptions={{
         tabBarActiveTintColor: COLORS.primaryBlue,
         tabBarInactiveTintColor: COLORS.grey300,

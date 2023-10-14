@@ -9,6 +9,7 @@ import {
 } from "../../../utils/utils";
 import { list as pokemonImageList } from "../../../assets/pokemonImageData";
 import { PokemonTypes } from "../../../types/pokemonTypes";
+import ROUTES from "../../../constant/routes";
 
 const PokemonTabEvolutionComponent = ({ route, navigation }) => {
   const { pokemonEvolutions, isMultipleEvolutions } = route?.params;
@@ -54,6 +55,11 @@ const PokemonTabEvolutionComponent = ({ route, navigation }) => {
                     evolvesFrom={evolvesFrom}
                     trigger={trigger}
                     triggerItem={triggerItem}
+                    onPress={() => {
+                      navigation.navigate(ROUTES.POKEMON_DETAIL_SCREEN, {
+                        pokemonIndex: pokemonIndex,
+                      });
+                    }}
                   />
                 );
               }

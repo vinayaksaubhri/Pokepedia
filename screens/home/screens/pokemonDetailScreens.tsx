@@ -78,6 +78,7 @@ const PokemonDetailScreens = ({ navigation, route }) => {
           pokemonMoves={pokemonMoves}
           pokemonEvolutions={pokemonEvolutions}
           isMultipleEvolutions={pokemonEvolutions.length > 1}
+          pokemonIndex={pokemonIndex}
         />
       </View>
     </CustomSafeAreaView>
