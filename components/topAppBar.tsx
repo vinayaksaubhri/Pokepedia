@@ -1,16 +1,13 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import BackIcon from "../assets/svg/backIcon";
-// import FavIcon from "../assets/svg/favIcon";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
-
+import {
+  default as AnimatedLottieView,
+  default as LottieView,
+} from "lottie-react-native";
+import { useEffect, useRef, useState } from "react";
 import { scaleFont } from "../style/metrics";
 import { COLORS, FONTS } from "../style/style";
-import AnimatedLottieView from "lottie-react-native";
-import LottieView from "lottie-react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { useRef, useState } from "react";
 
 const TopAppBar: React.FC<{
   label: string;
@@ -18,6 +15,7 @@ const TopAppBar: React.FC<{
   onPressBackButton?: () => void;
   showFavIcon?: boolean;
   onPressFavIcon?: () => void;
+  isSelected?: boolean;
 }> = ({
   label = "Label",
   navigation,
@@ -26,12 +24,21 @@ const TopAppBar: React.FC<{
   },
   showFavIcon = false,
   onPressFavIcon = () => {},
+  isSelected = false,
 }) => {
   const lottieRef = useRef<AnimatedLottieView>(null);
-  const [showFavIconAnimation, setShowFavIconAnimation] = useState(false);
+  const [showFavIconAnimation, setShowFavIconAnimation] = useState(isSelected);
+
+  useEffect(() => {
+    if (isSelected) {
+      lottieRef.current?.play(50, 51);
+    } else {
+      lottieRef.current?.reset();
+    }
+  }, [isSelected]);
   const startAnimation = () => {
     setShowFavIconAnimation(true);
-    lottieRef.current?.play();
+    lottieRef.current?.play(25, 51);
   };
   const resetAnimation = () => {
     lottieRef.current?.reset();
@@ -56,24 +63,18 @@ const TopAppBar: React.FC<{
         style={[styles.favIconContainer, !showFavIcon && styles.opacityZero]}
         onPress={pressFavIcon}
       >
-        {
-          <Octicons
-            name="heart"
-            size={28}
-            color={COLORS.primaryBlue}
-            style={[showFavIconAnimation && styles.opacityZero]}
-          />
-        }
-
-        {showFavIconAnimation && (
-          <LottieView
-            source={require("../assets/lottie/FavIcon.json")}
-            autoPlay
-            loop={false}
-            style={styles.lottieViewStyle}
-            ref={lottieRef}
-          />
-        )}
+        <LottieView
+          source={require("../assets/lottie/FavIcon.json")}
+          loop={false}
+          style={styles.lottieViewStyle}
+          ref={lottieRef}
+        />
+        <Octicons
+          name="heart"
+          size={28}
+          color={COLORS.primaryBlue}
+          style={[styles.opacityZero]}
+        />
       </Pressable>
     </View>
   );
@@ -82,8 +83,8 @@ export default TopAppBar;
 const styles = StyleSheet.create({
   lottieViewStyle: {
     position: "absolute",
-    width: 56,
-    height: 56,
+    width: 50,
+    height: 50,
   },
   favIconContainer: {
     justifyContent: "center",
