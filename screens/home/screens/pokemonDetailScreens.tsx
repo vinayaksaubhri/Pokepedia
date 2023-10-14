@@ -56,6 +56,10 @@ const PokemonDetailScreens = ({ navigation, route }) => {
                 bottomNavigationSetOptions({ tabBarVisible: true });
                 navigation.goBack();
               }}
+              showFavIcon={true}
+              onPressFavIcon={() => {
+                console.log("Fav Icon Pressed");
+              }}
             />
             <Image source={pokemonImageSource} style={styles.imageStyle} />
             <View style={styles.HeadingSubHeadingContainer}>
