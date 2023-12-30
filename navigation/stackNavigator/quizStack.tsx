@@ -12,10 +12,7 @@ const Stack = createStackNavigator();
 const QuizStack = ({ navigation, route }) => {
   const bottomNavigation = navigation;
   const routeName = getFocusedRouteNameFromRoute(route) as ROUTES;
-  console.log(
-    "🚀 ~ file: quizStack.tsx:15 ~ QuizStack ~ routeName:",
-    routeName
-  );
+
   useFocusEffect(() => {
     if ([ROUTES.QUIZ_GAME_SCREEN]?.includes(routeName)) {
       bottomNavigation?.setOptions({ tabBarVisible: false });
