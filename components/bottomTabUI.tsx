@@ -5,6 +5,7 @@ import { moderateScale, verticalScale } from "../style/metrics";
 import { COLORS, width } from "../style/style";
 import TabIcon from "./tabIcon";
 import { useHaptic } from "../hooks/useHaptic";
+import useHideNavBar from "../hooks/useHideNavBar";
 
 type BottomTabUiBarProps = BottomTabBarProps & {
   bottomTab: {
@@ -23,21 +24,27 @@ const BottomTabUI = ({
 }: BottomTabUiBarProps) => {
   const hapticSelection = useHaptic("light");
 
-  const homeTabBarVisible =
-    props.descriptors[state.routes[0].key].options?.tabBarVisible === undefined
-      ? true
-      : props.descriptors[state.routes[0].key].options?.tabBarVisible;
-  const compareTabBarVisible =
-    props.descriptors[state.routes[1].key].options?.tabBarVisible === undefined
-      ? true
-      : props.descriptors[state.routes[1].key].options?.tabBarVisible;
-  const quizTabBarVisible =
-    props.descriptors[state.routes[2].key].options?.tabBarVisible === undefined
-      ? true
-      : props.descriptors[state.routes[2].key].options?.tabBarVisible;
+  const { isStatusBarHidden } = useHideNavBar();
+  console.log(
+    "🚀 ~ file: bottomTabUI.tsx:28 ~ isStatusBarHidden:",
+    isStatusBarHidden
+  );
 
-  const showBottomNavigator =
-    homeTabBarVisible && quizTabBarVisible && compareTabBarVisible;
+  // const homeTabBarVisible =
+  //   props.descriptors[state.routes[0].key].options?.tabBarVisible === undefined
+  //     ? true
+  //     : props.descriptors[state.routes[0].key].options?.tabBarVisible;
+  // const compareTabBarVisible =
+  //   props.descriptors[state.routes[1].key].options?.tabBarVisible === undefined
+  //     ? true
+  //     : props.descriptors[state.routes[1].key].options?.tabBarVisible;
+  // const quizTabBarVisible =
+  //   props.descriptors[state.routes[2].key].options?.tabBarVisible === undefined
+  //     ? true
+  //     : props.descriptors[state.routes[2].key].options?.tabBarVisible;
+
+  // const showBottomNavigator =
+  //   homeTabBarVisible && quizTabBarVisible && compareTabBarVisible;
 
   const styles = StyleSheet.create({
     container: {
@@ -52,7 +59,7 @@ const BottomTabUI = ({
       flexDirection: "row",
       padding: moderateScale(16),
       zIndex: 1,
-      display: showBottomNavigator === false ? "none" : "flex",
+      display: isStatusBarHidden ? "none" : "flex",
     },
   });
   return (

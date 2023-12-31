@@ -16,7 +16,7 @@ import {
 import { PokemonDetailScreenTab } from "../components/pokemonDetailScreenTab";
 
 const PokemonDetailScreens = ({ navigation, route }) => {
-  const { bottomNavigationSetOptions, pokemonIndex } = route?.params;
+  const { pokemonIndex } = route?.params;
   const { data: pokemonDetail, isLoading: isPokemonDetailsLoading } =
     useGetPokemon(pokemonIndex);
 
@@ -53,7 +53,6 @@ const PokemonDetailScreens = ({ navigation, route }) => {
               label={getPokeNumberFromPokemonIndex(pokemonIndex)}
               navigation={navigation}
               onPressBackButton={() => {
-                bottomNavigationSetOptions({ tabBarVisible: true });
                 navigation.goBack();
               }}
               showFavIcon={true}

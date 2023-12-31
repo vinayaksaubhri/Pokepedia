@@ -6,17 +6,19 @@ import {
   useFocusEffect,
 } from "@react-navigation/native";
 import ROUTES from "../../constant/routes";
+import useHideNavBar from "../../hooks/useHideNavBar";
 
 const Stack = createStackNavigator();
 
 const HomeStack = ({ navigation, route }) => {
   const bottomNavigation = navigation;
+  const { setIsStatusBarHidden } = useHideNavBar();
   const routeName = getFocusedRouteNameFromRoute(route) as ROUTES;
   useFocusEffect(() => {
     if ([ROUTES.POKEMON_DETAIL_SCREEN]?.includes(routeName)) {
-      bottomNavigation?.setOptions({ tabBarVisible: false });
+      setIsStatusBarHidden(true);
     } else {
-      bottomNavigation?.setOptions({ tabBarVisible: true });
+      setIsStatusBarHidden(false);
     }
   });
   return (

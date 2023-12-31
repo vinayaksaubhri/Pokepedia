@@ -1,32 +1,26 @@
-import BottomSheet from "@gorhom/bottom-sheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useRef, useState } from "react";
 import { RefreshControl, StyleSheet, Text, View } from "react-native";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
-import Chip from "../../components/chip";
+import { FlatList } from "react-native-gesture-handler";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
 import FilterModal from "../../components/filterModal";
+import LoadingIndicator from "../../components/loadingIndicator";
 import PokemonCard from "../../components/pokemonCard";
 import SearchBar from "../../components/searchBar";
+import SelectedFilter from "../../components/selectedFilter";
 import ROUTES from "../../constant/routes";
 import { useGetAllPokemon } from "../../graphql/useGetAllPokemon";
-import {
-  height,
-  horizontalScale,
-  moderateScale,
-  scaleFont,
-  verticalScale,
-} from "../../style/metrics";
-import { COLORS, FONTS } from "../../style/style";
-import { getPokeNumberFromPokemonIndex } from "../../utils/utils";
-import LoadingIndicator from "../../components/loadingIndicator";
+import useHideNavBar from "../../hooks/useHideNavBar";
 import { useRefreshByUser } from "../../hooks/useRefreshByUser";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFoucs";
+import { moderateScale, scaleFont, verticalScale } from "../../style/metrics";
+import { COLORS, FONTS } from "../../style/style";
 import { filterType } from "../../types/pokemonTypes";
-import SelectedFilter from "../../components/selectedFilter";
+import { getPokeNumberFromPokemonIndex } from "../../utils/utils";
 import ListEmptyComponent from "./components/listEmptyComponent";
 
 const Home = ({ navigation, route }) => {
-  const { bottomNavigationSetOptions } = route?.params;
+  const { setIsStatusBarHidden } = useHideNavBar();
 
   const [filterData, setFilterData] = useState<filterType>({
     generation: "",
@@ -52,7 +46,7 @@ const Home = ({ navigation, route }) => {
 
   useRefreshOnFocus(pokemonDetailsRefetch);
 
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
   let showSelectedFilter =
     filterData.type !== "" ||
     filterData.generation !== "" ||
@@ -61,9 +55,7 @@ const Home = ({ navigation, route }) => {
     filterData.orderByPokemonIndex !== null ||
     filterData.weakness !== "";
   const onPressCard = (pokemonIndex: number) => {
-    bottomNavigationSetOptions({ tabBarVisible: false });
     navigation.navigate(ROUTES.POKEMON_DETAIL_SCREEN, {
-      bottomNavigationSetOptions,
       pokemonIndex,
     });
   };
@@ -118,8 +110,8 @@ const Home = ({ navigation, route }) => {
           filterData={filterData}
           showFilter
           onPressFilter={() => {
-            bottomNavigationSetOptions({ tabBarVisible: false });
-            bottomSheetRef.current?.expand();
+            // setIsStatusBarHidden(true);
+            bottomSheetRef.current?.present();
           }}
         />
         {showSelectedFilter && (
@@ -183,9 +175,9 @@ const Home = ({ navigation, route }) => {
       </View>
       <FilterModal
         bottomSheetRef={bottomSheetRef}
-        bottomNavigationSetOptions={bottomNavigationSetOptions}
         setFilterDataFromQuery={setFilterData}
         filterDataFromQuery={filterData}
+        bottomNavigationSetOptions={undefined}
       />
     </CustomSafeAreaView>
   );

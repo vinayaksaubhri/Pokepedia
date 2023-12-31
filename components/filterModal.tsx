@@ -1,10 +1,11 @@
-import BottomSheet, {
+import {
   BottomSheetBackdrop,
+  BottomSheetModal,
   BottomSheetView,
   useBottomSheetDynamicSnapPoints,
 } from "@gorhom/bottom-sheet";
 import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
-import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useMemo, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
@@ -12,6 +13,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { ScrollView } from "react-native-gesture-handler";
 import { GenerationList, TypeList } from "../constant/constant";
 import { useHaptic } from "../hooks/useHaptic";
+import useHideNavBar from "../hooks/useHideNavBar";
 import {
   horizontalScale,
   moderateScale,
@@ -25,7 +27,7 @@ import Chip from "./chip";
 import CustomSlider from "./customSlider";
 
 type FilterModalProps = {
-  bottomSheetRef: React.RefObject<BottomSheetMethods>;
+  bottomSheetRef: React.RefObject<BottomSheetModalMethods>;
   bottomNavigationSetOptions: any;
   filterDataFromQuery: filterType;
   setFilterDataFromQuery: React.Dispatch<React.SetStateAction<filterType>>;
@@ -36,7 +38,7 @@ const dropDownItems = [
 ];
 const FilterModal: React.FC<FilterModalProps> = ({
   bottomSheetRef,
-  bottomNavigationSetOptions,
+
   filterDataFromQuery,
   setFilterDataFromQuery,
 }) => {
@@ -46,7 +48,6 @@ const FilterModal: React.FC<FilterModalProps> = ({
   const [filterData, setFilterData] = useState<filterType>({
     ...filterDataFromQuery,
   });
-
   const {
     animatedHandleHeight,
     animatedSnapPoints,
@@ -85,15 +86,12 @@ const FilterModal: React.FC<FilterModalProps> = ({
     }, [filterDataFromQuery])
   );
   return (
-    <BottomSheet
+    <BottomSheetModal
       ref={bottomSheetRef}
       enablePanDownToClose
       index={-1}
       backdropComponent={renderBackdrop}
       backgroundStyle={styles.bottomSheetBackgroundSheet}
-      onClose={() => {
-        bottomNavigationSetOptions({ tabBarVisible: true });
-      }}
       snapPoints={animatedSnapPoints}
       handleHeight={animatedHandleHeight}
       contentHeight={animatedContentHeight}
@@ -232,7 +230,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
           />
         </View>
       </BottomSheetView>
-    </BottomSheet>
+    </BottomSheetModal>
   );
 };
 export default FilterModal;

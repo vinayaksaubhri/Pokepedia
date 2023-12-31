@@ -1,5 +1,11 @@
 import { createContext, useContext, useState } from "react";
-const HideNavBar = createContext({});
+const HideNavBar = createContext<{
+  isStatusBarHidden: boolean;
+  setIsStatusBarHidden: React.Dispatch<React.SetStateAction<boolean>>;
+}>({
+  isStatusBarHidden: false,
+  setIsStatusBarHidden: () => {},
+});
 
 export const HideNavBarProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
