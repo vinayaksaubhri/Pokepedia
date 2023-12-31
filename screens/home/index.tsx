@@ -10,7 +10,6 @@ import SearchBar from "../../components/searchBar";
 import SelectedFilter from "../../components/selectedFilter";
 import ROUTES from "../../constant/routes";
 import { useGetAllPokemon } from "../../graphql/useGetAllPokemon";
-import useHideNavBar from "../../hooks/useHideNavBar";
 import { useRefreshByUser } from "../../hooks/useRefreshByUser";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFoucs";
 import { moderateScale, scaleFont, verticalScale } from "../../style/metrics";
@@ -20,8 +19,6 @@ import { getPokeNumberFromPokemonIndex } from "../../utils/utils";
 import ListEmptyComponent from "./components/listEmptyComponent";
 
 const Home = ({ navigation, route }) => {
-  const { setIsStatusBarHidden } = useHideNavBar();
-
   const [filterData, setFilterData] = useState<filterType>({
     generation: "",
     type: "",
