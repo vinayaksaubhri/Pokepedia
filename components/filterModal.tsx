@@ -2,7 +2,6 @@ import {
   BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetView,
-  useBottomSheetDynamicSnapPoints,
 } from "@gorhom/bottom-sheet";
 import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
@@ -13,7 +12,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { ScrollView } from "react-native-gesture-handler";
 import { GenerationList, TypeList } from "../constant/constant";
 import { useHaptic } from "../hooks/useHaptic";
-import useHideNavBar from "../hooks/useHideNavBar";
+
 import {
   horizontalScale,
   moderateScale,
@@ -25,6 +24,7 @@ import { filterType, pokemonGenerationType } from "../types/pokemonTypes";
 import Button from "./button";
 import Chip from "./chip";
 import CustomSlider from "./customSlider";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type FilterModalProps = {
   bottomSheetRef: React.RefObject<BottomSheetModalMethods>;
@@ -38,22 +38,15 @@ const dropDownItems = [
 ];
 const FilterModal: React.FC<FilterModalProps> = ({
   bottomSheetRef,
-
   filterDataFromQuery,
   setFilterDataFromQuery,
 }) => {
-  const initialSnapPoints = useMemo(() => ["CONTENT_HEIGHT"], []);
   const [open, setOpen] = useState(false);
   const hapticSelection = useHaptic("light");
+  const insets = useSafeAreaInsets();
   const [filterData, setFilterData] = useState<filterType>({
     ...filterDataFromQuery,
   });
-  const {
-    animatedHandleHeight,
-    animatedSnapPoints,
-    animatedContentHeight,
-    handleContentLayout,
-  } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
 
   const renderBackdrop = useCallback(
     (props: BottomSheetDefaultBackdropProps) => (
@@ -89,14 +82,12 @@ const FilterModal: React.FC<FilterModalProps> = ({
     <BottomSheetModal
       ref={bottomSheetRef}
       enablePanDownToClose
-      index={-1}
       backdropComponent={renderBackdrop}
       backgroundStyle={styles.bottomSheetBackgroundSheet}
-      snapPoints={animatedSnapPoints}
-      handleHeight={animatedHandleHeight}
-      contentHeight={animatedContentHeight}
+      enableDynamicSizing={true}
+      topInset={insets.top}
     >
-      <BottomSheetView onLayout={handleContentLayout}>
+      <BottomSheetView>
         <View style={styles.modalContainer}>
           <Text style={styles.modalHeading}>Filters</Text>
 

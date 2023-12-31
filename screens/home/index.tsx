@@ -111,6 +111,7 @@ const Home = ({ navigation, route }) => {
           showFilter
           onPressFilter={() => {
             // setIsStatusBarHidden(true);
+            console.log("on Press Filter");
             bottomSheetRef.current?.present();
           }}
         />
