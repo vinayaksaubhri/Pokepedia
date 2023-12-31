@@ -28,7 +28,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type FilterModalProps = {
   bottomSheetRef: React.RefObject<BottomSheetModalMethods>;
-  bottomNavigationSetOptions: any;
   filterDataFromQuery: filterType;
   setFilterDataFromQuery: React.Dispatch<React.SetStateAction<filterType>>;
 };

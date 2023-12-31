@@ -10,7 +10,7 @@ import { capitalizeFirstLetter } from "../../../utils/utils";
 import AnimatedStatsComparator from "../components/animatedStatsComparator";
 import AnimatedText from "../components/animatedText";
 const CompareResultScreen = ({ navigation, route }) => {
-  const { bottomNavigationSetOptions, pokemon1, pokemon2 } = route?.params;
+  const { pokemon1, pokemon2 } = route?.params;
   const { data: pokemonStats, isLoading: loadingPokemonStats } =
     useGetPokemonStats(pokemon1.id, pokemon2.id);
 
@@ -25,7 +25,6 @@ const CompareResultScreen = ({ navigation, route }) => {
           label={"Comparator"}
           navigation={navigation}
           onPressBackButton={() => {
-            bottomNavigationSetOptions({ tabBarVisible: true });
             navigation.goBack();
           }}
         />

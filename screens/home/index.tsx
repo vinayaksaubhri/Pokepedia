@@ -175,7 +175,6 @@ const Home = ({ navigation, route }) => {
         bottomSheetRef={bottomSheetRef}
         setFilterDataFromQuery={setFilterData}
         filterDataFromQuery={filterData}
-        bottomNavigationSetOptions={undefined}
       />
     </CustomSafeAreaView>
   );
