@@ -8,6 +8,7 @@ import { useAppState } from "./hooks/useAppState";
 import { HideNavBarProvider } from "./hooks/useHideNavBar";
 import Navigation from "./navigation";
 import { FONT_OBJECT, onAppStateChange } from "./utils/utils";
+import { ThemeProvider } from "./hooks/useTheme";
 
 LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
@@ -26,9 +27,11 @@ export default function App() {
         <GestureHandlerRootView style={styles.container}>
           <QueryClientProvider client={queryClient}>
             <BottomSheetModalProvider>
-              <HideNavBarProvider>
-                <Navigation />
-              </HideNavBarProvider>
+              <ThemeProvider>
+                <HideNavBarProvider>
+                  <Navigation />
+                </HideNavBarProvider>
+              </ThemeProvider>
             </BottomSheetModalProvider>
           </QueryClientProvider>
         </GestureHandlerRootView>
