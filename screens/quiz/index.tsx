@@ -6,8 +6,6 @@ import { moderateScale } from "../../style/metrics";
 import ROUTES from "../../constant/routes";
 
 const Quiz = ({ navigation, route }) => {
-  const { bottomNavigationSetOptions } = route?.params;
-
   return (
     <CustomSafeAreaView>
       <View style={styles.container}>
@@ -21,10 +19,7 @@ const Quiz = ({ navigation, route }) => {
           label="START"
           width={"90%"}
           onPress={() => {
-            bottomNavigationSetOptions({ tabBarVisible: false });
-            navigation.navigate(ROUTES.QUIZ_GAME_SCREEN, {
-              bottomNavigationSetOptions,
-            });
+            navigation.navigate(ROUTES.QUIZ_GAME_SCREEN);
           }}
         />
       </View>

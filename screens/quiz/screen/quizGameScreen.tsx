@@ -17,7 +17,7 @@ import { useHaptic } from "../../../hooks/useHaptic";
 const QuizGameScreen = ({ route, navigation }) => {
   const hapticSuccess = useHaptic("success");
   const hapticError = useHaptic("error");
-  const { bottomNavigationSetOptions } = route?.params;
+
   const confettiRef = useRef(null);
   const [gameState, setGameState] = useState<"start" | "end">("start");
   const [pokemonList, setPokemonList] = useState<PokemonListType[]>([]);
@@ -71,7 +71,6 @@ const QuizGameScreen = ({ route, navigation }) => {
         label="Who’s that Pokémon!"
         navigation={navigation}
         onPressBackButton={() => {
-          bottomNavigationSetOptions({ tabBarVisible: true });
           navigation.goBack();
         }}
       />

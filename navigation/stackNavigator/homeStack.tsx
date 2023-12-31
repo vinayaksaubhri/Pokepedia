@@ -11,7 +11,6 @@ import useHideNavBar from "../../hooks/useHideNavBar";
 const Stack = createStackNavigator();
 
 const HomeStack = ({ navigation, route }) => {
-  const bottomNavigation = navigation;
   const { setIsStatusBarHidden } = useHideNavBar();
   const routeName = getFocusedRouteNameFromRoute(route) as ROUTES;
   useFocusEffect(() => {
@@ -28,19 +27,10 @@ const HomeStack = ({ navigation, route }) => {
         headerShown: false,
       }}
     >
-      <Stack.Screen
-        name={ROUTES.HOME_SCREEN}
-        component={Home}
-        initialParams={{
-          bottomNavigationSetOptions: bottomNavigation?.setOptions,
-        }}
-      />
+      <Stack.Screen name={ROUTES.HOME_SCREEN} component={Home} />
       <Stack.Screen
         name={ROUTES.POKEMON_DETAIL_SCREEN}
         component={PokemonDetailScreens}
-        initialParams={{
-          bottomNavigationSetOptions: bottomNavigation?.setOptions,
-        }}
       />
     </Stack.Navigator>
   );
