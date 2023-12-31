@@ -25,26 +25,6 @@ const BottomTabUI = ({
   const hapticSelection = useHaptic("light");
 
   const { isStatusBarHidden } = useHideNavBar();
-  console.log(
-    "🚀 ~ file: bottomTabUI.tsx:28 ~ isStatusBarHidden:",
-    isStatusBarHidden
-  );
-
-  // const homeTabBarVisible =
-  //   props.descriptors[state.routes[0].key].options?.tabBarVisible === undefined
-  //     ? true
-  //     : props.descriptors[state.routes[0].key].options?.tabBarVisible;
-  // const compareTabBarVisible =
-  //   props.descriptors[state.routes[1].key].options?.tabBarVisible === undefined
-  //     ? true
-  //     : props.descriptors[state.routes[1].key].options?.tabBarVisible;
-  // const quizTabBarVisible =
-  //   props.descriptors[state.routes[2].key].options?.tabBarVisible === undefined
-  //     ? true
-  //     : props.descriptors[state.routes[2].key].options?.tabBarVisible;
-
-  // const showBottomNavigator =
-  //   homeTabBarVisible && quizTabBarVisible && compareTabBarVisible;
 
   const styles = StyleSheet.create({
     container: {
