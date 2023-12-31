@@ -18,7 +18,6 @@ export type selectedPokemonType = {
 };
 
 const Compare = ({ navigation, route }) => {
-  const { bottomNavigationSetOptions } = route?.params;
   const [pokemon1, setPokemon1] = useState<selectedPokemonType>({
     id: null,
     pokemonIndex: null,
@@ -47,16 +46,8 @@ const Compare = ({ navigation, route }) => {
             gap: 24,
           }}
         >
-          <PokemonSelectCard
-            setPokemon={setPokemon1}
-            pokemon={pokemon1}
-            bottomNavigationSetOptions={bottomNavigationSetOptions}
-          />
-          <PokemonSelectCard
-            setPokemon={setPokemon2}
-            pokemon={pokemon2}
-            bottomNavigationSetOptions={bottomNavigationSetOptions}
-          />
+          <PokemonSelectCard setPokemon={setPokemon1} pokemon={pokemon1} />
+          <PokemonSelectCard setPokemon={setPokemon2} pokemon={pokemon2} />
           <DiceButton />
           <Button
             variant="Primary"
@@ -65,9 +56,7 @@ const Compare = ({ navigation, route }) => {
             disabled={pokemon1.id === null || pokemon2.id === null}
             disabledColor={pokemon1.id === null || pokemon2.id === null}
             onPress={() => {
-              bottomNavigationSetOptions({ tabBarVisible: false });
               navigation.navigate(ROUTES.COMPARE_RESULT_SCREEN, {
-                bottomNavigationSetOptions,
                 pokemon1,
                 pokemon2,
               });
