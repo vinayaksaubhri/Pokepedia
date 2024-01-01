@@ -6,25 +6,21 @@ import {
 import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
 import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import { useFocusEffect } from "@react-navigation/native";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { ScrollView } from "react-native-gesture-handler";
 import { GenerationList, TypeList } from "../constant/constant";
 import { useHaptic } from "../hooks/useHaptic";
 
-import {
-  horizontalScale,
-  moderateScale,
-  scaleFont,
-  verticalScale,
-} from "../style/metrics";
-import { COLORS, FONTS } from "../style/style";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import useTheme from "../hooks/useTheme";
+import { moderateScale, scaleFont, verticalScale } from "../style/metrics";
+import { COLORS, DARK_COLORS, FONTS } from "../style/style";
 import { filterType, pokemonGenerationType } from "../types/pokemonTypes";
 import Button from "./button";
 import Chip from "./chip";
 import CustomSlider from "./customSlider";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type FilterModalProps = {
   bottomSheetRef: React.RefObject<BottomSheetModalMethods>;
@@ -42,11 +38,81 @@ const FilterModal: React.FC<FilterModalProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const hapticSelection = useHaptic("light");
+  const { isDarkMode } = useTheme();
+
   const insets = useSafeAreaInsets();
   const [filterData, setFilterData] = useState<filterType>({
     ...filterDataFromQuery,
   });
+  const styles = StyleSheet.create({
+    dropDownScale: {
+      borderColor: isDarkMode ? DARK_COLORS.secondarySurface : COLORS.grey200,
+      borderRadius: moderateScale(16),
+      backgroundColor: isDarkMode ? DARK_COLORS.surface : COLORS.surface,
+    },
+    dropDownContainerStyle: {
+      backgroundColor: isDarkMode ? DARK_COLORS.surface : COLORS.surface,
+      borderColor: isDarkMode ? DARK_COLORS.secondarySurface : COLORS.grey200,
+    },
+    placeholderStyle: {
+      fontFamily: FONTS.RC_Regular,
+      fontSize: scaleFont(16),
+      color: isDarkMode ? DARK_COLORS.textWhite : COLORS.grey400,
+    },
+    listItemLabelStyle: {
+      color: isDarkMode ? DARK_COLORS.textWhite : COLORS.primaryBlue,
+      fontFamily: FONTS.RC_Regular,
+      fontSize: scaleFont(16),
+    },
+    modalContainer: {
+      backgroundColor: isDarkMode ? DARK_COLORS.surface : COLORS.surface,
+      padding: moderateScale(16),
+      gap: verticalScale(24),
+      paddingBottom: verticalScale(28),
+    },
 
+    modalHeading: {
+      fontSize: scaleFont(22),
+      color: isDarkMode ? DARK_COLORS.textWhite : COLORS.grey400,
+      fontFamily: FONTS.RC_Regular,
+    },
+    modalCategoryHeading: {
+      fontSize: scaleFont(14),
+      color: isDarkMode ? DARK_COLORS.textWhite : COLORS.grey400,
+      fontFamily: FONTS.RC_Bold,
+      marginBottom: verticalScale(12),
+    },
+    bottomSheetBackgroundSheet: {
+      borderTopLeftRadius: moderateScale(28),
+      borderTopRightRadius: moderateScale(28),
+      backgroundColor: isDarkMode ? DARK_COLORS.surface : COLORS.surface,
+    },
+    scrollViewContentContainerStyle: {
+      gap: moderateScale(12),
+    },
+    customSliderHeading: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    customSliderSubHeading: {
+      fontSize: scaleFont(14),
+      color: isDarkMode ? DARK_COLORS.textWhite : COLORS.grey400,
+      fontFamily: FONTS.RC_Regular,
+      marginBottom: verticalScale(12),
+    },
+
+    handleIndicatorStyle: {
+      backgroundColor: isDarkMode ? DARK_COLORS.white : COLORS.black,
+    },
+    handleStyle: {
+      backgroundColor: isDarkMode ? DARK_COLORS.surface : COLORS.surface,
+      borderTopEndRadius: moderateScale(16),
+      borderTopStartRadius: moderateScale(16),
+    },
+    arrowIconStyle: {
+      tintColor: isDarkMode ? DARK_COLORS.textWhite : COLORS.grey400,
+    },
+  });
   const renderBackdrop = useCallback(
     (props: BottomSheetDefaultBackdropProps) => (
       <BottomSheetBackdrop
@@ -85,6 +151,8 @@ const FilterModal: React.FC<FilterModalProps> = ({
       backgroundStyle={styles.bottomSheetBackgroundSheet}
       enableDynamicSizing={true}
       topInset={insets.top}
+      handleIndicatorStyle={styles.handleIndicatorStyle}
+      handleStyle={styles.handleStyle}
     >
       <BottomSheetView>
         <View style={styles.modalContainer}>
@@ -102,6 +170,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
                   label={label}
                   key={index}
                   isSelected={filterData.generation === value}
+                  isDarkMode={isDarkMode}
                   onPress={() =>
                     setFilterData((prev) => ({
                       ...prev,
@@ -126,6 +195,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
                   iconType={iconType}
                   showTypeIcon={true}
                   isSelected={filterData.type === iconType}
+                  isDarkMode={isDarkMode}
                   onPress={() =>
                     setFilterData((prev) => ({ ...prev, type: iconType }))
                   }
@@ -146,6 +216,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
                   key={index}
                   iconType={iconType}
                   showTypeIcon={true}
+                  isDarkMode={isDarkMode}
                   isSelected={filterData.weakness === iconType}
                   onPress={() =>
                     setFilterData((prev) => ({ ...prev, weakness: iconType }))
@@ -210,6 +281,8 @@ const FilterModal: React.FC<FilterModalProps> = ({
               placeholderStyle={styles.placeholderStyle}
               listItemLabelStyle={styles.listItemLabelStyle}
               multiple={false}
+              arrowIconStyle={styles.arrowIconStyle}
+              textStyle={styles.placeholderStyle}
             />
           </View>
           <Button
@@ -224,72 +297,3 @@ const FilterModal: React.FC<FilterModalProps> = ({
   );
 };
 export default FilterModal;
-const styles = StyleSheet.create({
-  buttonLabelStyle: {
-    fontSize: scaleFont(16),
-    color: COLORS.primaryBlue,
-    fontFamily: FONTS.RC_Bold,
-  },
-  buttonStyle: {
-    height: verticalScale(40),
-    width: horizontalScale(300),
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    backgroundColor: COLORS.primaryYellow,
-    borderRadius: moderateScale(16),
-  },
-  dropDownScale: {
-    borderColor: COLORS.grey200,
-    borderRadius: moderateScale(16),
-  },
-  dropDownContainerStyle: {
-    backgroundColor: COLORS.surface,
-    borderColor: COLORS.grey200,
-  },
-  placeholderStyle: {
-    fontFamily: FONTS.RC_Regular,
-    fontSize: scaleFont(16),
-    color: COLORS.primaryBlue,
-  },
-  listItemLabelStyle: {
-    color: COLORS.primaryBlue,
-    fontFamily: FONTS.RC_Regular,
-    fontSize: scaleFont(16),
-  },
-  modalContainer: {
-    backgroundColor: COLORS.surface,
-    padding: moderateScale(16),
-    gap: verticalScale(24),
-    paddingBottom: verticalScale(28),
-  },
-
-  modalHeading: {
-    fontSize: scaleFont(22),
-    color: COLORS.primaryBlue,
-    fontFamily: FONTS.RC_Regular,
-  },
-  modalCategoryHeading: {
-    fontSize: scaleFont(14),
-    color: COLORS.primaryBlue,
-    fontFamily: FONTS.RC_Bold,
-    marginBottom: verticalScale(12),
-  },
-  bottomSheetBackgroundSheet: {
-    borderTopLeftRadius: moderateScale(28),
-    borderTopRightRadius: moderateScale(28),
-  },
-  scrollViewContentContainerStyle: {
-    gap: moderateScale(12),
-  },
-  customSliderHeading: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  customSliderSubHeading: {
-    fontSize: scaleFont(14),
-    color: COLORS.primaryBlue,
-    fontFamily: FONTS.RC_Regular,
-    marginBottom: verticalScale(12),
-  },
-});

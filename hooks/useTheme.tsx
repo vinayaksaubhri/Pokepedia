@@ -11,6 +11,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+
   return (
     <ThemeContext.Provider
       value={{

@@ -1,15 +1,8 @@
-import {
-  Pressable,
-  PressableProps,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { COLORS, FONTS } from "../style/style";
+import { Pressable, PressableProps, StyleSheet, Text } from "react-native";
 import BugIcon from "../assets/svg/ChipIcon/BugIcon";
-import ElectricIcon from "../assets/svg/ChipIcon/ElectricIcon";
 import DarkIcon from "../assets/svg/ChipIcon/DarkIcon";
 import DragonIcon from "../assets/svg/ChipIcon/DragonIcon";
+import ElectricIcon from "../assets/svg/ChipIcon/ElectricIcon";
 import FairyIcon from "../assets/svg/ChipIcon/FairyIcon";
 import FightingIcon from "../assets/svg/ChipIcon/FightingIcon";
 import FireIcon from "../assets/svg/ChipIcon/FireIcon";
@@ -21,12 +14,13 @@ import IceIcon from "../assets/svg/ChipIcon/IceIcon";
 import NormalIcon from "../assets/svg/ChipIcon/NormalIcon";
 import PoisonIcon from "../assets/svg/ChipIcon/PoisonIcon";
 import PsychicIcon from "../assets/svg/ChipIcon/PsychicIcon";
+import RockIcon from "../assets/svg/ChipIcon/RockIcon";
 import SteelIcon from "../assets/svg/ChipIcon/SteelIcon";
 import WaterIcon from "../assets/svg/ChipIcon/WaterIcon";
-import RockIcon from "../assets/svg/ChipIcon/RockIcon";
 import CrossIcon from "../assets/svg/cross_icon";
-import { PokemonTypes } from "../types/pokemonTypes";
 import { horizontalScale, moderateScale, scaleFont } from "../style/metrics";
+import { COLORS, DARK_COLORS, FONTS } from "../style/style";
+import { PokemonTypes } from "../types/pokemonTypes";
 
 export type chipPropsType = PressableProps & {
   label: string;
@@ -35,6 +29,7 @@ export type chipPropsType = PressableProps & {
   showTypeIcon?: Boolean;
   showLabel?: Boolean;
   isSelected?: Boolean;
+  isDarkMode?: Boolean;
 };
 
 const Chip: React.FC<chipPropsType> = ({
@@ -44,8 +39,41 @@ const Chip: React.FC<chipPropsType> = ({
   showTypeIcon = false,
   showLabel = true,
   isSelected = false,
+  isDarkMode = false,
   ...rest
 }) => {
+  const styles = StyleSheet.create({
+    selectedStyle: {
+      padding: moderateScale(8),
+      flexDirection: "row",
+      borderWidth: 1,
+      borderRadius: moderateScale(8),
+      alignSelf: "flex-start",
+      borderColor: isDarkMode ? DARK_COLORS.secondarySurface : COLORS.grey300,
+      backgroundColor: isDarkMode ? DARK_COLORS.primaryYellow : COLORS.grey100,
+      gap: horizontalScale(8),
+    },
+    container: {
+      padding: moderateScale(8),
+      flexDirection: "row",
+      borderWidth: 1,
+      borderRadius: moderateScale(8),
+      alignSelf: "flex-start",
+      backgroundColor: isDarkMode ? DARK_COLORS.ternarySurface : COLORS.surface,
+      borderColor: isDarkMode ? DARK_COLORS.secondarySurface : COLORS.grey200,
+      gap: horizontalScale(8),
+    },
+    labelStyle: {
+      fontFamily: FONTS.RC_Bold,
+      color: isDarkMode
+        ? isSelected
+          ? DARK_COLORS.primaryBlue
+          : DARK_COLORS.textWhite
+        : COLORS.primaryBlue,
+
+      fontSize: scaleFont(14),
+    },
+  });
   return (
     <Pressable
       style={[isSelected ? styles.selectedStyle : styles.container]}
@@ -58,32 +86,6 @@ const Chip: React.FC<chipPropsType> = ({
   );
 };
 export default Chip;
-const styles = StyleSheet.create({
-  selectedStyle: {
-    padding: moderateScale(8),
-    flexDirection: "row",
-    borderWidth: 1,
-    borderRadius: moderateScale(8),
-    alignSelf: "flex-start",
-    borderColor: COLORS.grey300,
-    backgroundColor: COLORS.grey100,
-    gap: horizontalScale(8),
-  },
-  container: {
-    padding: moderateScale(8),
-    flexDirection: "row",
-    borderWidth: 1,
-    borderRadius: moderateScale(8),
-    alignSelf: "flex-start",
-    borderColor: COLORS.grey200,
-    gap: horizontalScale(8),
-  },
-  labelStyle: {
-    fontFamily: FONTS.RC_Bold,
-    color: COLORS.primaryBlue,
-    fontSize: scaleFont(14),
-  },
-});
 
 export function ChipIcon({
   iconType,

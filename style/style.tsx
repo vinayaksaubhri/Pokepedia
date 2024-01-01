@@ -22,6 +22,7 @@ export const COLORS = {
   typeBadgeBackground: "rgba(40, 49, 65, 0.2)",
   outlineButtonFeedbackColor: "#F8F8F8",
   primaryRed: "rgba(255, 0, 0, 0.80)",
+  black: "#000000",
 };
 
 export const DARK_COLORS = {
