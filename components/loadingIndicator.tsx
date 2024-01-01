@@ -1,8 +1,23 @@
 import LottieView from "lottie-react-native";
 import { StyleSheet, View } from "react-native";
-import { COLORS } from "../style/style";
+import { COLORS, DARK_COLORS } from "../style/style";
+import useTheme from "../hooks/useTheme";
 
 const LoadingIndicator = () => {
+  const { isDarkMode } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: isDarkMode ? DARK_COLORS.surface : COLORS.surface,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    lottieStyle: {
+      width: "10%",
+      aspectRatio: 1,
+    },
+  });
   return (
     <View style={styles.container}>
       <LottieView
@@ -16,15 +31,3 @@ const LoadingIndicator = () => {
   );
 };
 export default LoadingIndicator;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.surface,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  lottieStyle: {
-    width: "10%",
-    aspectRatio: 1,
-  },
-});
