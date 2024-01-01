@@ -9,31 +9,41 @@ import Favorites from "../../screens/favorites";
 import CompareStack from "../stackNavigator/compareStack";
 import HomeStack from "../stackNavigator/homeStack";
 import QuizStack from "../stackNavigator/quizStack";
+import { JSX } from "react";
+import { SvgProps } from "react-native-svg";
 
 const bottomTab = [
   {
     id: 1,
     name: ROUTES.HOME_STACK,
     component: HomeStack,
-    icon: <HomeOutlinedIcon />,
+    icon: (
+      args: JSX.IntrinsicAttributes & SvgProps & { isFocused?: boolean }
+    ) => <HomeOutlinedIcon {...args} />,
   },
   {
     id: 2,
     name: ROUTES.COMPARE_STACK,
     component: CompareStack,
-    icon: <CompareArrowIcon />,
+    icon: (
+      args: JSX.IntrinsicAttributes & SvgProps & { isFocused?: boolean }
+    ) => <CompareArrowIcon {...args} />,
   },
   {
     id: 3,
     name: ROUTES.QUIZ_STACK,
     component: QuizStack,
-    icon: <QuizIcon />,
+    icon: (
+      args: JSX.IntrinsicAttributes & SvgProps & { isFocused?: boolean }
+    ) => <QuizIcon {...args} />,
   },
   {
     id: 4,
     name: "Favorites",
     component: Favorites,
-    icon: <FavoriteIcon />,
+    icon: (
+      args: JSX.IntrinsicAttributes & SvgProps & { isFocused?: boolean }
+    ) => <FavoriteIcon {...args} />,
   },
 ];
 const AuthorizedNavigation = () => {

@@ -2,10 +2,11 @@ import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { moderateScale, verticalScale } from "../style/metrics";
-import { COLORS, width } from "../style/style";
+import { COLORS, DARK_COLORS, width } from "../style/style";
 import TabIcon from "./tabIcon";
 import { useHaptic } from "../hooks/useHaptic";
 import useHideNavBar from "../hooks/useHideNavBar";
+import useTheme from "../hooks/useTheme";
 
 type BottomTabUiBarProps = BottomTabBarProps & {
   bottomTab: {
@@ -19,11 +20,10 @@ const BottomTabUI = ({
   state,
   navigation,
   bottomTab,
-
   ...props
 }: BottomTabUiBarProps) => {
   const hapticSelection = useHaptic("light");
-
+  const { isDarkMode } = useTheme();
   const { isStatusBarHidden } = useHideNavBar();
 
   const styles = StyleSheet.create({
@@ -34,7 +34,9 @@ const BottomTabUI = ({
       width: width * 0.9,
       alignSelf: "center",
       justifyContent: "space-between",
-      backgroundColor: COLORS.primaryYellow,
+      backgroundColor: isDarkMode
+        ? DARK_COLORS.secondarySurface
+        : COLORS.primaryYellow,
       borderRadius: moderateScale(100),
       flexDirection: "row",
       padding: moderateScale(16),
