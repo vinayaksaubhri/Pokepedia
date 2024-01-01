@@ -14,8 +14,9 @@ import {
   scaleFont,
   verticalScale,
 } from "../style/metrics";
-import { COLORS, FONTS } from "../style/style";
+import { COLORS, DARK_COLORS, FONTS } from "../style/style";
 import { filterType } from "../types/pokemonTypes";
+import useTheme from "../hooks/useTheme";
 
 type props = {
   showFilter?: Boolean;
@@ -32,6 +33,44 @@ const SearchBar: React.FC<props> = ({
     console.log("filter press");
   },
 }) => {
+  const { isDarkMode } = useTheme();
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: "row",
+    },
+    searchBarContainer: {
+      flex: 1,
+      borderRadius: moderateScale(16),
+      borderWidth: 1,
+      borderColor: isDarkMode ? DARK_COLORS.secondarySurface : COLORS.grey200,
+      justifyContent: "center",
+      backgroundColor: isDarkMode ? DARK_COLORS.ternarySurface : COLORS.surface,
+      height: horizontalScale(50),
+      flexDirection: "row",
+      alignItems: "center",
+      padding: moderateScale(12),
+      marginRight: 8,
+    },
+    searchBarStyle: {
+      flex: 1,
+      borderRadius: moderateScale(16),
+      fontFamily: FONTS.RC_Regular,
+      fontSize: scaleFont(16),
+      marginLeft: verticalScale(8),
+      color: isDarkMode ? DARK_COLORS.textWhite : COLORS.primaryBlue,
+    },
+    filterButtonContainer: {
+      height: horizontalScale(50),
+      width: verticalScale(50),
+      backgroundColor: isDarkMode ? DARK_COLORS.primaryYellow : COLORS.grey200,
+      borderRadius: moderateScale(16),
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    pressFeedback: {
+      backgroundColor: isDarkMode ? COLORS.primaryYellow + "80" : "#c9cdd5",
+    },
+  });
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
@@ -62,40 +101,3 @@ const SearchBar: React.FC<props> = ({
   );
 };
 export default SearchBar;
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
-  searchBarContainer: {
-    flex: 1,
-    borderRadius: moderateScale(16),
-    borderWidth: 1,
-    borderColor: COLORS.grey200,
-    justifyContent: "center",
-    backgroundColor: COLORS.surface,
-    height: horizontalScale(50),
-    flexDirection: "row",
-    alignItems: "center",
-    padding: moderateScale(12),
-    marginRight: 8,
-  },
-  searchBarStyle: {
-    flex: 1,
-    borderRadius: moderateScale(16),
-    fontFamily: FONTS.RC_Regular,
-    fontSize: scaleFont(16),
-    marginLeft: verticalScale(8),
-    color: COLORS.primaryBlue,
-  },
-  filterButtonContainer: {
-    height: horizontalScale(50),
-    width: verticalScale(50),
-    backgroundColor: COLORS.grey200,
-    borderRadius: moderateScale(16),
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  pressFeedback: {
-    backgroundColor: "#c9cdd5",
-  },
-});

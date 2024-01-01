@@ -87,7 +87,7 @@ const Home = ({ navigation, route }) => {
     subHeadingTextStyle: {
       alignSelf: "flex-start",
       fontSize: scaleFont(16),
-      color: COLORS.primaryBlue,
+      color: isDarkMode ? DARK_COLORS.textSecondary : COLORS.primaryBlue,
       fontFamily: FONTS.RC_Regular,
       marginBottom: verticalScale(16),
       lineHeight: verticalScale(24),
