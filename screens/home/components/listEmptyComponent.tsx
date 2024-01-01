@@ -1,8 +1,30 @@
 import LottieView from "lottie-react-native";
 import { StyleSheet, Text, View } from "react-native";
-import { height, scaleFont, width } from "../../../style/metrics";
-import { COLORS, FONTS } from "../../../style/style";
+import { scaleFont, width } from "../../../style/metrics";
+import { COLORS, DARK_COLORS, FONTS } from "../../../style/style";
+import useTheme from "../../../hooks/useTheme";
 const ListEmptyComponent = () => {
+  const { isDarkMode } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    lottieViewStyle: {
+      width: width * 0.8,
+      aspectRatio: 1,
+      alignSelf: "center",
+    },
+    headingTextStyle: {
+      color: isDarkMode ? DARK_COLORS.textWhite : COLORS.primaryBlue,
+      fontSize: scaleFont(20),
+      fontFamily: FONTS.RC_Regular,
+      textAlign: "center",
+      marginTop: 30,
+    },
+  });
   return (
     <View style={styles.container}>
       <LottieView
@@ -20,24 +42,3 @@ const ListEmptyComponent = () => {
   );
 };
 export default ListEmptyComponent;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    // height: height * 0.5,
-  },
-  lottieViewStyle: {
-    width: width * 0.8,
-    aspectRatio: 1,
-    alignSelf: "center",
-    backgroundColor: "white",
-  },
-  headingTextStyle: {
-    color: COLORS.primaryBlue,
-    fontSize: scaleFont(20),
-    fontFamily: FONTS.RC_Regular,
-    textAlign: "center",
-    marginTop: 30,
-  },
-});
