@@ -115,12 +115,19 @@ const Home = ({ navigation, route }) => {
       alignItems: "center",
       borderColor: COLORS.grey300,
     },
+    headingTextAndDarkModeButtonContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
   });
 
   return (
-    <CustomSafeAreaView>
+    <CustomSafeAreaView
+      backgroundColor={isDarkMode ? DARK_COLORS.surface : COLORS.surface}
+    >
       <View style={styles.container}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <View style={styles.headingTextAndDarkModeButtonContainer}>
           <Text style={styles.headingTextStyle}>Pokédex</Text>
           <Pressable
             onPress={() => setIsDarkMode(!isDarkMode)}
