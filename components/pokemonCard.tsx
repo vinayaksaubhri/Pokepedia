@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { list as pokemonImageList } from "../assets/pokemonImageData";
 import PokeballIcon from "../assets/svg/pokeball_icon";
 import {
   horizontalScale,
@@ -14,11 +15,10 @@ import {
   verticalScale,
   width,
 } from "../style/metrics";
-import { COLORS, FONTS, POKEMON_COLOR } from "../style/style";
+import { COLORS, FONTS } from "../style/style";
 import { PokemonTypes } from "../types/pokemonTypes";
-import TypeBadge from "./typeBadge";
-import { list as pokemonImageList } from "../assets/pokemonImageData";
 import { capitalizeFirstLetter, pokeCardColor } from "../utils/utils";
+import TypeBadge from "./typeBadge";
 
 type propsType = {
   badgeArray?: Array<{ badgeType: PokemonTypes; name: string }>;
@@ -48,6 +48,7 @@ const PokemonCard: React.FC<propsType> = ({
       borderRadius: moderateScale(16),
       padding: moderateScale(12),
       flexDirection: "column",
+      overflow: "hidden",
     },
     textContainer: {
       flexDirection: "row",

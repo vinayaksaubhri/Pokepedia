@@ -24,6 +24,22 @@ export const COLORS = {
   primaryRed: "rgba(255, 0, 0, 0.80)",
 };
 
+export const DARK_COLORS = {
+  primaryYellow: "#FFCC00",
+  white: "#ffffff",
+  surface: "#1D2335",
+  textWhite: "#ffffff",
+  primaryBlue: "#283141",
+  grey100: "#F2F4F7",
+  grey200: "#DFE4EC",
+  grey300: "#8D9DB9",
+  grey400: "#4E5F7E",
+  modalBackdropColor: "rgba(40, 49, 65, 0.16)",
+  typeBadgeBackground: "rgba(40, 49, 65, 0.2)",
+  outlineButtonFeedbackColor: "#F8F8F8",
+  primaryRed: "rgba(255, 0, 0, 0.80)",
+};
+
 export const POKEMON_COLOR = {
   bug: "#83C300",
   dark: "#5B5466",

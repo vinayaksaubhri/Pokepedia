@@ -1,6 +1,12 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useRef, useState } from "react";
-import { RefreshControl, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
 import FilterModal from "../../components/filterModal";
@@ -12,11 +18,18 @@ import ROUTES from "../../constant/routes";
 import { useGetAllPokemon } from "../../graphql/useGetAllPokemon";
 import { useRefreshByUser } from "../../hooks/useRefreshByUser";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFoucs";
-import { moderateScale, scaleFont, verticalScale } from "../../style/metrics";
-import { COLORS, FONTS } from "../../style/style";
+import {
+  horizontalScale,
+  moderateScale,
+  scaleFont,
+  verticalScale,
+} from "../../style/metrics";
+import { COLORS, FONTS, DARK_COLORS } from "../../style/style";
 import { filterType } from "../../types/pokemonTypes";
 import { getPokeNumberFromPokemonIndex } from "../../utils/utils";
 import ListEmptyComponent from "./components/listEmptyComponent";
+import useTheme from "../../hooks/useTheme";
+import { Feather } from "@expo/vector-icons";
 
 const Home = ({ navigation, route }) => {
   const [filterData, setFilterData] = useState<filterType>({
@@ -40,6 +53,7 @@ const Home = ({ navigation, route }) => {
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(
     pokemonDetailsRefetch
   );
+  const { isDarkMode, setIsDarkMode } = useTheme();
 
   useRefreshOnFocus(pokemonDetailsRefetch);
 
@@ -59,14 +73,14 @@ const Home = ({ navigation, route }) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      alignItems: "center",
       padding: moderateScale(24),
       paddingBottom: 0,
+      backgroundColor: isDarkMode ? DARK_COLORS.surface : COLORS.surface,
     },
     headingTextStyle: {
       alignSelf: "flex-start",
       fontSize: scaleFont(36),
-      color: COLORS.primaryBlue,
+      color: isDarkMode ? DARK_COLORS.textWhite : COLORS.primaryBlue,
       fontFamily: FONTS.RC_Regular,
       marginBottom: verticalScale(4),
     },
@@ -92,12 +106,33 @@ const Home = ({ navigation, route }) => {
     columnWrapperStyle: {
       justifyContent: "space-between",
     },
+    darkModeButtonContainer: {
+      borderRadius: 8,
+      borderWidth: 1,
+      width: horizontalScale(30),
+      height: verticalScale(30),
+      justifyContent: "center",
+      alignItems: "center",
+      borderColor: COLORS.grey300,
+    },
   });
 
   return (
     <CustomSafeAreaView>
       <View style={styles.container}>
-        <Text style={styles.headingTextStyle}>Pokédex</Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text style={styles.headingTextStyle}>Pokédex</Text>
+          <Pressable
+            onPress={() => setIsDarkMode(!isDarkMode)}
+            style={styles.darkModeButtonContainer}
+          >
+            {isDarkMode ? (
+              <Feather name="sun" size={18} color={DARK_COLORS.white} />
+            ) : (
+              <Feather name="moon" size={18} color={COLORS.primaryBlue} />
+            )}
+          </Pressable>
+        </View>
         <Text style={styles.subHeadingTextStyle}>
           Use the advanced search to find Pokémon by type, weakness, ability and
           more!
