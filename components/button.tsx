@@ -16,7 +16,6 @@ import {
 } from "../style/metrics";
 import { COLORS, FONTS } from "../style/style";
 import { FeedbackType, useHaptic } from "../hooks/useHaptic";
-
 type buttonProps = {
   variant: "Primary" | "Outline" | "Transparent" | "Warning";
   label: string;
