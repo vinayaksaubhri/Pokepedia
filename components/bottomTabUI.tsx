@@ -40,7 +40,6 @@ const BottomTabUI = ({
       borderRadius: moderateScale(100),
       flexDirection: "row",
       padding: moderateScale(16),
-      zIndex: 1,
       display: isStatusBarHidden ? "none" : "flex",
     },
   });
