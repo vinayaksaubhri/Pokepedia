@@ -26,13 +26,13 @@ export default function App() {
       <SafeAreaProvider>
         <GestureHandlerRootView style={styles.container}>
           <QueryClientProvider client={queryClient}>
-            <BottomSheetModalProvider>
-              <ThemeProvider>
+            <ThemeProvider>
+              <BottomSheetModalProvider>
                 <HideNavBarProvider>
                   <Navigation />
                 </HideNavBarProvider>
-              </ThemeProvider>
-            </BottomSheetModalProvider>
+              </BottomSheetModalProvider>
+            </ThemeProvider>
           </QueryClientProvider>
         </GestureHandlerRootView>
       </SafeAreaProvider>

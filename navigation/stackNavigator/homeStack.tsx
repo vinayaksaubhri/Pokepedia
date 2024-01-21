@@ -1,12 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../../screens/home";
-import PokemonDetailScreens from "../../screens/home/screens/pokemonDetailScreens";
 import {
   getFocusedRouteNameFromRoute,
   useFocusEffect,
 } from "@react-navigation/native";
 import ROUTES from "../../constant/routes";
 import useHideNavBar from "../../hooks/useHideNavBar";
+import Home from "../../screens/home";
+import PokemonDetailScreens from "../../screens/home/screens/pokemonDetailScreens";
 
 const Stack = createStackNavigator();
 

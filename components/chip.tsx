@@ -21,6 +21,7 @@ import CrossIcon from "../assets/svg/cross_icon";
 import { horizontalScale, moderateScale, scaleFont } from "../style/metrics";
 import { COLORS, DARK_COLORS, FONTS } from "../style/style";
 import { PokemonTypes } from "../types/pokemonTypes";
+import useTheme from "../hooks/useTheme";
 
 export type chipPropsType = PressableProps & {
   label: string;
@@ -39,9 +40,10 @@ const Chip: React.FC<chipPropsType> = ({
   showTypeIcon = false,
   showLabel = true,
   isSelected = false,
-  isDarkMode = false,
+
   ...rest
 }) => {
+  const { isDarkMode } = useTheme();
   const styles = StyleSheet.create({
     selectedStyle: {
       padding: moderateScale(8),
