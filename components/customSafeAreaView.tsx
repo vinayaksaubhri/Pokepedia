@@ -22,6 +22,7 @@ const CustomSafeAreaView: React.FC<Props> = ({
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor,
     },
   });
   return (

@@ -4,9 +4,10 @@ import { Image, Pressable, StyleSheet, View } from "react-native";
 import { selectedPokemonType } from "../screens/compare";
 import PokemonSelectModal from "../screens/compare/components/pokemonSelectModal";
 import { moderateScale } from "../style/metrics";
-import { COLORS } from "../style/style";
+import { COLORS, DARK_COLORS } from "../style/style";
 import Button from "./button";
 import { list as PokemonImageList } from "../assets/pokemonImageData";
+import useTheme from "../hooks/useTheme";
 
 type PokemonSelectCardProps = {
   pokemon: selectedPokemonType;
@@ -18,9 +19,26 @@ const PokemonSelectCard: React.FC<PokemonSelectCardProps> = ({
   pokemon,
 }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const { isDarkMode } = useTheme();
   const onPressCard = () => {
     bottomSheetModalRef.current?.present();
   };
+  const styles = StyleSheet.create({
+    container: {
+      width: "100%",
+      flex: 1,
+      backgroundColor: isDarkMode
+        ? DARK_COLORS.secondarySurface
+        : COLORS.grey100,
+      borderRadius: moderateScale(16),
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    imageStyle: {
+      height: "100%",
+      aspectRatio: 1,
+    },
+  });
 
   if (pokemon?.pokemonIndex !== null) {
     return (
@@ -57,17 +75,3 @@ const PokemonSelectCard: React.FC<PokemonSelectCardProps> = ({
   );
 };
 export default PokemonSelectCard;
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    flex: 1,
-    backgroundColor: COLORS.grey100,
-    borderRadius: moderateScale(16),
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  imageStyle: {
-    height: "100%",
-    aspectRatio: 1,
-  },
-});

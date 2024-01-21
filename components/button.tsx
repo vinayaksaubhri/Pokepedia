@@ -16,6 +16,7 @@ import {
 } from "../style/metrics";
 import { COLORS, FONTS } from "../style/style";
 import { FeedbackType, useHaptic } from "../hooks/useHaptic";
+
 type buttonProps = {
   variant: "Primary" | "Outline" | "Transparent" | "Warning";
   label: string;
@@ -47,7 +48,7 @@ const Button: React.FC<buttonProps> = ({
   const styles = StyleSheet.create({
     buttonContainerPrimary: {
       backgroundColor: disabledColor
-        ? COLORS.primaryYellow + "4D"
+        ? COLORS.primaryYellow + "80"
         : COLORS.primaryYellow,
       width: width,
       height: height,

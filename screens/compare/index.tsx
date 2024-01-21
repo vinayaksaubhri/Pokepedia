@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { COLORS } from "../../style/style";
+import { COLORS, DARK_COLORS } from "../../style/style";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
 import { moderateScale, scaleFont, verticalScale } from "../../style/metrics";
 import { FONTS } from "../../style/style";
@@ -9,6 +9,7 @@ import DiceButton from "../../components/DiceButton";
 import ROUTES from "../../constant/routes";
 import { useState } from "react";
 import { PokemonTypes } from "../../types/pokemonTypes";
+import useTheme from "../../hooks/useTheme";
 
 export type selectedPokemonType = {
   id: string | null;
@@ -18,6 +19,31 @@ export type selectedPokemonType = {
 };
 
 const Compare = ({ navigation, route }) => {
+  const { isDarkMode } = useTheme();
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: moderateScale(24),
+      paddingBottom: verticalScale(84 + 24),
+    },
+    headingTextStyle: {
+      fontSize: scaleFont(36),
+      fontFamily: FONTS.RC_Regular,
+      marginBottom: moderateScale(4),
+      color: isDarkMode ? DARK_COLORS.textWhite : COLORS.primaryBlue,
+    },
+    subHeadingTextStyle: {
+      fontSize: scaleFont(16),
+      fontFamily: FONTS.RC_Regular,
+      color: isDarkMode ? DARK_COLORS.textSecondary : COLORS.primaryBlue,
+      lineHeight: verticalScale(24),
+    },
+    pokemonCardContainer: {
+      marginTop: verticalScale(24),
+      flex: 1,
+      gap: 24,
+    },
+  });
   const [pokemon1, setPokemon1] = useState<selectedPokemonType>({
     id: null,
     pokemonIndex: null,
@@ -31,7 +57,9 @@ const Compare = ({ navigation, route }) => {
     type: "",
   });
   return (
-    <CustomSafeAreaView>
+    <CustomSafeAreaView
+      backgroundColor={isDarkMode ? DARK_COLORS.surface : COLORS.surface}
+    >
       <View style={styles.container}>
         <View>
           <Text style={styles.headingTextStyle}>Comparator</Text>
@@ -39,13 +67,7 @@ const Compare = ({ navigation, route }) => {
             Select two Pokémon and compare them to see who is the strongest!
           </Text>
         </View>
-        <View
-          style={{
-            marginTop: verticalScale(24),
-            flex: 1,
-            gap: 24,
-          }}
-        >
+        <View style={styles.pokemonCardContainer}>
           <PokemonSelectCard setPokemon={setPokemon1} pokemon={pokemon1} />
           <PokemonSelectCard setPokemon={setPokemon2} pokemon={pokemon2} />
           <DiceButton />
@@ -68,22 +90,3 @@ const Compare = ({ navigation, route }) => {
   );
 };
 export default Compare;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: moderateScale(24),
-    paddingBottom: verticalScale(84 + 24),
-  },
-  headingTextStyle: {
-    fontSize: scaleFont(36),
-    fontFamily: FONTS.RC_Regular,
-    marginBottom: moderateScale(4),
-    color: COLORS.primaryBlue,
-  },
-  subHeadingTextStyle: {
-    fontSize: scaleFont(16),
-    fontFamily: FONTS.RC_Regular,
-    color: COLORS.primaryBlue,
-    lineHeight: verticalScale(24),
-  },
-});
