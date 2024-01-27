@@ -14,7 +14,7 @@ import {
   scaleFont,
   verticalScale,
 } from "../../../style/metrics";
-import { COLORS, FONTS } from "../../../style/style";
+import { COLORS, DARK_COLORS, FONTS } from "../../../style/style";
 import SearchBar from "../../../components/searchBar";
 import { PokemonTypes, filterType } from "../../../types/pokemonTypes";
 import { useGetAllPokemon } from "../../../graphql/useGetAllPokemon";
@@ -26,6 +26,7 @@ import PokemonCard from "../../../components/pokemonCard";
 import { getPokeNumberFromPokemonIndex } from "../../../utils/utils";
 import { selectedPokemonType } from "..";
 import { FlatList } from "react-native-gesture-handler";
+import useTheme from "../../../hooks/useTheme";
 type PokemonSelectModalProps = BottomSheetModalProps & {
   bottomSheetRef: React.Ref<BottomSheetModal>;
 
@@ -76,6 +77,7 @@ const PokemonSelectModal: React.FC<PokemonSelectModalProps> = ({
     });
     bottomSheetRef?.current?.dismiss();
   };
+  const { isDarkMode } = useTheme();
 
   const renderBackdrop = useCallback(
     (props: BottomSheetDefaultBackdropProps) => (
@@ -87,12 +89,56 @@ const PokemonSelectModal: React.FC<PokemonSelectModalProps> = ({
     ),
     []
   );
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingHorizontal: horizontalScale(24),
+      paddingTop: verticalScale(16),
+    },
+    headingTextStyle: {
+      fontFamily: FONTS.RC_Regular,
+      color: isDarkMode ? DARK_COLORS.textWhite : COLORS.primaryBlue,
+      fontSize: scaleFont(22),
+      marginBottom: verticalScale(24),
+    },
+    contentContainerStyle: {
+      gap: verticalScale(16),
+      paddingTop: verticalScale(20),
+      paddingBottom: verticalScale(90),
+    },
+    flatListStyle: {
+      flex: 1,
+      marginTop: 4,
+      width: "100%",
+      borderRadius: moderateScale(16),
+    },
+    columnWrapperStyle: {
+      justifyContent: "space-between",
+    },
+    handleStyle: {
+      backgroundColor: isDarkMode ? DARK_COLORS.surface : COLORS.surface,
+      borderTopEndRadius: moderateScale(16),
+      borderTopStartRadius: moderateScale(16),
+    },
+    bottomSheetBackgroundSheet: {
+      borderTopLeftRadius: moderateScale(28),
+      borderTopRightRadius: moderateScale(28),
+      backgroundColor: isDarkMode ? DARK_COLORS.surface : COLORS.surface,
+    },
+
+    handleIndicatorStyle: {
+      backgroundColor: isDarkMode ? DARK_COLORS.white : COLORS.black,
+    },
+  });
   return (
     <BottomSheetModal
       ref={bottomSheetRef}
       enablePanDownToClose
       backdropComponent={renderBackdrop}
       topInset={insets.top ? insets.top : 16}
+      handleStyle={styles.handleStyle}
+      handleIndicatorStyle={styles.handleIndicatorStyle}
+      backgroundStyle={styles.bottomSheetBackgroundSheet}
       {...rest}
     >
       <BottomSheetView style={styles.container}>
@@ -166,30 +212,3 @@ const PokemonSelectModal: React.FC<PokemonSelectModalProps> = ({
   );
 };
 export default PokemonSelectModal;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: horizontalScale(24),
-    paddingTop: verticalScale(16),
-  },
-  headingTextStyle: {
-    fontFamily: FONTS.RC_Regular,
-    color: COLORS.primaryBlue,
-    fontSize: scaleFont(22),
-    marginBottom: verticalScale(24),
-  },
-  contentContainerStyle: {
-    gap: verticalScale(16),
-    paddingTop: verticalScale(20),
-    paddingBottom: verticalScale(90),
-  },
-  flatListStyle: {
-    flex: 1,
-    marginTop: 4,
-    width: "100%",
-    borderRadius: moderateScale(16),
-  },
-  columnWrapperStyle: {
-    justifyContent: "space-between",
-  },
-});
