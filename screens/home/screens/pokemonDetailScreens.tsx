@@ -50,6 +50,7 @@ const PokemonDetailScreens = ({ navigation, route }) => {
         >
           <View style={styles.imageHeaderContainer}>
             <TopAppBar
+              disableDarkMode
               label={getPokeNumberFromPokemonIndex(pokemonIndex)}
               navigation={navigation}
               onPressBackButton={() => {
