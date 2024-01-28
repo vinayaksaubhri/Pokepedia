@@ -7,7 +7,8 @@ import {
 } from "lottie-react-native";
 import { useEffect, useRef, useState } from "react";
 import { scaleFont } from "../style/metrics";
-import { COLORS, FONTS } from "../style/style";
+import { COLORS, DARK_COLORS, FONTS } from "../style/style";
+import useTheme from "../hooks/useTheme";
 
 const TopAppBar: React.FC<{
   label: string;
@@ -16,6 +17,7 @@ const TopAppBar: React.FC<{
   showFavIcon?: boolean;
   onPressFavIcon?: () => void;
   isSelected?: boolean;
+  disableDarkMode?: boolean;
 }> = ({
   label = "Label",
   navigation,
@@ -25,7 +27,10 @@ const TopAppBar: React.FC<{
   showFavIcon = false,
   onPressFavIcon = () => {},
   isSelected = false,
+  disableDarkMode = false,
 }) => {
+  const { isDarkMode } = useTheme();
+  const showDarkMode = !disableDarkMode && isDarkMode;
   const lottieRef = useRef<AnimatedLottieView>(null);
   const [showFavIconAnimation, setShowFavIconAnimation] = useState(isSelected);
 
@@ -52,11 +57,38 @@ const TopAppBar: React.FC<{
     }
     onPressFavIcon();
   };
+  const styles = StyleSheet.create({
+    lottieViewStyle: {
+      position: "absolute",
+      width: 50,
+      height: 50,
+    },
+    favIconContainer: {
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    container: {
+      paddingVertical: 16,
+      paddingHorizontal: 24,
+      justifyContent: "space-between",
+      alignItems: "center",
+      flexDirection: "row",
+      width: "100%",
+    },
+    labelStyle: {
+      fontFamily: FONTS.RC_Regular,
+      fontSize: scaleFont(22),
+      color: showDarkMode ? DARK_COLORS.white : COLORS.primaryBlue,
+    },
+    opacityZero: {
+      opacity: 0,
+    },
+  });
 
   return (
     <View style={styles.container}>
       <Pressable hitSlop={5} onPress={onPressBackButton}>
-        <BackIcon />
+        <BackIcon color={showDarkMode ? DARK_COLORS.white : undefined} />
       </Pressable>
       <Text style={styles.labelStyle}>{label}</Text>
       <Pressable
@@ -80,30 +112,3 @@ const TopAppBar: React.FC<{
   );
 };
 export default TopAppBar;
-const styles = StyleSheet.create({
-  lottieViewStyle: {
-    position: "absolute",
-    width: 50,
-    height: 50,
-  },
-  favIconContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  container: {
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    width: "100%",
-  },
-  labelStyle: {
-    fontFamily: FONTS.RC_Regular,
-    fontSize: scaleFont(22),
-    color: COLORS.primaryBlue,
-  },
-  opacityZero: {
-    opacity: 0,
-  },
-});
