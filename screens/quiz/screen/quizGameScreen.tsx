@@ -1,23 +1,20 @@
+import React, { useEffect, useRef, useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
+import Confetti from "react-native-confetti";
+import Button from "../../../components/button";
 import CustomSafeAreaView from "../../../components/customSafeAreaView";
 import TopAppBar from "../../../components/topAppBar";
-import Button from "../../../components/button";
-import {
-  height,
-  moderateScale,
-  verticalScale,
-  width,
-} from "../../../style/metrics";
-import React, { useEffect, useRef, useState } from "react";
+import { useHaptic } from "../../../hooks/useHaptic";
+import { height, moderateScale, verticalScale } from "../../../style/metrics";
 import { getRandomPokemon, selectCurrentPokemon } from "../utils/data";
 import { PokemonListType } from "../utils/pokemonListQuiz";
-import Confetti from "react-native-confetti";
-import { useHaptic } from "../../../hooks/useHaptic";
+import useTheme from "../../../hooks/useTheme";
+import { COLORS, DARK_COLORS } from "../../../style/style";
 
 const QuizGameScreen = ({ route, navigation }) => {
   const hapticSuccess = useHaptic("success");
   const hapticError = useHaptic("error");
-
+  const { isDarkMode } = useTheme();
   const confettiRef = useRef(null);
   const [gameState, setGameState] = useState<"start" | "end">("start");
   const [pokemonList, setPokemonList] = useState<PokemonListType[]>([]);
@@ -66,7 +63,9 @@ const QuizGameScreen = ({ route, navigation }) => {
   }, []);
 
   return (
-    <CustomSafeAreaView>
+    <CustomSafeAreaView
+      backgroundColor={isDarkMode ? DARK_COLORS.surface : COLORS.surface}
+    >
       <TopAppBar
         label="Who’s that Pokémon!"
         navigation={navigation}
@@ -90,25 +89,33 @@ const QuizGameScreen = ({ route, navigation }) => {
           />
         )}
         <View style={styles.buttonContainer}>
-          {pokemonList?.map((pokemon) => (
-            <Button
-              variant={
-                pokemon?.name === answer?.name
-                  ? answerState === "correct"
-                    ? "Primary"
-                    : "Warning"
-                  : pokemon?.name === currentPokemon?.name &&
-                    gameState === "end"
+          {pokemonList?.map((pokemon) => {
+            const buttonVariant =
+              pokemon?.name === answer?.name
+                ? answerState === "correct"
                   ? "Primary"
-                  : "Outline"
-              }
-              width={"100%"}
-              label={pokemon?.name}
-              onPress={() => checkAnswer(pokemon?.name)}
-              disabled={answer?.name !== ""}
-              feedbackType="none"
-            />
-          ))}
+                  : "Warning"
+                : pokemon?.name === currentPokemon?.name && gameState === "end"
+                ? "Primary"
+                : "Outline";
+            return (
+              <Button
+                variant={buttonVariant}
+                width={"100%"}
+                label={pokemon?.name}
+                onPress={() => checkAnswer(pokemon?.name)}
+                disabled={answer?.name !== ""}
+                feedbackType="none"
+                labelColor={
+                  isDarkMode
+                    ? buttonVariant === "Primary"
+                      ? DARK_COLORS.primaryBlue
+                      : DARK_COLORS.white
+                    : undefined
+                }
+              />
+            );
+          })}
           <Button
             hidden={gameState !== "end"}
             variant="Transparent"
@@ -116,6 +123,7 @@ const QuizGameScreen = ({ route, navigation }) => {
             label="Again"
             showIcon
             onPress={startOrResetTheGame}
+            labelColor={isDarkMode ? DARK_COLORS.white : undefined}
           />
         </View>
         <Confetti ref={confettiRef} confettiCount={50} />

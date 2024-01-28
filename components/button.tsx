@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ColorValue,
   DimensionValue,
   GestureResponderEvent,
   Pressable,
@@ -14,8 +15,9 @@ import {
   scaleFont,
   verticalScale,
 } from "../style/metrics";
-import { COLORS, FONTS } from "../style/style";
+import { COLORS, DARK_COLORS, FONTS } from "../style/style";
 import { FeedbackType, useHaptic } from "../hooks/useHaptic";
+import useTheme from "../hooks/useTheme";
 type buttonProps = {
   variant: "Primary" | "Outline" | "Transparent" | "Warning";
   label: string;
@@ -27,6 +29,7 @@ type buttonProps = {
   hidden?: boolean;
   feedbackType?: FeedbackType | "none";
   disabledColor?: boolean;
+  labelColor?: ColorValue;
 } & PressableProps;
 
 const Button: React.FC<buttonProps> = ({
@@ -40,10 +43,11 @@ const Button: React.FC<buttonProps> = ({
   hidden = false,
   feedbackType = "light",
   disabledColor = false,
+  labelColor = COLORS.primaryBlue,
   ...rest
 }) => {
   const hapticSelection = useHaptic(feedbackType);
-
+  const { isDarkMode } = useTheme();
   const styles = StyleSheet.create({
     buttonContainerPrimary: {
       backgroundColor: disabledColor
@@ -58,7 +62,6 @@ const Button: React.FC<buttonProps> = ({
     },
     buttonContainerWarning: {
       backgroundColor: COLORS.primaryRed,
-
       width: width,
       height: height,
       borderRadius: moderateScale(16),
@@ -69,7 +72,7 @@ const Button: React.FC<buttonProps> = ({
     buttonTextStyle: {
       fontSize: scaleFont(14),
       fontFamily: FONTS.RC_Medium,
-      color: COLORS.primaryBlue,
+      color: labelColor,
     },
     warningButtonTextStyle: {
       fontSize: scaleFont(14),
@@ -86,7 +89,7 @@ const Button: React.FC<buttonProps> = ({
       backgroundColor: COLORS.outlineButtonFeedbackColor,
     },
     buttonContainerOutline: {
-      backgroundColor: COLORS.surface,
+      backgroundColor: isDarkMode ? DARK_COLORS.surface : COLORS.surface,
       width: width,
       height: height,
       borderWidth: 1,
@@ -97,8 +100,7 @@ const Button: React.FC<buttonProps> = ({
       display: hidden ? "none" : "flex",
     },
     buttonContainerTransparent: {
-      backgroundColor: COLORS.surface,
-
+      backgroundColor: isDarkMode ? DARK_COLORS.surface : COLORS.surface,
       width: width,
       height: height,
       borderRadius: moderateScale(16),
@@ -171,7 +173,9 @@ const Button: React.FC<buttonProps> = ({
           ]}
           {...rest}
         >
-          {showIcon && <ReplaceIcon />}
+          {showIcon && (
+            <ReplaceIcon color={isDarkMode ? DARK_COLORS.white : undefined} />
+          )}
           <Text style={styles.buttonTextStyle}>{label}</Text>
         </Pressable>
       );
