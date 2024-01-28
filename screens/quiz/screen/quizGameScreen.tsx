@@ -10,6 +10,7 @@ import { getRandomPokemon, selectCurrentPokemon } from "../utils/data";
 import { PokemonListType } from "../utils/pokemonListQuiz";
 import useTheme from "../../../hooks/useTheme";
 import { COLORS, DARK_COLORS } from "../../../style/style";
+import { capitalizeFirstLetter } from "../../../utils/utils";
 
 const QuizGameScreen = ({ route, navigation }) => {
   const hapticSuccess = useHaptic("success");
@@ -102,7 +103,7 @@ const QuizGameScreen = ({ route, navigation }) => {
               <Button
                 variant={buttonVariant}
                 width={"100%"}
-                label={pokemon?.name}
+                label={capitalizeFirstLetter(pokemon?.name)}
                 onPress={() => checkAnswer(pokemon?.name)}
                 disabled={answer?.name !== ""}
                 feedbackType="none"
