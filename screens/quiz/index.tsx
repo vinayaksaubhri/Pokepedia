@@ -4,10 +4,16 @@ import Button from "../../components/button";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
 import { moderateScale } from "../../style/metrics";
 import ROUTES from "../../constant/routes";
+import useTheme from "../../hooks/useTheme";
+import { COLORS, DARK_COLORS } from "../../style/style";
 
 const Quiz = ({ navigation, route }) => {
+  const { isDarkMode } = useTheme();
+
   return (
-    <CustomSafeAreaView>
+    <CustomSafeAreaView
+      backgroundColor={isDarkMode ? DARK_COLORS.surface : COLORS.surface}
+    >
       <View style={styles.container}>
         <Image
           source={WhoThatPokemon}
