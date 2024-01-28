@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
-import { COLORS, FONTS } from "../../../style/style";
+import { COLORS, DARK_COLORS, FONTS } from "../../../style/style";
 import { capitalizeFirstLetter, comparePokemon } from "../../../utils/utils";
 import { useEffect, useState } from "react";
 import { selectedPokemonType } from "..";
 import { pokemonStatsType } from "../../../types/pokemonTypes";
 import { scaleFont, verticalScale } from "../../../style/metrics";
+import useTheme from "../../../hooks/useTheme";
 
 type AnimatedTextProps = {
   pokemon1: selectedPokemonType;
@@ -19,6 +20,16 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({
   pokemon1Stats,
   pokemon2Stats,
 }) => {
+  const { isDarkMode } = useTheme();
+  const styles = StyleSheet.create({
+    headingTextStyle: {
+      fontFamily: FONTS.RC_Regular,
+      fontSize: scaleFont(22),
+      color: isDarkMode ? DARK_COLORS.white : COLORS.primaryBlue,
+      marginTop: verticalScale(40),
+      marginBottom: verticalScale(24),
+    },
+  });
   const loadingValue = [
     "Exploring Tall Grass...",
     "Training Pokémon...",
@@ -56,12 +67,3 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({
   );
 };
 export default AnimatedText;
-const styles = StyleSheet.create({
-  headingTextStyle: {
-    fontFamily: FONTS.RC_Regular,
-    fontSize: scaleFont(22),
-    color: COLORS.primaryBlue,
-    marginTop: verticalScale(40),
-    marginBottom: verticalScale(24),
-  },
-});
