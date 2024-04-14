@@ -64,6 +64,7 @@ const PokemonSelectCard: React.FC<PokemonSelectCardProps> = ({
         label="ADD POKEMON"
         width={"55%"}
         onPress={onPressCard}
+        backgroundColor={isDarkMode ? DARK_COLORS.white : undefined}
       />
       <PokemonSelectModal
         bottomSheetRef={bottomSheetModalRef}

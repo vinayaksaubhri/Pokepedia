@@ -30,6 +30,7 @@ type buttonProps = {
   feedbackType?: FeedbackType | "none";
   disabledColor?: boolean;
   labelColor?: ColorValue;
+  backgroundColor?: ColorValue | undefined;
 } & PressableProps;
 
 const Button: React.FC<buttonProps> = ({
@@ -44,6 +45,7 @@ const Button: React.FC<buttonProps> = ({
   feedbackType = "light",
   disabledColor = false,
   labelColor = COLORS.primaryBlue,
+  backgroundColor,
   ...rest
 }) => {
   const hapticSelection = useHaptic(feedbackType);
@@ -86,7 +88,14 @@ const Button: React.FC<buttonProps> = ({
       backgroundColor: COLORS.primaryRed + "80",
     },
     pressFeedbackOutline: {
-      backgroundColor: COLORS.outlineButtonFeedbackColor,
+      backgroundColor: isDarkMode
+        ? DARK_COLORS.outlineButtonFeedbackColor
+        : COLORS.outlineButtonFeedbackColor,
+    },
+    pressFeedbackTransparent: {
+      backgroundColor: isDarkMode
+        ? DARK_COLORS.transparentButtonFeedbackColor
+        : COLORS.outlineButtonFeedbackColor,
     },
     buttonContainerOutline: {
       backgroundColor: isDarkMode ? DARK_COLORS.surface : COLORS.surface,
@@ -110,6 +119,13 @@ const Button: React.FC<buttonProps> = ({
       gap: 8,
       display: hidden ? "none" : "flex",
     },
+    backgroundColor: {
+      ...(backgroundColor
+        ? {
+            backgroundColor: backgroundColor,
+          }
+        : {}),
+    },
   });
   const onLongPressButton = (event: GestureResponderEvent) => {
     hapticSelection();
@@ -128,6 +144,7 @@ const Button: React.FC<buttonProps> = ({
           style={({ pressed }) => [
             styles.buttonContainerPrimary,
             pressed ? styles.pressFeedbackPrimary : {},
+            styles.backgroundColor,
           ]}
           {...rest}
         >
@@ -142,6 +159,7 @@ const Button: React.FC<buttonProps> = ({
           style={({ pressed }) => [
             styles.buttonContainerWarning,
             pressed ? styles.pressFeedbackWaring : {},
+            styles.backgroundColor,
           ]}
           {...rest}
         >
@@ -156,6 +174,7 @@ const Button: React.FC<buttonProps> = ({
           style={({ pressed }) => [
             styles.buttonContainerOutline,
             pressed ? styles.pressFeedbackOutline : {},
+            styles.backgroundColor,
           ]}
           {...rest}
         >
@@ -169,7 +188,7 @@ const Button: React.FC<buttonProps> = ({
           onLongPress={onLongPressButton}
           style={({ pressed }) => [
             styles.buttonContainerTransparent,
-            pressed ? styles.pressFeedbackOutline : {},
+            pressed ? styles.pressFeedbackTransparent : {},
           ]}
           {...rest}
         >
