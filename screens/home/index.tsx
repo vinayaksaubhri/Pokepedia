@@ -30,6 +30,7 @@ import { getPokeNumberFromPokemonIndex } from "../../utils/utils";
 import ListEmptyComponent from "./components/listEmptyComponent";
 import useTheme from "../../hooks/useTheme";
 import { Feather } from "@expo/vector-icons";
+import DarkModeToggle from "./components/darkModeToggle";
 
 const Home = ({ navigation, route }) => {
   const [filterData, setFilterData] = useState<filterType>({
@@ -106,15 +107,7 @@ const Home = ({ navigation, route }) => {
     columnWrapperStyle: {
       justifyContent: "space-between",
     },
-    darkModeButtonContainer: {
-      borderRadius: 8,
-      borderWidth: 1,
-      width: horizontalScale(30),
-      height: verticalScale(30),
-      justifyContent: "center",
-      alignItems: "center",
-      borderColor: COLORS.grey300,
-    },
+
     headingTextAndDarkModeButtonContainer: {
       flexDirection: "row",
       justifyContent: "space-between",
@@ -129,16 +122,7 @@ const Home = ({ navigation, route }) => {
       <View style={styles.container}>
         <View style={styles.headingTextAndDarkModeButtonContainer}>
           <Text style={styles.headingTextStyle}>Pokédex</Text>
-          <Pressable
-            onPress={() => setIsDarkMode(!isDarkMode)}
-            style={styles.darkModeButtonContainer}
-          >
-            {isDarkMode ? (
-              <Feather name="sun" size={18} color={DARK_COLORS.white} />
-            ) : (
-              <Feather name="moon" size={18} color={COLORS.primaryBlue} />
-            )}
-          </Pressable>
+          <DarkModeToggle />
         </View>
         <Text style={styles.subHeadingTextStyle}>
           Use the advanced search to find Pokémon by type, weakness, ability and
