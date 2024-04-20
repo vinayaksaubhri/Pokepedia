@@ -1,21 +1,27 @@
 import { Feather } from "@expo/vector-icons";
-import { Pressable, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import useTheme from "../../../../hooks/useTheme";
-import { COLORS, DARK_COLORS } from "../../../../style/style";
 import { horizontalScale, verticalScale } from "../../../../style/metrics";
+import { COLORS, DARK_COLORS } from "../../../../style/style";
 const DarkModeToggle = () => {
-  const { isDarkMode, setIsDarkMode } = useTheme();
+  const { isDarkMode, toggleDarkModeWithAnimation } = useTheme();
+
+  const pan = Gesture.Pan()
+    .runOnJS(true)
+    .onBegin((event) => {
+      toggleDarkModeWithAnimation(event.absoluteX, event.absoluteY);
+    });
   return (
-    <Pressable
-      onPress={() => setIsDarkMode(!isDarkMode)}
-      style={styles.darkModeButtonContainer}
-    >
-      {isDarkMode ? (
-        <Feather name="sun" size={18} color={DARK_COLORS.white} />
-      ) : (
-        <Feather name="moon" size={18} color={COLORS.primaryBlue} />
-      )}
-    </Pressable>
+    <GestureDetector gesture={pan}>
+      <View style={styles.darkModeButtonContainer}>
+        {isDarkMode ? (
+          <Feather name="sun" size={18} color={DARK_COLORS.white} />
+        ) : (
+          <Feather name="moon" size={18} color={COLORS.primaryBlue} />
+        )}
+      </View>
+    </GestureDetector>
   );
 };
 export default DarkModeToggle;
