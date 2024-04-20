@@ -7,15 +7,42 @@ import TabIcon from "./tabIcon";
 import { useHaptic } from "../hooks/useHaptic";
 import useHideNavBar from "../hooks/useHideNavBar";
 import useTheme from "../hooks/useTheme";
+import ROUTES from "../constant/routes";
+import { SvgProps } from "react-native-svg";
 
 type BottomTabUiBarProps = BottomTabBarProps & {
-  bottomTab: {
-    id: number;
-    name: string;
-    component: () => JSX.Element;
-    icon: JSX.Element;
-  }[];
+  bottomTab: (
+    | {
+        id: number;
+        name: ROUTES;
+        component: ({
+          navigation,
+          route,
+        }: {
+          navigation: any;
+          route: any;
+        }) => JSX.Element;
+        icon: (
+          args: JSX.IntrinsicAttributes &
+            SvgProps & {
+              isFocused?: boolean;
+            }
+        ) => JSX.Element;
+      }
+    | {
+        id: number;
+        name: string;
+        component: () => JSX.Element;
+        icon: (
+          args: JSX.IntrinsicAttributes &
+            SvgProps & {
+              isFocused?: boolean;
+            }
+        ) => JSX.Element;
+      }
+  )[];
 };
+
 const BottomTabUI = ({
   state,
   navigation,
