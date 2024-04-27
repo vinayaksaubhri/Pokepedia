@@ -24,8 +24,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "updates": {
-      "useClassicUpdates": true
-    }
+    "plugins": ["expo-font"]
   }
 }
