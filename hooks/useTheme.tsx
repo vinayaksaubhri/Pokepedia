@@ -28,19 +28,24 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const ref = useRef<View>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [overlay1, setOverlay1] = useState<SkImage | null>(null);
+  const [overlay2, setOverlay2] = useState<SkImage | null>(null);
 
-  let overlay1: SkImage | null = null;
-  console.log("🚀 ~ overlay1:", overlay1);
-  let overlay2: SkImage | null = null;
+  const wait = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   const toggleDarkModeWithAnimation = useCallback(
     async (x: number, y: number) => {
       console.log("Toggled dark mode", x, y);
-      overlay1 = await makeImageFromView(ref);
+      const image1 = await makeImageFromView(ref);
+      setOverlay1(image1);
+      await wait(10);
       setIsDarkMode(!isDarkMode);
-      console.log("🚀 ~ overlay1:", overlay1);
+      await wait(10);
+      const image2 = await makeImageFromView(ref);
+      setOverlay2(image2);
     },
-    [setIsDarkMode, isDarkMode]
+    [setIsDarkMode, isDarkMode, ref]
   );
 
   return (
@@ -53,12 +58,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     >
       <View style={styles.container} ref={ref}>
         {children}
-        {overlay1 && (
-          <Canvas style={StyleSheet.absoluteFill}>
-            <Image image={overlay1} x={0} y={0} width={width} height={height} />
-          </Canvas>
-        )}
       </View>
+      <Canvas style={StyleSheet.absoluteFill} pointerEvents="none">
+        <Image image={overlay1} x={0} y={0} width={width} height={height} />
+        <Image image={overlay2} x={0} y={0} width={width} height={height} />
+      </Canvas>
     </ThemeContext.Provider>
   );
 };
