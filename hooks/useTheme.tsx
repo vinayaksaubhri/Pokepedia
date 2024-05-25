@@ -16,7 +16,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { height, width } from "../style/metrics";
 import {
   useDerivedValue,
@@ -97,22 +97,24 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
       <View style={styles.container} ref={ref}>
         {children}
       </View>
-      <Canvas style={StyleSheet.absoluteFill} pointerEvents="none">
-        <Image image={overlay1} x={0} y={0} width={width} height={height} />
+      {Platform.OS === "ios" && (
+        <Canvas style={StyleSheet.absoluteFill} pointerEvents="none">
+          <Image image={overlay1} x={0} y={0} width={width} height={height} />
 
-        {overlay2 && (
-          <Circle c={circle} r={r}>
-            <ImageShader
-              image={overlay2}
-              x={0}
-              y={0}
-              width={width}
-              height={height}
-              fit="cover"
-            />
-          </Circle>
-        )}
-      </Canvas>
+          {overlay2 && (
+            <Circle c={circle} r={r}>
+              <ImageShader
+                image={overlay2}
+                x={0}
+                y={0}
+                width={width}
+                height={height}
+                fit="cover"
+              />
+            </Circle>
+          )}
+        </Canvas>
+      )}
     </ThemeContext.Provider>
   );
 };

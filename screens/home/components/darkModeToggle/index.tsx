@@ -1,16 +1,18 @@
 import { Feather } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import useTheme from "../../../../hooks/useTheme";
 import { horizontalScale, verticalScale } from "../../../../style/metrics";
 import { COLORS, DARK_COLORS } from "../../../../style/style";
 const DarkModeToggle = () => {
-  const { isDarkMode, toggleDarkModeWithAnimation } = useTheme();
+  const { isDarkMode, toggleDarkModeWithAnimation, setIsDarkMode } = useTheme();
 
   const pan = Gesture.Pan()
     .runOnJS(true)
     .onBegin((event) => {
-      toggleDarkModeWithAnimation(event.absoluteX, event.absoluteY);
+      Platform.OS === "ios"
+        ? toggleDarkModeWithAnimation(event.absoluteX, event.absoluteY)
+        : setIsDarkMode(!isDarkMode);
     });
   return (
     <GestureDetector gesture={pan}>

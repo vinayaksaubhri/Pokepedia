@@ -21,7 +21,7 @@
     "@react-navigation/material-top-tabs": "^6.6.3",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
-    "@shopify/react-native-skia": "^1.2.3",
+    "@shopify/react-native-skia": "0.1.221",
     "@types/react-native-confetti": "^0.1.0",
     "expo": "^50.0.17",
     "expo-asset": "~9.0.2",
