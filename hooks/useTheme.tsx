@@ -28,10 +28,12 @@ const ThemeContext = createContext<{
   isDarkMode: boolean;
   setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
   toggleDarkModeWithAnimation: (x: number, y: number) => void;
+  isActive: boolean;
 }>({
   isDarkMode: false,
   setIsDarkMode: () => {},
   toggleDarkModeWithAnimation: () => {},
+  isActive: false,
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -41,6 +43,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [overlay1, setOverlay1] = useState<SkImage | null>(null);
   const [overlay2, setOverlay2] = useState<SkImage | null>(null);
+  const [isActive, setIsActive] = useState(false);
   const corners = [
     vec(0, 0),
     vec(width, 0),
@@ -62,6 +65,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const toggleDarkModeWithAnimation = useCallback(
     async (x: number, y: number) => {
+      setIsActive(true);
       const duration = 650;
       const awaitDuration = 16;
       console.log("Toggled dark mode", x, y);
@@ -82,6 +86,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
       await wait(duration);
       setOverlay1(null);
       setOverlay2(null);
+      setIsActive(false);
     },
     [setIsDarkMode, isDarkMode, ref, circle, transition, corners]
   );
@@ -92,6 +97,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
         isDarkMode,
         setIsDarkMode,
         toggleDarkModeWithAnimation,
+        isActive,
       }}
     >
       <View style={styles.container} ref={ref}>

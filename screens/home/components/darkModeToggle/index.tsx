@@ -5,11 +5,13 @@ import useTheme from "../../../../hooks/useTheme";
 import { horizontalScale, verticalScale } from "../../../../style/metrics";
 import { COLORS, DARK_COLORS } from "../../../../style/style";
 const DarkModeToggle = () => {
-  const { isDarkMode, toggleDarkModeWithAnimation, setIsDarkMode } = useTheme();
+  const { isDarkMode, toggleDarkModeWithAnimation, setIsDarkMode, isActive } =
+    useTheme();
 
   const pan = Gesture.Pan()
     .runOnJS(true)
     .onBegin((event) => {
+      if (isActive) return;
       Platform.OS === "ios"
         ? toggleDarkModeWithAnimation(event.absoluteX, event.absoluteY)
         : setIsDarkMode(!isDarkMode);
