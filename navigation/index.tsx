@@ -3,7 +3,7 @@ import useNetworkInfo from "../hooks/useNetworkInfo";
 import AuthorizedNavigation from "./authorizedNavigation";
 import UnAuthorizedNavigation from "./unAuthorizedNavigation";
 
-const user = true;
+const user = false;
 
 const Navigation = () => {
   const [isOnline, onPressReload] = useNetworkInfo();

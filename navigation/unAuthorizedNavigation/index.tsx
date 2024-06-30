@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
+import Login from "../../screens/login";
 
 type StackParamsList = {
   Login: undefined;
@@ -9,13 +10,6 @@ type StackParamsList = {
 const UnAuthorizedStack = createStackNavigator<StackParamsList>();
 
 const UnAuthorizedNavigation = () => {
-  const Home = () => {
-    return (
-      <View>
-        <Text>Home UnAuthorizedStack</Text>
-      </View>
-    );
-  };
   const Notifications = () => {
     return (
       <View>
@@ -25,8 +19,12 @@ const UnAuthorizedNavigation = () => {
   };
 
   return (
-    <UnAuthorizedStack.Navigator>
-      <UnAuthorizedStack.Screen name="Login" component={Home} />
+    <UnAuthorizedStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <UnAuthorizedStack.Screen name="Login" component={Login} />
       <UnAuthorizedStack.Screen name="SignUp" component={Notifications} />
     </UnAuthorizedStack.Navigator>
   );

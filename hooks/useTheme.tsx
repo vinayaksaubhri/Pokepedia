@@ -68,7 +68,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsActive(true);
       const duration = 650;
       const awaitDuration = 16;
-      console.log("Toggled dark mode", x, y);
       circle.value = {
         x,
         y,
