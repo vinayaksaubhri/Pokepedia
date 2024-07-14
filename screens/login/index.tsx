@@ -3,8 +3,10 @@ import CustomSafeAreaView from "../../components/customSafeAreaView";
 import { View } from "react-native";
 import { COLORS, FONTS } from "../../style/style";
 import Button from "../../components/button";
+import ROUTES from "../../constant/routes";
+import { moderateScale, scaleFont, verticalScale } from "../../style/metrics";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   return (
     <CustomSafeAreaView>
       <View style={styles.container}>
@@ -20,7 +22,9 @@ const Login = () => {
         <View style={styles.buttonContainer}>
           <Button
             label="Login"
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate(ROUTES.EMAIL_SCREEN);
+            }}
             variant={"Primary"}
             width={"100%"}
           />
@@ -33,11 +37,11 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 36,
+    padding: moderateScale(36),
     alignItems: "center",
   },
   headingText: {
-    fontSize: 24,
+    fontSize: scaleFont(24),
     fontFamily: FONTS.RC_Bold,
     color: COLORS.primaryBlue,
   },
@@ -52,10 +56,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   marginTop: {
-    marginTop: 60,
+    marginTop: verticalScale(60),
   },
   secondaryText: {
-    fontSize: 14,
+    fontSize: scaleFont(14),
     fontFamily: FONTS.RC_Light,
     color: COLORS.primaryBlue,
     marginTop: 5,
