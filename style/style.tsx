@@ -12,6 +12,7 @@ export const FONTS = {
 };
 export const COLORS = {
   primaryYellow: "#FFCC00",
+  secondaryYellow: "rgba(255, 204, 0, 0.1)",
   surface: "#ffffff",
   primaryBlue: "#283141",
   grey100: "#F2F4F7",
@@ -29,7 +30,7 @@ export const DARK_COLORS = {
   primaryYellow: "#FFCC00",
   white: "#ffffff",
   surface: "#1D2335",
-
+  secondaryYellow: "rgba(255, 204, 0, 0.1)",
   secondarySurface: "#252C42",
   ternarySurface: "#181D2D",
   textWhite: "#ffffff",
