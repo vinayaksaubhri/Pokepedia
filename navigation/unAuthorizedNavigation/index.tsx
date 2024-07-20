@@ -1,31 +1,25 @@
-import { View, Text } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../../screens/login";
+import Email from "../../screens/email";
+import ROUTES from "../../constant/routes";
 
 type StackParamsList = {
-  Login: undefined;
-  SignUp: undefined;
+  EmailScreen: undefined;
+  LoginScreen: undefined;
 };
 
 const UnAuthorizedStack = createStackNavigator<StackParamsList>();
 
 const UnAuthorizedNavigation = () => {
-  const Notifications = () => {
-    return (
-      <View>
-        <Text>Notification UnAuthorizedStack</Text>
-      </View>
-    );
-  };
-
   return (
     <UnAuthorizedStack.Navigator
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName={ROUTES.LOGIN_SCREEN}
     >
-      <UnAuthorizedStack.Screen name="Login" component={Login} />
-      <UnAuthorizedStack.Screen name="SignUp" component={Notifications} />
+      <UnAuthorizedStack.Screen name={ROUTES.LOGIN_SCREEN} component={Login} />
+      <UnAuthorizedStack.Screen name={ROUTES.EMAIL_SCREEN} component={Email} />
     </UnAuthorizedStack.Navigator>
   );
 };

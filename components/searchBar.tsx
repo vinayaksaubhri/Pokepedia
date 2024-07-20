@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   GestureResponderEvent,
   Pressable,
   StyleSheet,
   TextInput,
+  TextInputProps,
   View,
 } from "react-native";
 import FilterIcon from "../assets/svg/filter_icon";
 import SearchIcon from "../assets/svg/search_Icon";
+import useTheme from "../hooks/useTheme";
 import {
   horizontalScale,
   moderateScale,
@@ -16,13 +18,14 @@ import {
 } from "../style/metrics";
 import { COLORS, DARK_COLORS, FONTS } from "../style/style";
 import { filterType } from "../types/pokemonTypes";
-import useTheme from "../hooks/useTheme";
 
 type props = {
   showFilter?: Boolean;
   onPressFilter?: (event: GestureResponderEvent) => void;
-  setFilterData: React.Dispatch<React.SetStateAction<filterType>>;
-  filterData: filterType;
+  setFilterData?: React.Dispatch<React.SetStateAction<filterType>>;
+  filterData?: filterType;
+  showIcon?: boolean;
+  textInputProp?: TextInputProps;
 };
 
 const SearchBar: React.FC<props> = ({
@@ -32,6 +35,8 @@ const SearchBar: React.FC<props> = ({
   onPressFilter = () => {
     console.log("filter press");
   },
+  showIcon = true,
+  textInputProp = {},
 }) => {
   const { isDarkMode } = useTheme();
   const styles = StyleSheet.create({
@@ -74,16 +79,19 @@ const SearchBar: React.FC<props> = ({
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
-        <SearchIcon />
+        {showIcon && <SearchIcon />}
+
         <TextInput
           placeholder="Search a pokémon"
           style={styles.searchBarStyle}
           placeholderTextColor={COLORS.grey300}
-          value={filterData.name}
+          value={filterData?.name}
           onChangeText={(value) => {
-            setFilterData((prev) => ({ ...prev, name: value }));
+            if (setFilterData)
+              setFilterData((prev) => ({ ...prev, name: value }));
           }}
           autoCorrect={false}
+          {...textInputProp}
         />
       </View>
       {showFilter && (
