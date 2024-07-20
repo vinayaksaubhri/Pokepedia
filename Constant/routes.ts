@@ -10,5 +10,6 @@ enum ROUTES {
   COMPARE_RESULT_SCREEN = "CompareResultScreen",
   LOGIN_SCREEN = "LoginScreen",
   EMAIL_SCREEN = "EmailScreen",
+  OTP_SCREEN = "OTPScreen",
 }
 export default ROUTES;

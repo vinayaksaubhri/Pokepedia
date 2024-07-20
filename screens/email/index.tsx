@@ -6,6 +6,7 @@ import { moderateScale, scaleFont, verticalScale } from "../../style/metrics";
 import { COLORS, FONTS } from "../../style/style";
 import Button from "../../components/button";
 import { useNavigation } from "@react-navigation/native";
+import ROUTES from "../../constant/routes";
 
 const Email = () => {
   const navigation = useNavigation();
@@ -35,7 +36,7 @@ const Email = () => {
             label="Send Code"
             variant="Primary"
             onPress={() => {
-              console.log("Next");
+              navigation.navigate(ROUTES.OTP_SCREEN);
             }}
             width={"100%"}
           />
