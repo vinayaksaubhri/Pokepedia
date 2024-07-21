@@ -6,8 +6,10 @@ import { COLORS, FONTS } from "../../style/style";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import Button from "../../components/button";
+import useUser from "../../hooks/useUser";
 const OTP = () => {
   const navigation = useNavigation();
+  const { setIsUserLoggedIn } = useUser();
 
   return (
     <CustomSafeAreaView>
@@ -32,6 +34,7 @@ const OTP = () => {
           <OtpInput
             onOtpSubmit={(otp) => {
               console.log("🚀 ~ OTP ~ otp:", otp);
+              setIsUserLoggedIn(true);
             }}
           />
         </View>
