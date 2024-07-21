@@ -1,13 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Login from "../../screens/login";
-import Email from "../../screens/email";
 import ROUTES from "../../constant/routes";
-import OTP from "../../screens/otp";
+import Email from "../../screens/email";
 import OnBoarding from "../../screens/onBoarding";
+import OTP from "../../screens/otp";
 
 type StackParamsList = {
   EmailScreen: undefined;
-  LoginScreen: undefined;
+
   OTPScreen: undefined;
   OnboardingScreen: undefined;
 };
@@ -26,7 +25,6 @@ const UnAuthorizedNavigation = () => {
         name={ROUTES.ONBOARDING_SCREEN}
         component={OnBoarding}
       />
-      <UnAuthorizedStack.Screen name={ROUTES.LOGIN_SCREEN} component={Login} />
       <UnAuthorizedStack.Screen name={ROUTES.EMAIL_SCREEN} component={Email} />
       <UnAuthorizedStack.Screen name={ROUTES.OTP_SCREEN} component={OTP} />
     </UnAuthorizedStack.Navigator>

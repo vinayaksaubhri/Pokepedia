@@ -92,7 +92,7 @@ const CustomButton = ({ flatListRef, flatListIndex, dataLength, x }: Props) => {
             index: flatListIndex.value + 1,
           });
         } else {
-          navigation.navigate(ROUTES.LOGIN_SCREEN);
+          navigation.navigate(ROUTES.EMAIL_SCREEN);
         }
       }}
     >

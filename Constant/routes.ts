@@ -8,7 +8,6 @@ enum ROUTES {
   COMPARE_STACK = "Compare",
   COMPARE_SCREEN = "CompareScreen",
   COMPARE_RESULT_SCREEN = "CompareResultScreen",
-  LOGIN_SCREEN = "LoginScreen",
   EMAIL_SCREEN = "EmailScreen",
   OTP_SCREEN = "OTPScreen",
   ONBOARDING_SCREEN = "OnboardingScreen",
