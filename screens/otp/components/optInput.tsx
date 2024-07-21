@@ -80,10 +80,9 @@ const OtpInput: React.FC<OtpInputProps> = ({
     <View style={styles.container}>
       {otp.map((value, index) => {
         return (
-          <View style={styles.otpCell}>
+          <View style={styles.otpCell} key={index}>
             <TextInput
               style={styles.textStyle}
-              key={index}
               ref={(input) => (inputRefs.current[index] = input)}
               value={value}
               onChangeText={(text) => handleChange(index, text)}

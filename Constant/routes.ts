@@ -11,5 +11,6 @@ enum ROUTES {
   LOGIN_SCREEN = "LoginScreen",
   EMAIL_SCREEN = "EmailScreen",
   OTP_SCREEN = "OTPScreen",
+  ONBOARDING_SCREEN = "OnboardingScreen",
 }
 export default ROUTES;
