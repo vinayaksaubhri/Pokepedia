@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Image,
   StyleSheet,
@@ -5,21 +6,19 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import React from "react";
 import Animated, {
   Extrapolation,
   SharedValue,
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
-import { OnboardingData } from "../data/data";
-import { FONTS } from "../../../../style/style";
 import {
   horizontalScale,
   moderateScale,
   scaleFont,
-  verticalScale,
 } from "../../../../style/metrics";
+import { FONTS } from "../../../../style/style";
+import { OnboardingData } from "../data/data";
 
 type Props = {
   index: number;
@@ -43,6 +42,7 @@ const RenderItem = ({ index, x, item }: Props) => {
     );
 
     return {
+      flex: 1,
       transform: [{ translateY: translateYAnimation }],
     };
   });
@@ -79,7 +79,7 @@ const RenderItem = ({ index, x, item }: Props) => {
           ]}
         />
       </View>
-      <Animated.View style={lottieAnimationStyle}>
+      <Animated.View style={[lottieAnimationStyle, styles.imageContainer]}>
         <Image source={item.animation} style={styles.imageStyle} />
       </Animated.View>
       <View style={styles.textContainer}>
@@ -98,10 +98,11 @@ export default RenderItem;
 
 const styles = StyleSheet.create({
   itemContainer: {
-    flex: 1,
+    // flex: 1,
+    // backgroundColor: "yellow",
     justifyContent: "space-around",
     alignItems: "center",
-    marginBottom: verticalScale(120),
+    // marginBottom: verticalScale(120),
   },
   itemText: {
     fontSize: scaleFont(35),
@@ -122,8 +123,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(30),
   },
   imageStyle: {
-    width: "100%",
+    height: "100%",
     aspectRatio: 0.7,
     resizeMode: "contain",
   },
+  imageContainer: {},
 });

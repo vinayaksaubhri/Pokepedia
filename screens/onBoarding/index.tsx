@@ -1,16 +1,16 @@
-import { StyleSheet, View, FlatList, ViewToken } from "react-native";
 import React from "react";
+import { FlatList, StyleSheet, View, ViewToken } from "react-native";
 import Animated, {
-  useSharedValue,
-  useAnimatedScrollHandler,
   useAnimatedRef,
+  useAnimatedScrollHandler,
+  useSharedValue,
 } from "react-native-reanimated";
-import data, { OnboardingData } from "./src/data/data";
-import Pagination from "./src/components/Pagination";
-import CustomButton from "./src/components/CustomButton";
-import RenderItem from "./src/components/RenderItem";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
-import { moderateScale, verticalScale } from "../../style/metrics";
+import { moderateScale } from "../../style/metrics";
+import CustomButton from "./src/components/CustomButton";
+import Pagination from "./src/components/Pagination";
+import RenderItem from "./src/components/RenderItem";
+import data, { OnboardingData } from "./src/data/data";
 
 const OnboardingScreen = () => {
   const flatListRef = useAnimatedRef<FlatList<OnboardingData>>();
@@ -81,9 +81,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: moderateScale(30),
     paddingVertical: moderateScale(30),
-    position: "absolute",
-    bottom: verticalScale(20),
-    left: 0,
-    right: 0,
   },
 });
