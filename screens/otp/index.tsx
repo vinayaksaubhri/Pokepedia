@@ -33,7 +33,6 @@ const OTP = () => {
         <View style={{ marginVertical: verticalScale(60) }}>
           <OtpInput
             onOtpSubmit={(otp) => {
-              console.log("🚀 ~ OTP ~ otp:", otp);
               setIsUserLoggedIn(true);
             }}
           />

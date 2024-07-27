@@ -88,6 +88,7 @@ const OtpInput: React.FC<OtpInputProps> = ({
               onChangeText={(text) => handleChange(index, text)}
               onPressIn={() => handleClick(index)}
               onKeyPress={(e) => handleKeyDown(index, e)}
+              autoFocus={index === 0}
             />
           </View>
         );
