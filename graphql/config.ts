@@ -1,5 +1,10 @@
 import { GraphQLClient } from "graphql-request";
-const endpoint = "https://pokepedia.hasura.app/v1/graphql";
+
+if (typeof process.env.HASURA_GRAPHQL_ENDPOINT === "undefined") {
+  throw new Error("HASURA_GRAPHQL_ENDPOINT is not defined");
+}
+
+const endpoint = process.env.HASURA_GRAPHQL_ENDPOINT;
 const client = new GraphQLClient(endpoint);
 client.setHeader(
   "x-hasura-admin-secret",
