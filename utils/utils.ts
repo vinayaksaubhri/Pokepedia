@@ -1,4 +1,4 @@
-import { GenerationList } from "./../constant/constant";
+import { GenerationList } from "../constant/constant";
 import { AppStateStatus, Platform } from "react-native";
 import { focusManager } from "react-query";
 import { POKEMON_COLOR } from "../style/style";
@@ -173,7 +173,7 @@ export function getPokemonTypeFromWeaknessAndType({
   return [type, ...getPokemonTypeFromWeakness(weakness)];
 }
 export function getGenerationFromGenerationName(
-  generationName: pokemonGenerationType
+  generationName: pokemonGenerationType,
 ) {
   return GenerationList[
     GenerationList.findIndex(({ value }) => value === generationName)
@@ -203,7 +203,7 @@ export function getGenerationFromGenerationName(
 export function getDelayTime(
   primaryValue = 0,
   secondeValue = 0,
-  delayTime = 200
+  delayTime = 200,
 ) {
   const arrLength = 14;
   const delayTimeArr = new Array(14).fill(0);
@@ -243,7 +243,7 @@ export function comparePokemon(
   pokemon1: pokemonStatsType,
   pokemon1Type: PokemonTypes,
   pokemon2: pokemonStatsType,
-  pokemon2Type: PokemonTypes
+  pokemon2Type: PokemonTypes,
 ) {
   const pokemon1Score =
     0.05 * pokemon1?.hp +
