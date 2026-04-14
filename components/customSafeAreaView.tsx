@@ -26,12 +26,12 @@ const CustomSafeAreaView: React.FC<Props> = ({
     },
   });
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="height">
+    <>
       <CustomStatusBar backgroundColor={backgroundColor} barStyle={barStyle} />
       <SafeAreaView edges={edges} style={styles.container}>
         {children}
       </SafeAreaView>
-    </KeyboardAvoidingView>
+    </>
   );
 };
 export default CustomSafeAreaView;

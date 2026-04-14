@@ -53,7 +53,7 @@ const SearchBar: React.FC<props> = ({
       height: horizontalScale(50),
       flexDirection: "row",
       alignItems: "center",
-      padding: moderateScale(12),
+      paddingHorizontal: moderateScale(12),
       marginRight: 8,
     },
     searchBarStyle: {

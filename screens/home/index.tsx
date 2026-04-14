@@ -1,12 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useRef, useState } from "react";
-import {
-  Pressable,
-  RefreshControl,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { RefreshControl, StyleSheet, Text, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import CustomSafeAreaView from "../../components/customSafeAreaView";
 import FilterModal from "../../components/filterModal";
@@ -18,19 +12,13 @@ import ROUTES from "../../constant/routes";
 import { useGetAllPokemon } from "../../graphql/useGetAllPokemon";
 import { useRefreshByUser } from "../../hooks/useRefreshByUser";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFoucs";
-import {
-  horizontalScale,
-  moderateScale,
-  scaleFont,
-  verticalScale,
-} from "../../style/metrics";
-import { COLORS, FONTS, DARK_COLORS } from "../../style/style";
+import useTheme from "../../hooks/useTheme";
+import { moderateScale, scaleFont, verticalScale } from "../../style/metrics";
+import { COLORS, DARK_COLORS, FONTS } from "../../style/style";
 import { filterType } from "../../types/pokemonTypes";
 import { getPokeNumberFromPokemonIndex } from "../../utils/utils";
-import ListEmptyComponent from "./components/listEmptyComponent";
-import useTheme from "../../hooks/useTheme";
-import { Feather } from "@expo/vector-icons";
 import DarkModeToggle from "./components/darkModeToggle";
+import ListEmptyComponent from "./components/listEmptyComponent";
 
 const Home = ({ navigation, route }) => {
   const [filterData, setFilterData] = useState<filterType>({
@@ -52,7 +40,7 @@ const Home = ({ navigation, route }) => {
   } = useGetAllPokemon(filterData);
 
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(
-    pokemonDetailsRefetch
+    pokemonDetailsRefetch,
   );
   const { isDarkMode, setIsDarkMode } = useTheme();
 
@@ -177,7 +165,7 @@ const Home = ({ navigation, route }) => {
                   ({ pokemonCategory }) => ({
                     badgeType: pokemonCategory?.badgeType,
                     name: pokemonCategory?.name,
-                  })
+                  }),
                 );
               const pokemonIndex = item?.pokemonIndex;
               return (

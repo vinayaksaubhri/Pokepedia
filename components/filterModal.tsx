@@ -4,7 +4,6 @@ import {
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
-import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
@@ -23,7 +22,7 @@ import Chip from "./chip";
 import CustomSlider from "./customSlider";
 
 type FilterModalProps = {
-  bottomSheetRef: React.RefObject<BottomSheetModalMethods>;
+  bottomSheetRef: React.RefObject<BottomSheetModal | null>;
   filterDataFromQuery: filterType;
   setFilterDataFromQuery: React.Dispatch<React.SetStateAction<filterType>>;
 };
