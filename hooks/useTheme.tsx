@@ -99,7 +99,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
         isActive,
       }}
     >
-      <View style={styles.container} ref={ref}>
+      <View
+        style={styles.container}
+        ref={ref}
+        collapsable={false}
+      >
         {children}
       </View>
       {Platform.OS === "ios" && (
