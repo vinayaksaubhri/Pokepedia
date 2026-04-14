@@ -36,7 +36,7 @@ const PokemonDetailScreens = ({ navigation, route }) => {
   } = pokemonDetail!;
 
   const pokemonColor = pokeCardColor(
-    pokemonCategories[0]?.pokemonCategory?.badgeType as PokemonTypes
+    pokemonCategories[0]?.pokemonCategory?.badgeType as PokemonTypes,
   );
 
   const pokemonImageSource = pokemonImageList[pokemonIndex - 1]?.source;
