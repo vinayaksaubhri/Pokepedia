@@ -1,18 +1,16 @@
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useEffect, useMemo, useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { height, scaleFont, width } from "../../../style/metrics";
 import { COLORS, FONTS } from "../../../style/style";
 import PokemonTabAboutComponent from "./pokemonTabAboutComponent";
 import PokemonTabEvolutionComponent from "./pokemonTabEvolutionComponent";
 import PokemonTabMovesComponent from "./pokemonTabMovesComponent";
 import PokemonTabStatsComponent from "./pokemonTabStatsComponent";
-import { useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
-
-const Tab = createMaterialTopTabNavigator();
 
 const TAB_BAR_WIDTH = width / 4;
 const TAB_BAR_INDICATOR_WIDTH = width * 0.04;
+type TabKey = "About" | "Stats" | "Moves" | "Evolution";
 
 type PokemonDetailScreenTabProps = {
   pokemonWeight: number;
@@ -79,79 +77,120 @@ export const PokemonDetailScreenTab: React.FC<PokemonDetailScreenTabProps> = ({
   pokemonIndex,
 }) => {
   const navigation = useNavigation();
+  const [activeTab, setActiveTab] = useState<TabKey>("About");
+  const tabs: TabKey[] = ["About", "Stats", "Moves", "Evolution"];
+  const tabParams = useMemo(
+    () => ({
+      About: {
+        pokemonWeight,
+        pokemonCategories,
+        pokemonHeight,
+        pokemonDescription,
+        pokemonAbilities,
+      },
+      Stats: { pokemonStats },
+      Moves: { pokemonMoves },
+      Evolution: { pokemonEvolutions, isMultipleEvolutions },
+    }),
+    [
+      pokemonWeight,
+      pokemonCategories,
+      pokemonHeight,
+      pokemonDescription,
+      pokemonAbilities,
+      pokemonStats,
+      pokemonMoves,
+      pokemonEvolutions,
+      isMultipleEvolutions,
+    ],
+  );
 
   useEffect(() => {
-    navigation.jumpTo("About");
-    console.log("pokemonIndex", pokemonIndex);
+    setActiveTab("About");
   }, [pokemonIndex]);
   return (
-    <Tab.Navigator
-      initialLayout={{
-        width: width,
-        height: height / 2,
-      }}
-      backBehavior="none"
-      initialRouteName="About"
-      screenOptions={{
-        tabBarActiveTintColor: COLORS.primaryBlue,
-        tabBarInactiveTintColor: COLORS.grey300,
-        tabBarBounces: false,
-        tabBarAndroidRipple: styles.tabBarAndroidRipple,
-        tabBarStyle: styles.tabBarStyle,
-        tabBarIndicatorStyle: styles.tabBarIndicatorStyle,
-        tabBarLabelStyle: styles.tabBarLabelStyle,
-      }}
-    >
-      <Tab.Screen
-        name="About"
-        component={PokemonTabAboutComponent}
-        initialParams={{
-          pokemonWeight,
-          pokemonCategories,
-          pokemonHeight,
-          pokemonDescription,
-          pokemonAbilities,
-        }}
-      />
-      <Tab.Screen
-        name="Stats"
-        component={PokemonTabStatsComponent}
-        initialParams={{ pokemonStats }}
-      />
-      <Tab.Screen
-        name="Moves"
-        component={PokemonTabMovesComponent}
-        initialParams={{ pokemonMoves }}
-      />
-      <Tab.Screen
-        name="Evolution"
-        component={PokemonTabEvolutionComponent}
-        initialParams={{
-          pokemonEvolutions,
-          isMultipleEvolutions,
-        }}
-      />
-    </Tab.Navigator>
+    <View style={styles.container}>
+      <View style={styles.tabBarStyle}>
+        {tabs.map((tabLabel) => {
+          const isActive = tabLabel === activeTab;
+          return (
+            <Pressable
+              key={tabLabel}
+              onPress={() => setActiveTab(tabLabel)}
+              style={styles.tabItem}
+            >
+              <Text
+                style={[
+                  styles.tabBarLabelStyle,
+                  { color: isActive ? COLORS.primaryBlue : COLORS.grey300 },
+                ]}
+              >
+                {tabLabel}
+              </Text>
+              {isActive && <View style={styles.tabBarIndicatorStyle} />}
+            </Pressable>
+          );
+        })}
+      </View>
+      <View style={styles.content}>
+        {activeTab === "About" && (
+          <PokemonTabAboutComponent
+            route={{ params: tabParams.About }}
+            navigation={navigation}
+          />
+        )}
+        {activeTab === "Stats" && (
+          <PokemonTabStatsComponent
+            route={{ params: tabParams.Stats }}
+            navigation={navigation}
+          />
+        )}
+        {activeTab === "Moves" && (
+          <PokemonTabMovesComponent
+            route={{ params: tabParams.Moves }}
+            navigation={navigation}
+          />
+        )}
+        {activeTab === "Evolution" && (
+          <PokemonTabEvolutionComponent
+            route={{ params: tabParams.Evolution }}
+            navigation={navigation}
+          />
+        )}
+      </View>
+    </View>
   );
 };
 const styles = StyleSheet.create({
-  tabBarAndroidRipple: {
-    color: "transparent",
+  container: {
+    flex: 1,
   },
   tabBarStyle: {
-    elevation: 0,
-    shadowColor: "transparent",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: COLORS.surface,
+    minHeight: height * 0.07,
   },
   tabBarIndicatorStyle: {
-    width: "4%",
+    width: TAB_BAR_INDICATOR_WIDTH,
+    height: 3,
     backgroundColor: COLORS.primaryBlue,
-    left: (TAB_BAR_WIDTH - TAB_BAR_INDICATOR_WIDTH) / 2,
     borderTopRightRadius: 100,
     borderTopLeftRadius: 100,
+    marginTop: 8,
   },
   tabBarLabelStyle: {
     fontFamily: FONTS.RC_Medium,
     fontSize: scaleFont(14),
     textTransform: "capitalize",
+  },
+  tabItem: {
+    width: TAB_BAR_WIDTH,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 8,
+  },
+  content: {
+    flex: 1,
   },
 });
