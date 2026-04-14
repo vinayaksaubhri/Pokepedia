@@ -56,13 +56,26 @@ const SearchBar: React.FC<props> = ({
       paddingHorizontal: moderateScale(12),
       marginRight: 8,
     },
+    /** Fixed slot so flex width for TextInput does not change when icon/theme repaints (Android). */
+    searchIconSlot: {
+      width: 24,
+      marginRight: verticalScale(8),
+      alignItems: "center",
+      justifyContent: "center",
+    },
     searchBarStyle: {
       flex: 1,
+      minWidth: 0,
       borderRadius: moderateScale(16),
       fontFamily: FONTS.RC_Regular,
       fontSize: scaleFont(16),
-      marginLeft: verticalScale(8),
       color: isDarkMode ? DARK_COLORS.textWhite : COLORS.primaryBlue,
+      paddingVertical: 0,
+      paddingHorizontal: 0,
+      includeFontPadding: false,
+      textAlignVertical: "center",
+      textAlign: "left",
+      writingDirection: "ltr",
     },
     filterButtonContainer: {
       height: horizontalScale(50),
@@ -79,12 +92,17 @@ const SearchBar: React.FC<props> = ({
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
-        {showIcon && <SearchIcon />}
+        {showIcon && (
+          <View style={styles.searchIconSlot}>
+            <SearchIcon />
+          </View>
+        )}
 
         <TextInput
           placeholder="Search a pokémon"
           style={styles.searchBarStyle}
           placeholderTextColor={COLORS.grey300}
+          underlineColorAndroid="transparent"
           value={filterData?.name}
           onChangeText={(value) => {
             if (setFilterData)
