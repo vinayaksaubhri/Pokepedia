@@ -6,8 +6,6 @@ import PokemonTabAboutComponent from "./pokemonTabAboutComponent";
 import PokemonTabEvolutionComponent from "./pokemonTabEvolutionComponent";
 import PokemonTabMovesComponent from "./pokemonTabMovesComponent";
 import PokemonTabStatsComponent from "./pokemonTabStatsComponent";
-import { useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
 
 const Tab = createMaterialTopTabNavigator();
 

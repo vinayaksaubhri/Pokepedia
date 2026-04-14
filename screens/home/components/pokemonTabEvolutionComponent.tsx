@@ -47,7 +47,7 @@ const PokemonTabEvolutionComponent = ({ route, navigation }) => {
                         showLabel: false,
                         showTypeIcon: true,
                         iconType: badgeType,
-                      })
+                      }),
                     )}
                     imageSource={pokemonImageList[pokemonIndex - 1]?.source}
                     pokemonLevel={evolutionLevel}
@@ -56,13 +56,13 @@ const PokemonTabEvolutionComponent = ({ route, navigation }) => {
                     trigger={trigger}
                     triggerItem={triggerItem}
                     onPress={() => {
-                      navigation.navigate(ROUTES.POKEMON_DETAIL_SCREEN, {
+                      navigation.replace(ROUTES.POKEMON_DETAIL_SCREEN, {
                         pokemonIndex: pokemonIndex,
                       });
                     }}
                   />
                 );
-              }
+              },
             )}
           </View>
         </BlurScrollView>
@@ -101,7 +101,7 @@ const PokemonTabEvolutionComponent = ({ route, navigation }) => {
                         showLabel: false,
                         showTypeIcon: true,
                         iconType: badgeType,
-                      })
+                      }),
                     )}
                     imageSource={pokemonImageList[pokemonIndex - 1]?.source}
                     pokemonLevel={evolutionLevel}
