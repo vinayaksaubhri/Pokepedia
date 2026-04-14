@@ -136,12 +136,13 @@ const styles = StyleSheet.create({
     shadowColor: "transparent",
   },
   tabBarIndicatorStyle: {
-    width: "4%",
+    width: TAB_BAR_INDICATOR_WIDTH,
     backgroundColor: COLORS.primaryBlue,
-    left: (TAB_BAR_WIDTH - TAB_BAR_INDICATOR_WIDTH) / 2,
+    marginLeft: (TAB_BAR_WIDTH - TAB_BAR_INDICATOR_WIDTH) / 2,
     borderTopRightRadius: 100,
     borderTopLeftRadius: 100,
   },
+
   tabBarLabelStyle: {
     fontFamily: FONTS.RC_Medium,
     fontSize: scaleFont(14),
