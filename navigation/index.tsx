@@ -10,8 +10,8 @@ const Navigation = () => {
   if (!isOnline) {
     return <NoInternet onPressReload={onPressReload} />;
   }
-  if (isUserLoggedIn) return <AuthorizedNavigation />;
+  if (true) return <AuthorizedNavigation />;
 
-  return <UnAuthorizedNavigation />;
+  // return <UnAuthorizedNavigation />;
 };
 export default Navigation;
