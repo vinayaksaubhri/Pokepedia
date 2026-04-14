@@ -81,6 +81,6 @@ const styles = StyleSheet.create({
     borderColor: COLORS.grey200,
     paddingLeft: horizontalScale(16),
     gap: horizontalScale(8),
-    left: "50%",
+    left: "30%",
   },
 });
