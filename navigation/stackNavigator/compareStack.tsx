@@ -3,29 +3,24 @@ import ROUTES from "../../constant/routes";
 import Compare from "../../screens/compare";
 import CompareResultScreen from "../../screens/compare/screen/compareResultScreen";
 import useHideNavBar from "../../hooks/useHideNavBar";
-import {
-  getFocusedRouteNameFromRoute,
-  useFocusEffect,
-} from "@react-navigation/native";
 
 const Stack = createStackNavigator();
 
-const CompareStack = ({ navigation, route }) => {
+const CompareStack = () => {
   const { setIsStatusBarHidden } = useHideNavBar();
-  const routeName = getFocusedRouteNameFromRoute(route) as ROUTES;
-  useFocusEffect(() => {
-    if ([ROUTES.COMPARE_RESULT_SCREEN]?.includes(routeName)) {
-      setIsStatusBarHidden(true);
-    } else {
-      setIsStatusBarHidden(false);
-    }
-  });
 
   return (
     <Stack.Navigator
       initialRouteName={ROUTES.COMPARE_SCREEN}
       screenOptions={{
         headerShown: false,
+      }}
+      screenListeners={{
+        state: (e) => {
+          const activeRoute = e.data.state.routes[e.data.state.index]
+            ?.name as ROUTES;
+          setIsStatusBarHidden(activeRoute === ROUTES.COMPARE_RESULT_SCREEN);
+        },
       }}
     >
       <Stack.Screen name={ROUTES.COMPARE_SCREEN} component={Compare} />

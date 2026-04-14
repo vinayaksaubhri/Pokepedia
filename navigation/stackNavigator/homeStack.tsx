@@ -1,8 +1,4 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import {
-  getFocusedRouteNameFromRoute,
-  useFocusEffect,
-} from "@react-navigation/native";
 import ROUTES from "../../constant/routes";
 import useHideNavBar from "../../hooks/useHideNavBar";
 import Home from "../../screens/home";
@@ -10,21 +6,20 @@ import PokemonDetailScreens from "../../screens/home/screens/pokemonDetailScreen
 
 const Stack = createStackNavigator();
 
-const HomeStack = ({ navigation, route }) => {
+const HomeStack = () => {
   const { setIsStatusBarHidden } = useHideNavBar();
-  const routeName = getFocusedRouteNameFromRoute(route) as ROUTES;
-  useFocusEffect(() => {
-    if ([ROUTES.POKEMON_DETAIL_SCREEN]?.includes(routeName)) {
-      setIsStatusBarHidden(true);
-    } else {
-      setIsStatusBarHidden(false);
-    }
-  });
   return (
     <Stack.Navigator
       initialRouteName={ROUTES.HOME_SCREEN}
       screenOptions={{
         headerShown: false,
+      }}
+      screenListeners={{
+        state: (e) => {
+          const activeRoute = e.data.state.routes[e.data.state.index]
+            ?.name as ROUTES;
+          setIsStatusBarHidden(activeRoute === ROUTES.POKEMON_DETAIL_SCREEN);
+        },
       }}
     >
       <Stack.Screen name={ROUTES.HOME_SCREEN} component={Home} />
