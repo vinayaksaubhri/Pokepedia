@@ -12,9 +12,7 @@ const DarkModeToggle = () => {
     .runOnJS(true)
     .onBegin((event) => {
       if (isActive) return;
-      Platform.OS === "ios"
-        ? toggleDarkModeWithAnimation(event.absoluteX, event.absoluteY)
-        : setIsDarkMode(!isDarkMode);
+      toggleDarkModeWithAnimation(event.absoluteX, event.absoluteY);
     });
   return (
     <GestureDetector gesture={pan}>
