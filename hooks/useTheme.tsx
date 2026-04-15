@@ -54,6 +54,7 @@ import {
   waitForNextFrame,
   waitForOverlayPaint,
 } from "./themeTransition";
+import { runOnJS } from "react-native-worklets";
 
 // --- context -------------------------------------------------------------
 
@@ -212,11 +213,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
       setOverlay2(image2);
       transition.value = 0;
-      transition.value = withTiming(1, { duration });
-      await wait(duration);
-      setOverlay1(null);
-      setOverlay2(null);
-      setIsActive(false);
+      transition.value = withTiming(1, { duration }, () => {
+        runOnJS(setOverlay1)(null);
+        runOnJS(setOverlay2)(null);
+        runOnJS(setIsActive)(false);
+      });
     },
     [
       setIsDarkMode,
