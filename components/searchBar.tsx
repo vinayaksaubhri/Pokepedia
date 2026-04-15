@@ -56,7 +56,6 @@ const SearchBar: React.FC<props> = ({
       paddingHorizontal: moderateScale(12),
       marginRight: 8,
     },
-    /** Fixed slot so flex width for TextInput does not change when icon/theme repaints (Android). */
     searchIconSlot: {
       width: 24,
       marginRight: verticalScale(8),
